@@ -85,53 +85,58 @@ class StockService:
             logger.error(f"获取实时行情失败: {e}", exc_info=True)
             return None
     
+    INTRADAY_PERIODS = {'1min', '5min', '15min', '30min', '60min'}
+    INTRADAY_BARS_PER_DAY = {
+        '1min': 240,
+        '5min': 48,
+        '15min': 16,
+        '30min': 8,
+        '60min': 4,
+    }
+
     def get_history_data(
         self,
         stock_code: str,
         period: str = "daily",
         days: int = 30
     ) -> Dict[str, Any]:
-        """
-        获取股票历史行情
-        
-        Args:
-            stock_code: 股票代码
-            period: K 线周期 (daily/weekly/monthly)
-            days: 获取天数
-            
-        Returns:
-            历史行情数据字典
-            
-        Raises:
-            ValueError: 当 period 不是 daily 时抛出（weekly/monthly 暂未实现）
-        """
-        # 验证 period 参数，只支持 daily
-        if period != "daily":
+        valid_periods = {"daily", "weekly", "monthly"} | self.INTRADAY_PERIODS
+        if period not in valid_periods:
             raise ValueError(
-                f"暂不支持 '{period}' 周期，目前仅支持 'daily'。"
-                "weekly/monthly 聚合功能将在后续版本实现。"
+                f"暂不支持 '{period}' 周期，目前仅支持 'daily'、'weekly'、'monthly'、"
+                "'1min'、'5min'、'15min'、'30min'、'60min'。"
             )
         
+        if period in ("weekly", "monthly"):
+            raise ValueError(
+                f"暂不支持 '{period}' 周期，weekly/monthly 聚合功能将在后续版本实现。"
+            )
+
         try:
-            # 调用数据获取器获取历史数据
             from data_provider.base import DataFetcherManager
             
             manager = DataFetcherManager()
-            df, source = manager.get_daily_data(stock_code, days=days)
+
+            if period in self.INTRADAY_PERIODS:
+                count = days * self.INTRADAY_BARS_PER_DAY[period]
+                df, source = manager.get_intraday_data(stock_code, period=period, count=count)
+            else:
+                df, source = manager.get_daily_data(stock_code, days=days)
             
             if df is None or df.empty:
                 logger.warning(f"获取 {stock_code} 历史数据失败")
                 return {"stock_code": stock_code, "period": period, "data": []}
             
-            # 获取股票名称
             stock_name = manager.get_stock_name(stock_code)
-            
-            # 转换为响应格式
+
+            is_intraday = period in self.INTRADAY_PERIODS
+            date_fmt = "%Y-%m-%d %H:%M:%S" if is_intraday else "%Y-%m-%d"
+
             data = []
             for _, row in df.iterrows():
                 date_val = row.get("date")
                 if hasattr(date_val, "strftime"):
-                    date_str = date_val.strftime("%Y-%m-%d")
+                    date_str = date_val.strftime(date_fmt)
                 else:
                     date_str = str(date_val)
                 
@@ -184,3 +189,21 @@ class StockService:
             "amount": None,
             "update_time": datetime.now().isoformat(),
         }
+
+    def get_orderbook(self, stock_code: str) -> Optional[Dict[str, Any]]:
+        try:
+            from data_provider.base import DataFetcherManager
+            manager = DataFetcherManager()
+            return manager.get_orderbook(stock_code)
+        except Exception as e:
+            logger.error(f"获取五档盘口失败: {e}", exc_info=True)
+            return None
+
+    def get_trade_ticks(self, stock_code: str, count: int = 50) -> Optional[list]:
+        try:
+            from data_provider.base import DataFetcherManager
+            manager = DataFetcherManager()
+            return manager.get_trade_ticks(stock_code, count=count)
+        except Exception as e:
+            logger.error(f"获取成交明细失败: {e}", exc_info=True)
+            return None

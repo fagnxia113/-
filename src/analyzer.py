@@ -724,6 +724,12 @@ class AnalysisResult:
     current_price: Optional[float] = None  # 分析时的股价
     change_pct: Optional[float] = None     # 分析时的涨跌幅(%)
 
+    # ========== 多 Agent 扩展数据 ==========
+    agent_opinions: Optional[Dict[str, Any]] = None  # 各 Agent 意见汇总
+    factor_scores: Optional[Dict[str, Any]] = None   # 量化因子评分
+    debate_summary: Optional[Dict[str, Any]] = None  # 辩论共识摘要
+    trading_plan: Optional[Dict[str, Any]] = None    # 操盘方案
+
     # ========== 模型标记（Issue #528）==========
     model_used: Optional[str] = None  # 分析使用的 LLM 模型（完整名，如 gemini/gemini-2.0-flash）
 
@@ -766,6 +772,10 @@ class AnalysisResult:
             'current_price': self.current_price,
             'change_pct': self.change_pct,
             'model_used': self.model_used,
+            'agent_opinions': self.agent_opinions,
+            'factor_scores': self.factor_scores,
+            'debate_summary': self.debate_summary,
+            'trading_plan': self.trading_plan,
         }
 
     def get_core_conclusion(self) -> str:

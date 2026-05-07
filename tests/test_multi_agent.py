@@ -498,7 +498,14 @@ class TestOrchestratorModes(unittest.TestCase):
 
     def test_invalid_mode_falls_back_to_standard(self):
         orch = self._make_orchestrator("nonsense")
-        self.assertEqual(orch.mode, "standard")
+        self.assertEqual(orch.mode, "full")
+
+    def test_enhanced_mode(self):
+        orch = self._make_orchestrator("enhanced")
+        ctx = AgentContext(query="test", stock_code="600519")
+        chain = orch._build_agent_chain(ctx)
+        names = [a.agent_name for a in chain]
+        self.assertEqual(names, ["technical", "intel", "risk", "industry", "capital_flow", "factor_scoring", "decision"])
 
     def test_chain_agents_inherit_orchestrator_max_steps(self):
         """Default/lowered limits cap agents; raised limits hard-override all agents."""

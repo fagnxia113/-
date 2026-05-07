@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - [改进] 放宽 LiteLLM 依赖约束，保留 `>=1.80.10` 最低版本并显式排除 PyPI 事故版本 `1.82.7` / `1.82.8`，允许安装后续 1.x 修复版本。
 - [改进] 补齐通知渠道 P0 基线、Actions 映射与 `--check-notify` 只读诊断，完善 AstrBot 配置入口和通知回归快照。
 - [chore] 清理仓库根目录：移除误入库的 `.codex`、`review.md` 跟踪记录，将 smoke 测试入口迁移到 `scripts/`、环境检查脚本迁移为 `scripts/check_env.py`，并将 LiteLLM YAML 示例迁移到 `docs/examples/`。
+- [新功能] 新增 A 股涨停板策略 YAML（`strategies/a_share_limit_up.yaml`），覆盖连板计数、封板强度、板块共振与次日溢价预判。
+- [新功能] 新增板块轮动策略 YAML（`strategies/sector_rotation.yaml`），识别主线启动/退潮、轮动节奏与催化剂持续性。
+- [改进] `StockTrendAnalyzer` 评分系统 A 股增强：新增涨跌停距离评分维度（5 分），RSI 权重从 10 分调至 5 分；支持科创板/创业板 ±20%、ST ±5%、北交所 ±30% 差异化涨跌幅适配。
+- [改进] LLM Prompt 注入 A 股政策敏感度指引：A 股分析自动追加政策权重、行业政策联动、板块轮动意识、涨停板文化等分析要点。
+- [改进] A 股市场策略蓝图扩展：新增「政策与资金」分析维度，涵盖降准降息/两融余额/新基金发行/行业政策催化；进攻/防守框架融入政策面因子。
 
 ## [3.15.0] - 2026-05-05
 

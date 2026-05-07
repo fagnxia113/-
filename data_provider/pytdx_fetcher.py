@@ -16,6 +16,9 @@ PytdxFetcher - 通达信数据源 (Priority 2)
 
 import logging
 import re
+import time
+import glob as glob_mod
+from configparser import ConfigParser
 from contextlib import contextmanager
 from typing import Optional, Generator, List, Tuple
 
@@ -28,21 +31,91 @@ from tenacity import (
     before_sleep_log,
 )
 
-from .base import BaseFetcher, DataFetchError, STANDARD_COLUMNS, is_bse_code, _is_hk_market
+from .base import BaseFetcher, DataFetchError, STANDARD_COLUMNS, is_bse_code, _is_hk_market, summarize_exception
 import os
+import sys
 
 logger = logging.getLogger(__name__)
 
+_TDX_COMMON_INSTALL_DIRS: List[str] = []
+if sys.platform == "win32":
+    for _drive in "CDEFGH":
+        for _prefix in [
+            f"{_drive}:\\new_tdx",
+            f"{_drive}:\\tdx",
+            f"{_drive}:\\通达信",
+        ]:
+            _TDX_COMMON_INSTALL_DIRS.append(_prefix)
+        for _d in glob_mod.glob(f"{_drive}:\\软件\\*tdx*"):
+            _TDX_COMMON_INSTALL_DIRS.append(_d)
+        for _d in glob_mod.glob(f"{_drive}:\\Program Files\\*tdx*"):
+            _TDX_COMMON_INSTALL_DIRS.append(_d)
+        for _d in glob_mod.glob(f"{_drive}:\\Program Files (x86)\\*tdx*"):
+            _TDX_COMMON_INSTALL_DIRS.append(_d)
+
+
+def _detect_tdx_install_dir() -> Optional[str]:
+    custom = os.getenv("PYTDX_INSTALL_DIR", "").strip()
+    if custom and os.path.isfile(os.path.join(custom, "connect.cfg")):
+        return custom
+    for d in _TDX_COMMON_INSTALL_DIRS:
+        if os.path.isfile(os.path.join(d, "connect.cfg")):
+            return d
+    return None
+
+
+def _parse_connect_cfg(install_dir: str) -> List[Tuple[str, int]]:
+    cfg_path = os.path.join(install_dir, "connect.cfg")
+    if not os.path.isfile(cfg_path):
+        return []
+
+    hosts: List[Tuple[str, int]] = []
+    primary_idx = 0
+
+    try:
+        with open(cfg_path, "r", encoding="gbk", errors="ignore") as f:
+            content = f.read()
+
+        cp = ConfigParser(strict=False)
+        cp.read_string(content)
+
+        if cp.has_option("HQHOST", "PrimaryHost"):
+            try:
+                primary_idx = int(cp.get("HQHOST", "PrimaryHost"))
+            except (ValueError, TypeError):
+                pass
+
+        host_num = 0
+        if cp.has_option("HQHOST", "HostNum"):
+            try:
+                host_num = int(cp.get("HQHOST", "HostNum"))
+            except (ValueError, TypeError):
+                pass
+
+        for i in range(1, host_num + 1):
+            ip_key = f"IPAddress{i:02d}"
+            port_key = f"Port{i:02d}"
+            if cp.has_option("HQHOST", ip_key) and cp.has_option("HQHOST", port_key):
+                ip = cp.get("HQHOST", ip_key).strip()
+                try:
+                    port = int(cp.get("HQHOST", port_key).strip())
+                except (ValueError, TypeError):
+                    continue
+                if ip and port > 0:
+                    hosts.append((ip, port))
+
+        if primary_idx > 0 and primary_idx <= len(hosts):
+            primary = hosts[primary_idx - 1]
+            hosts.pop(primary_idx - 1)
+            hosts.insert(0, primary)
+
+    except Exception as e:
+        logger.warning(f"解析 connect.cfg 失败: {e}")
+
+    return hosts
+
 
 def _parse_hosts_from_env() -> Optional[List[Tuple[str, int]]]:
-    """
-    从环境变量构建通达信服务器列表。
-
-    优先级：
-    1. PYTDX_SERVERS：逗号分隔 "ip:port,ip:port"（如 "192.168.1.1:7709,10.0.0.1:7709"）
-    2. PYTDX_HOST + PYTDX_PORT：单个服务器
-    3. 均未配置时返回 None（调用方使用 DEFAULT_HOSTS）
-    """
     servers = os.getenv("PYTDX_SERVERS", "").strip()
     if servers:
         result = []
@@ -121,24 +194,31 @@ class PytdxFetcher(BaseFetcher):
     SECURITY_LIST_PAGE_SIZE = 1000
     
     def __init__(self, hosts: Optional[List[Tuple[str, int]]] = None):
-        """
-        初始化 PytdxFetcher
-
-        Args:
-            hosts: 服务器列表 [(host, port), ...]。若未传入，优先使用环境变量
-                   PYTDX_SERVERS（ip:port,ip:port）或 PYTDX_HOST+PYTDX_PORT，
-                   否则使用内置 DEFAULT_HOSTS。
-        """
         if hosts is not None:
             self._hosts = hosts
         else:
             env_hosts = _parse_hosts_from_env()
-            self._hosts = env_hosts if env_hosts else self.DEFAULT_HOSTS
+            if env_hosts:
+                self._hosts = env_hosts
+                logger.debug(f"Pytdx 使用环境变量配置的 {len(env_hosts)} 个服务器")
+            else:
+                tdx_dir = _detect_tdx_install_dir()
+                if tdx_dir:
+                    cfg_hosts = _parse_connect_cfg(tdx_dir)
+                    if cfg_hosts:
+                        self._hosts = cfg_hosts
+                        logger.info(f"Pytdx 自动检测到通达信安装目录 {tdx_dir}，加载 {len(cfg_hosts)} 个行情服务器")
+                    else:
+                        self._hosts = self.DEFAULT_HOSTS
+                        logger.debug("Pytdx connect.cfg 中未找到有效服务器，使用默认列表")
+                else:
+                    self._hosts = self.DEFAULT_HOSTS
+                    logger.debug("Pytdx 未检测到本地通达信安装，使用默认服务器列表")
         self._api = None
         self._connected = False
         self._current_host_idx = 0
-        self._stock_list_cache = None  # 股票列表缓存
-        self._stock_name_cache = {}    # 股票名称缓存 {code: name}
+        self._stock_list_cache = None
+        self._stock_name_cache = {}
     
     def _get_pytdx(self):
         """
@@ -443,6 +523,121 @@ class PytdxFetcher(BaseFetcher):
             logger.warning(f"Pytdx 获取实时行情失败 {stock_code}: {e}")
         
         return None
+
+    def get_orderbook(self, stock_code: str) -> Optional[dict]:
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code}")
+        try:
+            market, code = self._get_market_code(stock_code)
+            with self._pytdx_session() as api:
+                data = api.get_security_quotes([(market, code)])
+                if data and len(data) > 0:
+                    q = data[0]
+                    bids = []
+                    asks = []
+                    for i in range(1, 6):
+                        bids.append({
+                            'price': q.get(f'bid{i}', 0),
+                            'volume': q.get(f'bid_vol{i}', 0),
+                        })
+                        asks.append({
+                            'price': q.get(f'ask{i}', 0),
+                            'volume': q.get(f'ask_vol{i}', 0),
+                        })
+                    return {
+                        'code': stock_code,
+                        'name': q.get('name', ''),
+                        'price': q.get('price', 0),
+                        'pre_close': q.get('last_close', 0),
+                        'bids': bids,
+                        'asks': asks,
+                    }
+        except Exception as e:
+            logger.warning(f"Pytdx 获取五档盘口失败 {stock_code}: {e}")
+        return None
+
+    def get_trade_ticks(self, stock_code: str, count: int = 50) -> Optional[list]:
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code}")
+        try:
+            market, code = self._get_market_code(stock_code)
+            with self._pytdx_session() as api:
+                data = api.get_transaction_data(market, code, start=0, count=count)
+                if data:
+                    ticks = []
+                    for item in data:
+                        ticks.append({
+                            'time': item.get('time', ''),
+                            'price': item.get('price', 0),
+                            'volume': item.get('vol', 0),
+                            'num': item.get('num', 0),
+                            'type': item.get('nature', 0),
+                        })
+                    return ticks
+        except Exception as e:
+            logger.warning(f"Pytdx 获取成交明细失败 {stock_code}: {e}")
+        return None
+
+    def get_intraday_data(self, stock_code: str, period: str = '5min', count: int = 240) -> pd.DataFrame:
+        PERIOD_CATEGORY_MAP = {
+            '1min': 7,
+            '5min': 0,
+            '15min': 1,
+            '30min': 2,
+            '60min': 3,
+        }
+
+        if period not in PERIOD_CATEGORY_MAP:
+            raise ValueError(f"不支持的分时周期: {period}")
+
+        if _is_us_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持美股 {stock_code} 分时数据")
+
+        if _is_hk_market(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持港股 {stock_code} 分时数据")
+
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code} 分时数据")
+
+        category = PERIOD_CATEGORY_MAP[period]
+        market, code = self._get_market_code(stock_code)
+
+        request_start = time.time()
+        logger.info(f"[{self.name}] 开始获取 {stock_code} 分时数据: period={period}, count={count}")
+
+        try:
+            with self._pytdx_session() as api:
+                data = api.get_security_bars(
+                    category=category,
+                    market=market,
+                    code=code,
+                    start=0,
+                    count=count
+                )
+
+                if data is None or len(data) == 0:
+                    raise DataFetchError(f"Pytdx 未查询到 {stock_code} 的分时数据")
+
+                df = api.to_df(data)
+                df = self._normalize_data(df, stock_code)
+                df = self._clean_data(df)
+                df = self._calculate_indicators(df)
+
+                elapsed = time.time() - request_start
+                logger.info(
+                    f"[{self.name}] {stock_code} 分时数据获取成功: period={period}, "
+                    f"rows={len(df)}, elapsed={elapsed:.2f}s"
+                )
+                return df
+
+        except Exception as e:
+            elapsed = time.time() - request_start
+            error_type, error_reason = summarize_exception(e)
+            logger.error(
+                f"[{self.name}] {stock_code} 分时数据获取失败: period={period}, "
+                f"error_type={error_type}, elapsed={elapsed:.2f}s, reason={error_reason}"
+            )
+            raise DataFetchError(f"[{self.name}] {stock_code}: {error_reason}") from e
 
 
 if __name__ == "__main__":

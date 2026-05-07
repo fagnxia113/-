@@ -44,6 +44,7 @@ class AgentResult:
     provider: str = ""
     model: str = ""                            # comma-separated models used (supports fallback)
     error: Optional[str] = None
+    agent_context_data: Optional[Dict[str, Any]] = None
 
 
 # ============================================================

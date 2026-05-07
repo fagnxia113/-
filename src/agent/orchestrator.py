@@ -51,7 +51,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 # Valid orchestrator modes (ordered by cost/depth)
-VALID_MODES = ("quick", "standard", "full", "specialist")
+VALID_MODES = ("quick", "standard", "full", "enhanced", "specialist", "debate", "full_debate")
 
 
 @dataclass
@@ -68,6 +68,7 @@ class OrchestratorResult:
     model: str = ""
     error: Optional[str] = None
     stats: Optional[AgentRunStats] = None
+    agent_context_data: Optional[Dict[str, Any]] = None
 
 
 class AgentOrchestrator:
@@ -293,6 +294,7 @@ class AgentOrchestrator:
             provider=orch_result.provider,
             model=orch_result.model,
             error=orch_result.error,
+            agent_context_data=orch_result.agent_context_data,
         )
 
     def chat(
@@ -524,7 +526,7 @@ class AgentOrchestrator:
             #   - skill agents (specialist evaluation, optional)
             if result.status == StageStatus.FAILED:
                 non_critical = (
-                    agent.agent_name in ("intel", "risk")
+                    agent.agent_name in ("intel", "risk", "industry", "capital_flow", "debate", "factor_scoring", "sentiment", "fundamental")
                     or agent.agent_name in getattr(self, "_skill_agent_names", set())
                 )
                 if not non_critical:
@@ -550,6 +552,7 @@ class AgentOrchestrator:
 
         model_str = ", ".join(dict.fromkeys(m for m in models_used if m))
         provider = stats.models_used[0] if stats.models_used else ""
+        agent_context_data = self._extract_agent_context_data(ctx)
 
         if parse_dashboard and dashboard is None:
             return OrchestratorResult(
@@ -563,6 +566,7 @@ class AgentOrchestrator:
                 model=model_str,
                 error="Failed to parse dashboard JSON from agent response",
                 stats=stats,
+                agent_context_data=agent_context_data,
             )
 
         return OrchestratorResult(
@@ -575,11 +579,50 @@ class AgentOrchestrator:
             provider=provider,
             model=model_str,
             stats=stats,
+            agent_context_data=agent_context_data,
         )
 
     # -----------------------------------------------------------------
     # Agent chain construction
     # -----------------------------------------------------------------
+
+    @staticmethod
+    def _extract_agent_context_data(ctx: AgentContext) -> Dict[str, Any]:
+        result: Dict[str, Any] = {}
+        if ctx.opinions:
+            opinions_dict = {}
+            for op in ctx.opinions:
+                opinions_dict[op.agent_name] = {
+                    "agentName": op.agent_name,
+                    "signal": op.signal,
+                    "confidence": op.confidence,
+                    "reasoning": op.reasoning,
+                }
+                if op.raw_data:
+                    opinions_dict[op.agent_name]["rawData"] = op.raw_data
+            result["agent_opinions"] = opinions_dict
+
+        factor_scores = ctx.get_data("factor_scores")
+        factor_score_details = ctx.get_data("factor_score_details")
+        if factor_scores or factor_score_details:
+            scores_payload: Dict[str, Any] = {}
+            if factor_scores:
+                scores_payload["scores"] = factor_scores
+            if factor_score_details:
+                scores_payload["scoreDetails"] = factor_score_details
+            result["factor_scores"] = scores_payload
+
+        debate_opinion = ctx.get_data("debate_opinion")
+        if debate_opinion and isinstance(debate_opinion, dict):
+            debate_summary = debate_opinion.get("debate_summary")
+            if debate_summary:
+                result["debate_summary"] = debate_summary
+
+        trading_plan = ctx.get_data("trading_plan")
+        if trading_plan and isinstance(trading_plan, dict) and trading_plan:
+            result["trading_plan"] = trading_plan
+
+        return result
 
     def _build_agent_chain(self, ctx: AgentContext) -> list:
         """Instantiate the ordered agent list based on ``self.mode``."""
@@ -587,6 +630,12 @@ class AgentOrchestrator:
         from src.agent.agents.intel_agent import IntelAgent
         from src.agent.agents.decision_agent import DecisionAgent
         from src.agent.agents.risk_agent import RiskAgent
+        from src.agent.agents.industry_agent import IndustryAgent
+        from src.agent.agents.capital_flow_agent import CapitalFlowAgent
+        from src.agent.agents.debate_agent import DebateAgent
+        from src.agent.agents.factor_scoring_agent import FactorScoringAgent
+        from src.agent.agents.sentiment_agent import SentimentAgent
+        from src.agent.agents.fundamental_agent import FundamentalAgent
 
         self._skill_agent_names = set()
 
@@ -601,6 +650,12 @@ class AgentOrchestrator:
         intel = self._prepare_agent(IntelAgent(**common_kwargs))
         risk = self._prepare_agent(RiskAgent(**common_kwargs))
         decision = self._prepare_agent(DecisionAgent(**common_kwargs))
+        industry = self._prepare_agent(IndustryAgent(**common_kwargs))
+        capital_flow = self._prepare_agent(CapitalFlowAgent(**common_kwargs))
+        debate = self._prepare_agent(DebateAgent(**common_kwargs))
+        factor_scoring = self._prepare_agent(FactorScoringAgent(**common_kwargs))
+        sentiment = self._prepare_agent(SentimentAgent(**common_kwargs))
+        fundamental = self._prepare_agent(FundamentalAgent(**common_kwargs))
 
         if self.mode == "quick":
             return [technical, decision]
@@ -608,10 +663,14 @@ class AgentOrchestrator:
             return [technical, intel, decision]
         elif self.mode == "full":
             return [technical, intel, risk, decision]
+        elif self.mode == "enhanced":
+            return [technical, intel, risk, industry, capital_flow, factor_scoring, decision]
         elif self.mode == "specialist":
-            # Specialist agents are inserted lazily right before the decision
-            # stage so the router can see the finished technical opinion.
             return [technical, intel, risk, decision]
+        elif self.mode == "debate":
+            return [technical, intel, risk, industry, capital_flow, debate, factor_scoring, decision]
+        elif self.mode == "full_debate":
+            return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, debate, factor_scoring, decision]
         else:
             return [technical, intel, decision]
 
@@ -1122,6 +1181,73 @@ class AgentOrchestrator:
                 "concentration": concentration if concentration is not None else "N/A",
                 "chip_health": chip.get("chip_health", "一般"),
             }
+
+        fundamental_context = ctx.get_data("fundamental_context")
+        if isinstance(fundamental_context, dict):
+            fm: Dict[str, Any] = {}
+            for src_key, dst_key in [
+                ("pe_ratio", "pe_ratio"), ("pb_ratio", "pb_ratio"),
+                ("roe", "roe"), ("debt_ratio", "debt_ratio"),
+                ("revenue_growth", "revenue_growth"),
+                ("profit_growth", "profit_growth"),
+                ("dividend_yield", "dividend_yield"),
+                ("market_cap", "market_cap"),
+            ]:
+                val = fundamental_context.get(src_key)
+                if val is not None:
+                    fm[dst_key] = val
+            if fm:
+                data_perspective["financial_metrics"] = fm
+
+        industry = self._latest_opinion(ctx, {"industry"})
+        if industry and isinstance(industry.raw_data, dict):
+            ind_raw = industry.raw_data
+            sc: Dict[str, Any] = {}
+            for src_key, dst_key in [
+                ("sector_name", "sector_name"), ("sector_rank", "sector_rank"),
+                ("sector_trend", "sector_trend"), ("peer_avg_pe", "peer_avg_pe"),
+                ("relative_strength", "relative_strength"),
+            ]:
+                val = ind_raw.get(src_key)
+                if val is not None:
+                    sc[dst_key] = val
+            if ind_raw.get("sector_leading") is not None:
+                sc["sector_leading"] = ind_raw["sector_leading"]
+            if sc:
+                data_perspective["sector_comparison"] = sc
+
+        current_price = _coerce_level_value(
+            (data_perspective.get("price_position") or {}).get("current_price")
+        )
+        stop_loss_val = _coerce_level_value(key_levels.get("stop_loss") or key_levels.get("strong_support_stop_loss"))
+        take_profit_val = _coerce_level_value(
+            key_levels.get("take_profit")
+            or key_levels.get("next_breakout_target")
+            or key_levels.get("current_resistance")
+            or key_levels.get("resistance")
+        )
+        if current_price is not None:
+            rm: Dict[str, Any] = {}
+            if take_profit_val is not None and isinstance(take_profit_val, (int, float)):
+                upside = round((take_profit_val - current_price) / current_price * 100, 2)
+                rm["potential_upside_pct"] = upside
+            if stop_loss_val is not None and isinstance(stop_loss_val, (int, float)):
+                downside = round((current_price - stop_loss_val) / current_price * 100, 2)
+                rm["potential_downside_pct"] = downside
+            if (
+                rm.get("potential_upside_pct") is not None
+                and rm.get("potential_downside_pct") is not None
+                and rm["potential_downside_pct"] > 0
+            ):
+                rm["risk_reward_ratio"] = round(
+                    rm["potential_upside_pct"] / rm["potential_downside_pct"], 2
+                )
+            if rm:
+                data_perspective["risk_metrics"] = rm
+
+        factor_scores = ctx.get_data("factor_scores")
+        if isinstance(factor_scores, dict) and factor_scores:
+            data_perspective["factor_scores"] = factor_scores
 
         return data_perspective
 

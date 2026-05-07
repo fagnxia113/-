@@ -25,6 +25,7 @@ import pandas as pd
 import numpy as np
 
 from src.config import get_config
+from data_provider.base import is_st_stock, is_kc_cy_stock, is_bse_code, _is_us_market, _is_hk_market
 
 logger = logging.getLogger(__name__)
 
@@ -126,6 +127,12 @@ class TrendAnalysisResult:
     rsi_status: RSIStatus = RSIStatus.NEUTRAL
     rsi_signal: str = ""              # RSI 信号描述
 
+    # A 股涨跌停距离
+    limit_up_pct: float = 10.0       # 涨停幅度（主板10%, 科创/创业板20%, ST 5%, 北交所30%）
+    limit_up_distance: float = 0.0   # 距涨停价的百分比距离
+    limit_down_distance: float = 0.0 # 距跌停价的百分比距离
+    stock_name: str = ""             # 股票名称（用于 ST 判断）
+
     # 买入信号
     buy_signal: BuySignal = BuySignal.WAIT
     signal_score: int = 0            # 综合评分 0-100
@@ -165,6 +172,9 @@ class TrendAnalysisResult:
             'rsi_24': self.rsi_24,
             'rsi_status': self.rsi_status.value,
             'rsi_signal': self.rsi_signal,
+            'limit_up_pct': self.limit_up_pct,
+            'limit_up_distance': self.limit_up_distance,
+            'limit_down_distance': self.limit_down_distance,
         }
 
 
@@ -202,18 +212,19 @@ class StockTrendAnalyzer:
         """初始化分析器"""
         pass
     
-    def analyze(self, df: pd.DataFrame, code: str) -> TrendAnalysisResult:
+    def analyze(self, df: pd.DataFrame, code: str, stock_name: str = "") -> TrendAnalysisResult:
         """
         分析股票趋势
         
         Args:
             df: 包含 OHLCV 数据的 DataFrame
             code: 股票代码
+            stock_name: 股票名称（可选，用于 ST 判断等 A 股特有逻辑）
             
         Returns:
             TrendAnalysisResult 分析结果
         """
-        result = TrendAnalysisResult(code=code)
+        result = TrendAnalysisResult(code=code, stock_name=stock_name)
         
         if df is None or df.empty or len(df) < 20:
             logger.warning(f"{code} 数据不足，无法进行趋势分析")
@@ -256,7 +267,10 @@ class StockTrendAnalyzer:
         # 6. RSI 分析
         self._analyze_rsi(df, result)
 
-        # 7. 生成买入信号
+        # 7. A 股涨跌停距离分析
+        self._analyze_limit_distance(df, result)
+
+        # 8. 生成买入信号
         self._generate_signal(result)
 
         return result
@@ -580,6 +594,66 @@ class StockTrendAnalyzer:
             result.rsi_status = RSIStatus.OVERSOLD
             result.rsi_signal = f"⭐ RSI超卖({rsi_mid:.1f}<30)，反弹机会大"
 
+    def _analyze_limit_distance(self, df: pd.DataFrame, result: TrendAnalysisResult) -> None:
+        """
+        分析 A 股涨跌停距离
+
+        根据股票板块自动确定涨跌停幅度：
+        - 主板（沪深 60/00 开头）：±10%
+        - 科创板（688）/ 创业板（30）：±20%
+        - ST 股票：±5%
+        - 北交所（92/43/83/87/88 开头）：±30%
+        - 美股/港股：无涨跌停机制，跳过
+
+        计算当前价格距涨停价和跌停价的百分比距离。
+        """
+        code = result.code or ""
+
+        # 美股/港股无涨跌停机制，跳过
+        if _is_us_market(code) or _is_hk_market(code):
+            return
+
+        # 确定涨跌停幅度
+        stock_name = result.stock_name or ""
+        if is_st_stock(stock_name):
+            limit_pct = 5.0
+        elif is_bse_code(code):
+            limit_pct = 30.0
+        elif is_kc_cy_stock(code):
+            limit_pct = 20.0
+        else:
+            limit_pct = 10.0
+
+        result.limit_up_pct = limit_pct
+
+        # 需要前一日收盘价来计算涨跌停价
+        if len(df) < 2:
+            return
+
+        prev_close = float(df.iloc[-2]['close'])
+        current_price = result.current_price
+
+        if prev_close <= 0 or current_price <= 0:
+            return
+
+        # 计算涨跌停价（A 股涨跌停价 = 前收盘 × (1 ± limit_pct/100)，取两位小数）
+        limit_up_price = round(prev_close * (1 + limit_pct / 100), 2)
+        limit_down_price = round(prev_close * (1 - limit_pct / 100), 2)
+
+        # 计算距离百分比
+        if limit_up_price > 0:
+            result.limit_up_distance = round(
+                (limit_up_price - current_price) / current_price * 100, 2
+            )
+        if limit_down_price > 0:
+            result.limit_down_distance = round(
+                (current_price - limit_down_price) / current_price * 100, 2
+            )
+
+        # 防止负数（已涨停/跌停的情况）
+        result.limit_up_distance = max(0.0, result.limit_up_distance)
+        result.limit_down_distance = max(0.0, result.limit_down_distance)
+
     def _generate_signal(self, result: TrendAnalysisResult) -> None:
         """
         生成买入信号
@@ -590,7 +664,8 @@ class StockTrendAnalyzer:
         - 量能（15分）：缩量回调得分高
         - 支撑（10分）：获得均线支撑得分高
         - MACD（15分）：金叉和多头得分高
-        - RSI（10分）：超卖和强势得分高
+        - RSI（5分）：超卖和强势得分高
+        - 涨跌停距离（5分）：A 股特有，距涨停近加分，距跌停近减分
         """
         score = 0
         reasons = []
@@ -619,6 +694,10 @@ class StockTrendAnalyzer:
         if bias != bias or bias is None:  # NaN or None defense
             bias = 0.0
         base_threshold = get_config().bias_threshold
+
+        # A 股涨跌幅差异补偿：科创板/创业板 20% 涨跌幅，乖离率阈值适当放宽
+        if result.limit_up_pct >= 20:
+            base_threshold = max(base_threshold, base_threshold * 1.4)
 
         # Strong trend compensation: relax threshold for STRONG_BULL with high strength
         trend_strength = result.trend_strength if result.trend_strength == result.trend_strength else 0.0
@@ -706,15 +785,17 @@ class StockTrendAnalyzer:
         else:
             reasons.append(result.macd_signal)
 
-        # === RSI 评分（10分）===
+        # === RSI 评分（5分）===
+        # 注：RSI 在 A 股短线交易中参考价值相对较低（T+1 制度导致超买超卖信号滞后），
+        # 将 5 分权重移至涨跌停距离评分，更贴合 A 股实战。
         rsi_scores = {
-            RSIStatus.OVERSOLD: 10,       # 超卖最佳
-            RSIStatus.STRONG_BUY: 8,     # 强势
-            RSIStatus.NEUTRAL: 5,        # 中性
-            RSIStatus.WEAK: 3,            # 弱势
-            RSIStatus.OVERBOUGHT: 0,       # 超买最差
+            RSIStatus.OVERSOLD: 5,        # 超卖最佳
+            RSIStatus.STRONG_BUY: 4,      # 强势
+            RSIStatus.NEUTRAL: 3,         # 中性
+            RSIStatus.WEAK: 1,            # 弱势
+            RSIStatus.OVERBOUGHT: 0,      # 超买最差
         }
-        rsi_score = rsi_scores.get(result.rsi_status, 5)
+        rsi_score = rsi_scores.get(result.rsi_status, 3)
         score += rsi_score
 
         if result.rsi_status in [RSIStatus.OVERSOLD, RSIStatus.STRONG_BUY]:
@@ -723,6 +804,34 @@ class StockTrendAnalyzer:
             risks.append(f"⚠️ {result.rsi_signal}")
         else:
             reasons.append(result.rsi_signal)
+
+        # === A 股涨跌停距离评分（5分）===
+        # 仅对 A 股标的生效；美股/港股无涨跌停机制，默认给中性 3 分
+        if not _is_us_market(result.code) and not _is_hk_market(result.code):
+            limit_up_dist = result.limit_up_distance
+            limit_down_dist = result.limit_down_distance
+
+            if limit_up_dist <= 1.0:
+                # 距涨停 < 1%，已接近涨停或已涨停
+                score += 2
+                reasons.append(f"⚡ 距涨停仅{limit_up_dist:.1f}%，短线强势")
+            elif limit_up_dist <= 3.0:
+                # 距涨停 < 3%，有冲击涨停潜力
+                score += 5
+                reasons.append(f"✅ 距涨停{limit_up_dist:.1f}%，有冲板潜力")
+            elif limit_up_dist <= 5.0:
+                score += 4
+            elif limit_down_dist <= 2.0:
+                # 距跌停 < 2%，风险极高
+                score += 0
+                risks.append(f"❌ 距跌停仅{limit_down_dist:.1f}%，触及跌停风险！")
+            elif limit_down_dist <= 5.0:
+                score += 1
+                risks.append(f"⚠️ 距跌停{limit_down_dist:.1f}%，下方空间有限")
+            else:
+                score += 3  # 中性区间
+        else:
+            score += 3  # 非 A 股，涨跌停维度给中性分
 
         # === 综合判断 ===
         result.signal_score = score

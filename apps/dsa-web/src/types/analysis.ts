@@ -90,14 +90,195 @@ export interface ReportDetails {
   dividendMetrics?: Record<string, unknown>;
   belongBoards?: RelatedBoard[];
   sectorRankings?: SectorRankings;
+  financialMetrics?: FinancialMetrics;
+  sectorComparison?: SectorComparison;
+  riskMetrics?: RiskMetrics;
+  factorDimensionScores?: FactorDimensionScores;
+}
+
+export interface FinancialMetrics {
+  peRatio?: number | string;
+  pbRatio?: number | string;
+  roe?: number | string;
+  debtRatio?: number | string;
+  revenueGrowth?: number | string;
+  profitGrowth?: number | string;
+  dividendYield?: number | string;
+  marketCap?: number | string;
+}
+
+export interface SectorComparison {
+  sectorName?: string;
+  sectorRank?: string;
+  sectorTrend?: string;
+  peerAvgPe?: number | string;
+  relativeStrength?: number | string;
+  sectorLeading?: boolean;
+}
+
+export interface RiskMetrics {
+  maxDrawdown?: number | string;
+  volatility?: number | string;
+  sharpeRatio?: number | string;
+  beta?: number | string;
+  riskRewardRatio?: number | string;
+  potentialUpsidePct?: number | string;
+  potentialDownsidePct?: number | string;
+}
+
+export interface FactorDimensionScores {
+  technical?: number;
+  fundamental?: number;
+  sentiment?: number;
+  capitalFlow?: number;
+  composite?: number;
 }
 
 /** Full analysis report */
+export interface BacktestResult {
+  entryPrice: number;
+  currentPrice: number;
+  pnlPct: number;
+  resultLabel: string;
+  hitStopLoss: boolean;
+  hitTakeProfit: boolean;
+  stopLoss?: number;
+  takeProfit?: number;
+  adviceTime?: string;
+}
+
+export interface HistoryComparison {
+  previousScore: number;
+  scoreChange: number;
+  previousAdvice?: string;
+  adviceChanged: boolean;
+  trend: 'improving' | 'declining' | 'stable';
+  previousTime?: string;
+  backtest?: BacktestResult;
+}
+
 export interface AnalysisReport {
   meta: ReportMeta;
   summary: ReportSummary;
   strategy?: ReportStrategy;
   details?: ReportDetails;
+  agentOpinions?: AgentOpinions;
+  factorScores?: FactorScores;
+  debateSummary?: DebateSummary;
+  tradingPlan?: TradingPlan;
+  historyComparison?: HistoryComparison;
+}
+
+// ============ Agent Opinion Types ============
+
+export interface AgentOpinion {
+  agentName: string;
+  signal: string;
+  confidence: number;
+  reasoning: string;
+  rawData?: Record<string, unknown>;
+}
+
+export interface AgentOpinions {
+  technical?: AgentOpinion;
+  intel?: AgentOpinion;
+  risk?: AgentOpinion;
+  industry?: AgentOpinion;
+  capitalFlow?: AgentOpinion;
+  sentiment?: AgentOpinion;
+  fundamental?: AgentOpinion;
+  debate?: AgentOpinion;
+  factorScoring?: AgentOpinion;
+  decision?: AgentOpinion;
+}
+
+// ============ Factor Score Types ============
+
+export interface FactorScoreDetails {
+  technical?: {
+    trend?: number;
+    momentum?: number;
+    volume?: number;
+    pattern?: number;
+  };
+  fundamental?: {
+    industryCycle?: number;
+    competitivePosition?: number;
+    valuation?: number;
+    growth?: number;
+  };
+  sentiment?: {
+    newsSentiment?: number;
+    riskLevel?: number;
+    catalystPotential?: number;
+  };
+  capitalFlow?: {
+    mainForce?: number;
+    smartMoney?: number;
+    accumulation?: number;
+    volumePrice?: number;
+  };
+}
+
+export interface FactorScores {
+  scores: FactorDimensionScores;
+  scoreDetails?: FactorScoreDetails;
+  compositeInterpretation?: string;
+  keyStrengths?: string[];
+  keyWeaknesses?: string[];
+  dimensionConflicts?: string[];
+}
+
+// ============ Debate Types ============
+
+export interface DebateKeyDebate {
+  topic: string;
+  bullishArgument: string;
+  bearishArgument: string;
+  resolution: string;
+}
+
+export interface DebateSummary {
+  consensusPoints?: string[];
+  divergencePoints?: string[];
+  keyDebates?: DebateKeyDebate[];
+  blindSpotsIdentified?: string[];
+}
+
+// ============ Trading Plan Types ============
+
+export interface TradingBatch {
+  condition: string;
+  positionPct: number;
+  priceLevel?: number;
+}
+
+export interface TradingProfitTarget {
+  priceLevel?: number;
+  action: string;
+  condition?: string;
+}
+
+export interface TradingStopLoss {
+  technicalStop?: number;
+  timeStop?: string;
+  fundamentalStop?: string;
+}
+
+export interface TradingPositionManagement {
+  initialPositionPct?: number;
+  maxPositionPct?: number;
+  reviewFrequency?: string;
+}
+
+export interface TradingPlan {
+  entryStrategy?: {
+    method?: string;
+    batches?: TradingBatch[];
+  };
+  profitTargets?: TradingProfitTarget[];
+  stopLoss?: TradingStopLoss;
+  positionManagement?: TradingPositionManagement;
 }
 
 // ============ Analysis Result Types ============

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { BarChart3, BriefcaseBusiness, Home, LogOut, MessageSquareQuote, Settings2 } from 'lucide-react';
+import { BarChart3, BriefcaseBusiness, CandlestickChart, Home, LogOut, MessageSquareQuote, Settings2 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useAgentChatStore } from '../../stores/agentChatStore';
@@ -25,6 +25,7 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { key: 'home', label: '首页', to: '/', icon: Home, exact: true },
+  { key: 'market', label: '行情', to: '/market', icon: CandlestickChart },
   { key: 'chat', label: '问股', to: '/chat', icon: MessageSquareQuote, badge: 'completion' },
   { key: 'portfolio', label: '持仓', to: '/portfolio', icon: BriefcaseBusiness },
   { key: 'backtest', label: '回测', to: '/backtest', icon: BarChart3 },
@@ -32,22 +33,25 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNavigate }) => {
-  const { authEnabled, logout } = useAuth();
+  const { authEnabled, currentUser, logout } = useAuth();
   const completionBadge = useAgentChatStore((state) => state.completionBadge);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
     <div className="flex h-full flex-col">
-      <div className={cn('mb-4 flex items-center gap-2 px-1', collapsed ? 'justify-center' : '')}>
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-gradient text-[hsl(var(--primary-foreground))] shadow-[0_12px_28px_var(--nav-brand-shadow)]">
-          <BarChart3 className="h-5 w-5" />
+      <div className={cn('mb-5 flex items-center gap-2.5 px-1', collapsed ? 'justify-center' : '')}>
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-gradient text-[hsl(var(--primary-foreground))] shadow-[0_4px_12px_var(--nav-brand-shadow)]">
+          <CandlestickChart className="h-4.5 w-4.5" />
         </div>
         {!collapsed ? (
-          <p className="min-w-0 truncate text-sm font-semibold text-foreground">DSA</p>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-bold tracking-tight text-foreground">DSA</p>
+            <p className="truncate text-[10px] text-muted-text">智能行情分析</p>
+          </div>
         ) : null}
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1.5" aria-label="主导航">
+      <nav className="flex flex-1 flex-col gap-0.5" aria-label="主导航">
         {NAV_ITEMS.map(({ key, label, to, icon: Icon, exact, badge }) => (
           <NavLink
             key={key}
@@ -57,12 +61,12 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
             aria-label={label}
             className={({ isActive }) =>
               cn(
-                'group relative flex items-center gap-3 border-y border-x-0 text-sm transition-all',
-                'h-[var(--nav-item-height)]',
-                collapsed ? 'justify-center px-0' : 'px-[var(--nav-item-padding-x)]',
+                'group relative flex items-center gap-2.5 text-[13px] transition-all',
+                'h-9',
+                collapsed ? 'justify-center px-0' : 'px-2.5',
                 isActive
-                  ? 'border-[var(--nav-active-border)] bg-[var(--nav-active-bg)] text-[hsl(var(--primary))] font-medium'
-                  : 'border-transparent text-secondary-text hover:bg-[var(--nav-hover-bg)] hover:text-foreground'
+                  ? 'bg-[var(--nav-active-bg)] text-[hsl(var(--primary))] font-medium'
+                  : 'text-secondary-text hover:bg-[var(--nav-hover-bg)] hover:text-foreground'
               )
             }
           >
@@ -71,14 +75,14 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
                 {isActive && (
                   <motion.div 
                     layoutId="activeIndicator"
-                    className="absolute top-0 bottom-0 left-0 w-[var(--nav-indicator-width)] bg-[var(--nav-indicator-bg)] shadow-[0_0_10px_var(--nav-indicator-shadow)]"
+                    className="absolute inset-0 rounded-md bg-[var(--nav-active-bg)]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.2 }}
                   />
                 )}
-                <Icon className={cn('ml-1 h-5 w-5 shrink-0', isActive ? 'text-[var(--nav-icon-active)]' : 'text-current')} />
-                {!collapsed ? <span className="truncate">{label}</span> : null}
+                <Icon className={cn('relative z-10 h-4 w-4 shrink-0', isActive ? 'text-[var(--nav-icon-active)]' : 'text-current')} />
+                {!collapsed ? <span className="relative z-10 truncate">{label}</span> : null}
                 {badge === 'completion' && completionBadge ? (
                   <StatusDot
                     tone="info"
@@ -96,7 +100,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
         ))}
       </nav>
 
-      <div className="mt-4 mb-2">
+      <div className="mt-2 mb-1">
         <ThemeToggle variant="nav" collapsed={collapsed} />
       </div>
 
@@ -105,12 +109,12 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
           type="button"
           onClick={() => setShowLogoutConfirm(true)}
           className={cn(
-            'mt-5 flex h-11 w-full cursor-pointer select-none items-center gap-3 rounded-2xl border border-transparent px-3 text-sm text-secondary-text transition-all hover:border-border/70 hover:bg-hover hover:text-foreground',
-            collapsed ? 'justify-center px-2' : ''
+            'mt-2 flex h-9 w-full cursor-pointer select-none items-center gap-2.5 rounded-md border border-transparent px-2.5 text-[13px] text-secondary-text transition-all hover:bg-[var(--nav-hover-bg)] hover:text-foreground',
+            collapsed ? 'justify-center px-0' : ''
           )}
         >
-          <LogOut className="h-5 w-5 shrink-0" />
-          {!collapsed ? <span>退出</span> : null}
+          <LogOut className="h-4 w-4 shrink-0" />
+          {!collapsed ? <span>{currentUser ? `${currentUser.username} · 退出` : '退出'}</span> : null}
         </button>
       ) : null}
 

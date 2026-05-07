@@ -395,6 +395,15 @@ class BaseFetcher(ABC):
             )
             raise DataFetchError(f"[{self.name}] {stock_code}: {error_reason}") from e
     
+    def get_intraday_data(self, stock_code: str, period: str = '5min', count: int = 240) -> pd.DataFrame:
+        raise DataFetchError(f"[{self.name}] 不支持分时数据")
+
+    def get_orderbook(self, stock_code: str) -> Optional[dict]:
+        raise DataFetchError(f"[{self.name}] 不支持五档盘口")
+
+    def get_trade_ticks(self, stock_code: str, count: int = 50) -> Optional[list]:
+        raise DataFetchError(f"[{self.name}] 不支持成交明细")
+    
     def _clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         数据清洗
@@ -1035,6 +1044,84 @@ class DataFetcherManager:
         elapsed = time.time() - request_start
         logger.error(f"[数据源终止] {stock_code} 获取失败: elapsed={elapsed:.2f}s\n{error_summary}")
         raise DataFetchError(error_summary)
+    
+    def get_intraday_data(
+        self,
+        stock_code: str,
+        period: str = '5min',
+        count: int = 240
+    ) -> Tuple[pd.DataFrame, str]:
+        stock_code = normalize_stock_code(stock_code)
+
+        fetchers = self._get_fetchers_snapshot()
+        errors = []
+        total_fetchers = len(fetchers)
+        request_start = time.time()
+
+        for attempt, fetcher in enumerate(fetchers, start=1):
+            try:
+                logger.info(f"[数据源尝试 {attempt}/{total_fetchers}] [{fetcher.name}] 获取 {stock_code} 分时数据 period={period}...")
+                df = self._call_fetcher_method(
+                    fetcher,
+                    "get_intraday_data",
+                    stock_code=stock_code,
+                    period=period,
+                    count=count
+                )
+
+                if df is not None and not df.empty:
+                    elapsed = time.time() - request_start
+                    logger.info(
+                        f"[数据源完成] {stock_code} 分时数据使用 [{fetcher.name}] 获取成功: "
+                        f"rows={len(df)}, elapsed={elapsed:.2f}s"
+                    )
+                    return df, fetcher.name
+
+            except Exception as e:
+                error_type, error_reason = summarize_exception(e)
+                error_msg = f"[{fetcher.name}] ({error_type}) {error_reason}"
+                logger.warning(
+                    f"[数据源失败 {attempt}/{total_fetchers}] [{fetcher.name}] {stock_code} 分时数据: "
+                    f"error_type={error_type}, reason={error_reason}"
+                )
+                errors.append(error_msg)
+                if attempt < total_fetchers:
+                    next_fetcher = fetchers[attempt]
+                    logger.info(f"[数据源切换] {stock_code}: [{fetcher.name}] -> [{next_fetcher.name}]")
+                continue
+
+        error_summary = f"所有数据源获取 {stock_code} 分时数据失败:\n" + "\n".join(errors)
+        elapsed = time.time() - request_start
+        logger.error(f"[数据源终止] {stock_code} 分时数据获取失败: elapsed={elapsed:.2f}s\n{error_summary}")
+        raise DataFetchError(error_summary)
+
+    def get_orderbook(self, stock_code: str) -> Optional[dict]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(fetcher, 'get_orderbook', stock_code)
+                if result is not None:
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        return None
+
+    def get_trade_ticks(self, stock_code: str, count: int = 50) -> Optional[list]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(fetcher, 'get_trade_ticks', stock_code, count=count)
+                if result is not None:
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        return None
     
     @property
     def available_fetchers(self) -> List[str]:

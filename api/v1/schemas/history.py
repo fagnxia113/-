@@ -165,6 +165,10 @@ class AnalysisReport(BaseModel):
     summary: ReportSummary = Field(..., description="概览区")
     strategy: Optional[ReportStrategy] = Field(None, description="策略点位区")
     details: Optional[ReportDetails] = Field(None, description="详情区")
+    agent_opinions: Optional[Any] = Field(None, description="各 Agent 意见汇总")
+    factor_scores: Optional[Any] = Field(None, description="量化因子评分")
+    debate_summary: Optional[Any] = Field(None, description="辩论共识摘要")
+    trading_plan: Optional[Any] = Field(None, description="操盘方案")
 
     class Config:
         json_schema_extra = {

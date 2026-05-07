@@ -19,6 +19,7 @@ from src.auth import (
     clear_rate_limit,
     create_session,
     get_client_ip,
+    get_session_user,
     has_stored_password,
     is_auth_enabled,
     is_password_changeable,
@@ -30,6 +31,16 @@ from src.auth import (
     verify_password,
     verify_stored_password,
     verify_session,
+    create_user,
+    verify_user,
+    list_users,
+    delete_user,
+    admin_reset_user_password,
+    toggle_user_active,
+    change_user_password,
+    create_session_for_user,
+    has_any_users,
+    migrate_legacy_password_to_user,
 )
 from src.config import Config, setup_env
 from src.core.config_manager import ConfigManager
@@ -44,6 +55,7 @@ class LoginRequest(BaseModel):
 
     model_config = {"populate_by_name": True}
 
+    username: str = Field(default="", description="Username")
     password: str = Field(default="", description="Admin password")
     password_confirm: str | None = Field(default=None, alias="passwordConfirm", description="Confirm (first-time)")
 
@@ -158,14 +170,11 @@ def _get_auth_status_dict(request: Request | None = None) -> dict:
     """Helper to build consistent auth status response body."""
     auth_enabled = is_auth_enabled()
     logged_in = False
+    current_user = None
     if auth_enabled and request:
-        cookie_val = request.cookies.get(COOKIE_NAME)
-        logged_in = verify_session(cookie_val) if cookie_val else False
+        current_user = get_session_user(request)
+        logged_in = current_user is not None
 
-    # setupState determination:
-    # - enabled: auth is active
-    # - password_retained: auth disabled but password exists
-    # - no_password: auth disabled and no password exists
     if auth_enabled:
         setup_state = "enabled"
     elif has_stored_password():
@@ -173,13 +182,16 @@ def _get_auth_status_dict(request: Request | None = None) -> dict:
     else:
         setup_state = "no_password"
 
-    return {
+    result = {
         "authEnabled": auth_enabled,
         "loggedIn": logged_in,
         "passwordSet": _password_set_for_response(auth_enabled),
         "passwordChangeable": is_password_changeable() if auth_enabled else False,
         "setupState": setup_state,
     }
+    if current_user:
+        result["currentUser"] = current_user
+    return result
 
 
 @router.get(
@@ -367,6 +379,7 @@ async def auth_login(request: Request, body: LoginRequest):
             content={"error": "auth_disabled", "message": "Authentication is not configured"},
         )
 
+    username = (body.username or "").strip()
     password = (body.password or "").strip()
     if not password:
         return JSONResponse(
@@ -384,10 +397,9 @@ async def auth_login(request: Request, body: LoginRequest):
             },
         )
 
-    password_set = is_password_set()
+    migrate_legacy_password_to_user()
 
-    if not password_set:
-        # First-time setup: require passwordConfirm
+    if not has_any_users():
         confirm = (body.password_confirm or "").strip()
         if password != confirm:
             record_login_failure(ip)
@@ -395,30 +407,38 @@ async def auth_login(request: Request, body: LoginRequest):
                 status_code=400,
                 content={"error": "password_mismatch", "message": "Passwords do not match"},
             )
-        err = set_initial_password(password)
+        effective_username = username or "admin"
+        err = create_user(effective_username, password, role="admin")
         if err:
             record_login_failure(ip)
             return JSONResponse(
                 status_code=400,
                 content={"error": "invalid_password", "message": err},
             )
+        user_info = {"username": effective_username, "role": "admin"}
     else:
-        if not verify_password(password):
+        if not username:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "username_required", "message": "请输入用户名"},
+            )
+        user_info = verify_user(username, password)
+        if user_info is None:
             record_login_failure(ip)
             return JSONResponse(
                 status_code=401,
-                content={"error": "invalid_password", "message": "密码错误"},
+                content={"error": "invalid_credentials", "message": "用户名或密码错误"},
             )
 
     clear_rate_limit(ip)
-    session_val = create_session()
+    session_val = create_session_for_user(user_info["username"], user_info["role"])
     if not session_val:
         return JSONResponse(
             status_code=500,
             content={"error": "internal_error", "message": "Failed to create session"},
         )
 
-    resp = JSONResponse(content={"ok": True})
+    resp = JSONResponse(content={"ok": True, "user": user_info})
     _set_session_cookie(resp, session_val, request)
     return resp
 
@@ -475,3 +495,94 @@ async def auth_logout(request: Request):
     resp = Response(status_code=204)
     resp.delete_cookie(key=COOKIE_NAME, path="/")
     return resp
+
+
+class CreateUserRequest(BaseModel):
+    username: str = Field(default="", description="Username")
+    password: str = Field(default="", description="Password")
+    role: str = Field(default="user", description="Role: admin or user")
+
+
+class AdminResetPasswordRequest(BaseModel):
+    model_config = {"populate_by_name": True}
+
+    username: str = Field(default="")
+    new_password: str = Field(default="", alias="newPassword")
+
+
+class ToggleUserActiveRequest(BaseModel):
+    model_config = {"populate_by_name": True}
+
+    username: str = Field(default="")
+    is_active: bool = Field(default=True, alias="isActive")
+
+
+class DeleteUserRequest(BaseModel):
+    username: str = Field(default="")
+
+
+@router.get(
+    "/users",
+    summary="List all users (admin only)",
+)
+async def auth_list_users(request: Request):
+    current = get_session_user(request)
+    if not current or current.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"error": "forbidden", "message": "需要管理员权限"})
+    return JSONResponse(content={"users": list_users()})
+
+
+@router.post(
+    "/users",
+    summary="Create a new user (admin only)",
+)
+async def auth_create_user(request: Request, body: CreateUserRequest):
+    current = get_session_user(request)
+    if not current or current.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"error": "forbidden", "message": "需要管理员权限"})
+    err = create_user(body.username, body.password, body.role)
+    if err:
+        return JSONResponse(status_code=400, content={"error": "create_failed", "message": err})
+    return JSONResponse(content={"ok": True})
+
+
+@router.post(
+    "/users/reset-password",
+    summary="Admin reset a user's password",
+)
+async def auth_admin_reset_password(request: Request, body: AdminResetPasswordRequest):
+    current = get_session_user(request)
+    if not current or current.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"error": "forbidden", "message": "需要管理员权限"})
+    err = admin_reset_user_password(body.username, body.new_password)
+    if err:
+        return JSONResponse(status_code=400, content={"error": "reset_failed", "message": err})
+    return Response(status_code=204)
+
+
+@router.post(
+    "/users/toggle-active",
+    summary="Enable or disable a user account (admin only)",
+)
+async def auth_toggle_user_active(request: Request, body: ToggleUserActiveRequest):
+    current = get_session_user(request)
+    if not current or current.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"error": "forbidden", "message": "需要管理员权限"})
+    err = toggle_user_active(body.username, body.is_active)
+    if err:
+        return JSONResponse(status_code=400, content={"error": "toggle_failed", "message": err})
+    return Response(status_code=204)
+
+
+@router.post(
+    "/users/delete",
+    summary="Delete a user (admin only)",
+)
+async def auth_delete_user(request: Request, body: DeleteUserRequest):
+    current = get_session_user(request)
+    if not current or current.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"error": "forbidden", "message": "需要管理员权限"})
+    err = delete_user(body.username)
+    if err:
+        return JSONResponse(status_code=400, content={"error": "delete_failed", "message": err})
+    return Response(status_code=204)

@@ -755,7 +755,7 @@ const ChatPage: React.FC = () => {
               variant={sendToast.type === 'success' ? 'success' : 'danger'}
               title={sendToast.type === 'success' ? '发送成功' : '发送失败'}
               message={sendToast.message}
-              className="max-w-md rounded-xl px-3 py-2 text-xs shadow-none"
+              className="max-w-md rounded-md px-3 py-2 text-xs shadow-none"
             />
           ) : null}
         </header>
@@ -901,7 +901,7 @@ const ChatPage: React.FC = () => {
                 <div className="w-8 h-8 rounded-full bg-elevated text-foreground flex items-center justify-center flex-shrink-0 text-xs font-bold">
                   AI
                 </div>
-                <div className="min-w-[200px] max-w-[min(100%,48rem)] overflow-hidden rounded-2xl rounded-tl-sm border border-white/6 bg-card/72 px-5 py-4">
+                <div className="min-w-[200px] max-w-[min(100%,48rem)] overflow-hidden rounded-lg rounded-tl-sm border border-white/6 bg-card/72 px-5 py-4">
                   <div className="flex items-center gap-2.5 text-sm text-secondary-text">
                     <div className="relative w-4 h-4 flex-shrink-0">
                       <div className="absolute inset-0 rounded-full border-2 border-cyan/20" />
@@ -956,7 +956,7 @@ const ChatPage: React.FC = () => {
                   variant="info"
                   title="追问上下文加载中"
                   message="正在加载历史分析上下文；现在可直接发送追问。"
-                  className="rounded-xl px-3 py-2 text-xs shadow-none"
+                  className="rounded-md px-3 py-2 text-xs shadow-none"
                 />
               ) : null}
             {skills.length > 0 && (
@@ -1023,7 +1023,7 @@ const ChatPage: React.FC = () => {
                   placeholder="例如：分析 600519 / 茅台现在适合买入吗？ (Enter 发送, Shift+Enter 换行)"
                   disabled={loading}
                   rows={1}
-                  className="input-surface input-focus-glow flex-1 min-h-[44px] max-h-[200px] rounded-xl border bg-transparent px-4 py-2.5 text-sm transition-all focus:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-60"
+                  className="input-surface input-focus-glow flex-1 min-h-[44px] max-h-[200px] rounded-md border bg-transparent px-4 py-2.5 text-sm transition-all focus:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-60"
                   style={{ height: 'auto' }}
                   onInput={(e) => {
                     const t = e.target as HTMLTextAreaElement;

@@ -22,6 +22,10 @@ from api.v1.schemas.stocks import (
     KLineData,
     StockHistoryResponse,
     StockQuote,
+    OrderBookResponse,
+    OrderBookLevel,
+    TradeTick,
+    TradeTicksResponse,
 )
 from api.v1.schemas.common import ErrorResponse
 from src.services.image_stock_extractor import (
@@ -321,7 +325,7 @@ def get_stock_quote(stock_code: str) -> StockQuote:
 )
 def get_stock_history(
     stock_code: str,
-    period: str = Query("daily", description="K 线周期", pattern="^(daily|weekly|monthly)$"),
+    period: str = Query("daily", description="K 线周期", pattern="^(daily|weekly|monthly|1min|5min|15min|30min|60min)$"),
     days: int = Query(30, ge=1, le=365, description="获取天数")
 ) -> StockHistoryResponse:
     """
@@ -387,3 +391,58 @@ def get_stock_history(
                 "message": f"获取历史行情失败: {str(e)}"
             }
         )
+
+
+@router.get(
+    "/{stock_code}/orderbook",
+    response_model=OrderBookResponse,
+    summary="获取五档盘口",
+    description="获取指定股票的买卖五档盘口数据"
+)
+def get_orderbook(stock_code: str):
+    try:
+        service = StockService()
+        result = service.get_orderbook(stock_code)
+        if result is None:
+            raise HTTPException(status_code=404, detail={"error": "not_found", "message": f"未找到 {stock_code} 的盘口数据"})
+        return OrderBookResponse(
+            code=result.get("code", stock_code),
+            name=result.get("name"),
+            price=result.get("price", 0),
+            pre_close=result.get("pre_close", 0),
+            bids=[OrderBookLevel(price=b.get("price", 0), volume=b.get("volume", 0)) for b in result.get("bids", [])],
+            asks=[OrderBookLevel(price=a.get("price", 0), volume=a.get("volume", 0)) for a in result.get("asks", [])],
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"获取五档盘口失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取五档盘口失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/ticks",
+    response_model=TradeTicksResponse,
+    summary="获取成交明细",
+    description="获取指定股票的最近成交明细"
+)
+def get_trade_ticks(stock_code: str, count: int = Query(50, ge=1, le=200, description="返回条数")):
+    try:
+        service = StockService()
+        result = service.get_trade_ticks(stock_code, count=count)
+        if result is None:
+            return TradeTicksResponse(code=stock_code, ticks=[])
+        ticks = [
+            TradeTick(
+                time=t.get("time", ""),
+                price=t.get("price", 0),
+                volume=t.get("volume", 0),
+                num=t.get("num", 0),
+                type=t.get("type", 0),
+            )
+            for t in result
+        ]
+        return TradeTicksResponse(code=stock_code, ticks=ticks)
+    except Exception as e:
+        logger.error(f"获取成交明细失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取成交明细失败: {str(e)}"})

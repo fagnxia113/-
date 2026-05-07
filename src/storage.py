@@ -485,6 +485,24 @@ class PortfolioCorporateAction(Base):
     )
 
 
+class User(Base):
+    """Multi-user authentication model."""
+
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(64), nullable=False, unique=True, index=True)
+    password_hash = Column(String(256), nullable=False)
+    role = Column(String(16), nullable=False, default='user')
+    is_active = Column(Boolean, nullable=False, default=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index('ix_users_username', 'username'),
+    )
+
+
 class PortfolioPosition(Base):
     """Latest replayed position snapshot for each symbol in one account."""
 

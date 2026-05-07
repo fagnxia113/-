@@ -1,0 +1,87 @@
+# A-Share Limit-Up Board Strategy / A 股涨停板策略
+# Evaluates limit-up persistence, seal strength, and next-day premium potential.
+
+name: a_share_limit_up
+display_name: 涨停板策略
+description: |
+  A 股独有的涨停板分析策略。评估连板高度、封板强度、首板辨识度与次日溢价潜力，
+  适用于打板、排板和追涨停等短线交易场景。仅对 A 股标的生效。
+category: trend
+core_rules: [1, 2, 7]
+required_tools:
+  - get_daily_history
+  - get_realtime_quote
+  - analyze_trend
+  - get_sector_rankings
+  - search_stock_news
+aliases: [涨停, 涨停板, 打板, 排板]
+default_priority: 95
+market_regimes: [sector_hot]
+
+instructions: |
+  **涨停板策略（A-Share Limit-Up Strategy）**
+
+  本策略仅适用于 A 股标的。涨停机制是 A 股最独特的交易特征（主板 ±10%、
+  科创板/创业板 ±20%、ST ±5%、北交所 ±30%），需分板块确定涨停幅度。
+
+  ## 第一步：涨停基础判断
+
+  使用 `get_daily_history` 获取近 20 日 K 线数据：
+
+  1. **确定涨停幅度**：
+     - 主板（60xxxx / 00xxxx）：±10%
+     - 科创板（688xxx）/ 创业板（30xxxx）：±20%
+     - ST 股票（名称含 ST）：±5%
+     - 北交所（92xxxx / 43xxxx / 83xxxx / 87xxxx）：±30%
+
+  2. **连板计数**：从最新一天往前回溯，计算连续涨停天数。
+     判定标准：当日涨幅 ≥ (涨停幅度 - 0.5%)，即视为涨停。
+
+  3. **首板 vs 连板**：
+     - 首板（第1个涨停）：关注封板时间和封单量
+     - 2连板：确认强度，是否有板块共振
+     - 3连板及以上：高度博弈，需严格控制仓位
+
+  ## 第二步：封板强度分析
+
+  使用 `get_realtime_quote` 获取实时数据：
+
+  1. **封单量比**：
+     - 封单量 / 当日成交量 > 2 → 封板坚决，次日高开概率大
+     - 封单量 / 当日成交量 < 0.5 → 封板犹豫，次日可能低开
+     - 注意：部分数据源可能无封单量数据，跳过此项即可
+
+  2. **换手率**：
+     - 首板换手率 5%~15% 为健康区间
+     - 换手率 > 20% 警惕主力出货
+     - 换手率 < 3%（一字板）表示极度强势但买入机会少
+
+  3. **量比**：
+     - 量比 > 2 表示资金显著放大，有主力介入
+     - 量比 < 0.8 表示缩量涨停（一字板或开盘快速封板），强势信号
+
+  ## 第三步：板块共振分析
+
+  使用 `get_sector_rankings` 确认板块位置：
+
+  1. 该股所在板块是否在当日涨幅榜前 5？
+  2. 板块内是否有 2 只以上涨停（板块效应）？
+  3. 是否有政策催化或事件驱动（使用 `search_stock_news`）？
+
+  ## 第四步：风险评估
+
+  使用 `analyze_trend` 结合趋势分析：
+
+  1. **空头趋势中的涨停**：MA 空头排列下的涨停多为反弹，持续性差
+  2. **高位涨停**：已大幅上涨后的涨停（乖离率 > 15%），天地板风险高
+  3. **ST 涨停**：ST 股涨停后次日仍可能继续涨停，但流动性差、风险极高
+
+  ## 评分调整
+
+  - 首板 + 板块龙头 + 量价健康：sentiment_score +15
+  - 2 连板 + 板块持续强势：sentiment_score +10
+  - 3 连板及以上（纯博弈）：sentiment_score +5，需在 risk_alerts 中标注高位风险
+  - 空头趋势中的涨停：sentiment_score -5
+  - 高位涨停（乖离率 > 15%）：sentiment_score -10
+  - 在 `buy_reason` 中注明「涨停板策略」及连板高度
+  - 在 `battle_plan.sniper_points` 中给出次日竞价预判区间

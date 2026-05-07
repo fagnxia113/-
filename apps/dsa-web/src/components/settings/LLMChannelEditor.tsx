@@ -171,7 +171,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
   const capabilityBusy = capabilityState?.status === 'loading';
 
   return (
-    <div className="mb-2 overflow-hidden rounded-xl border border-[var(--settings-border)] bg-[var(--settings-surface)] shadow-soft-card transition-[background-color,border-color,box-shadow] duration-200 hover:border-[var(--settings-border-strong)] hover:bg-[var(--settings-surface-hover)]">
+    <div className="mb-2 overflow-hidden rounded-md border border-[var(--settings-border)] bg-[var(--settings-surface)] shadow-soft-card transition-[background-color,border-color,box-shadow] duration-200 hover:border-[var(--settings-border-strong)] hover:bg-[var(--settings-surface-hover)]">
       <div
         className="flex cursor-pointer select-none items-center gap-2.5 px-4 py-3 transition-colors"
         onClick={() => onToggleExpand(index)}
@@ -291,7 +291,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
           />
 
           {showProviderTemplateDetails ? (
-            <div className="space-y-2 rounded-xl border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
+            <div className="space-y-2 rounded-md border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[11px] font-medium text-muted-text">配置参考</span>
                 {providerCapabilities.map((capability) => {
@@ -345,7 +345,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
             placeholder={channel.protocol === 'ollama' ? '本地 Ollama 可留空' : '支持多个 Key 逗号分隔'}
           />
 
-          <div className="space-y-3 rounded-xl border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
+          <div className="space-y-3 rounded-md border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
             <div className="flex flex-wrap items-center gap-2">
               <Button
                 type="button"
@@ -377,7 +377,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
             {discoveredModels.length > 0 ? (
               <div>
                 <label className="mb-2 block text-sm font-medium text-foreground">可选模型（可多选）</label>
-                <div className="max-h-48 space-y-2 overflow-y-auto rounded-xl border border-[var(--settings-border)] bg-[var(--settings-surface)] p-3">
+                <div className="max-h-48 space-y-2 overflow-y-auto rounded-md border border-[var(--settings-border)] bg-[var(--settings-surface)] p-3">
                   {discoveredModels.map((model) => (
                     <label key={model} className="flex items-center gap-2 text-sm text-secondary-text">
                       <input
@@ -448,7 +448,7 @@ const ChannelRow: React.FC<ChannelRowProps> = ({
             ) : null}
           </div>
 
-          <div className="space-y-3 rounded-xl border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
+          <div className="space-y-3 rounded-md border border-[var(--settings-border)] bg-[var(--settings-surface-hover)] p-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-[11px] font-medium text-muted-text">运行时能力检测（可选）</p>
@@ -1675,7 +1675,7 @@ export const LLMChannelEditor: React.FC<LLMChannelEditorProps> = ({
 
                   <div>
                     <label className="mb-2 block text-xs text-muted-text">备选模型</label>
-                    <div className="space-y-2 rounded-xl border settings-border-strong settings-surface-overlay-soft p-3">
+                    <div className="space-y-2 rounded-md border settings-border-strong settings-surface-overlay-soft p-3">
                       {availableModels.map((model) => (
                         <label key={model} className="flex items-center gap-2 text-sm text-secondary-text">
                           <input

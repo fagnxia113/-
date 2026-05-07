@@ -102,6 +102,56 @@
 {% endif %}
 {% endif %}
 
+{% set factor_scores = data_persp.get('factor_scores', {}) %}
+{% if factor_scores %}
+### 📐 {{ labels.factor_scores_heading }}
+
+| {{ labels.factor_technical_label }} | {{ labels.factor_fundamental_label }} | {{ labels.factor_sentiment_label }} | {{ labels.factor_capital_flow_label }} | {{ labels.factor_composite_label }} |
+|:---:|:---:|:---:|:---:|:---:|
+| {{ factor_scores.get('technical', 'N/A') }} | {{ factor_scores.get('fundamental', 'N/A') }} | {{ factor_scores.get('sentiment', 'N/A') }} | {{ factor_scores.get('capital_flow', 'N/A') }} | {{ factor_scores.get('composite', 'N/A') }} |
+
+{% endif %}
+
+{% set fin_metrics = data_persp.get('financial_metrics', {}) %}
+{% if fin_metrics %}
+### 💰 {{ labels.financial_metrics_heading }}
+
+| {{ labels.pe_ratio_label }} | {{ labels.pb_ratio_label }} | {{ labels.roe_label }} | {{ labels.debt_ratio_label }} |
+|:---:|:---:|:---:|:---:|
+| {{ fin_metrics.get('pe_ratio', 'N/A') }} | {{ fin_metrics.get('pb_ratio', 'N/A') }} | {{ fin_metrics.get('roe', 'N/A') }} | {{ fin_metrics.get('debt_ratio', 'N/A') }} |
+
+| {{ labels.revenue_growth_label }} | {{ labels.profit_growth_label }} | {{ labels.dividend_yield_label }} | {{ labels.market_cap_label }} |
+|:---:|:---:|:---:|:---:|
+| {{ fin_metrics.get('revenue_growth', 'N/A') }} | {{ fin_metrics.get('profit_growth', 'N/A') }} | {{ fin_metrics.get('dividend_yield', 'N/A') }} | {{ fin_metrics.get('market_cap', 'N/A') }} |
+
+{% endif %}
+
+{% set sector_comp = data_persp.get('sector_comparison', {}) %}
+{% if sector_comp %}
+### 🏭 {{ labels.sector_comparison_heading }}
+
+| {{ labels.sector_name_label }} | {{ labels.sector_rank_label }} | {{ labels.sector_trend_label }} | {{ labels.peer_avg_pe_label }} | {{ labels.relative_strength_label }} | {{ labels.sector_leading_label }} |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| {{ sector_comp.get('sector_name', 'N/A') }} | {{ sector_comp.get('sector_rank', 'N/A') }} | {{ sector_comp.get('sector_trend', 'N/A') }} | {{ sector_comp.get('peer_avg_pe', 'N/A') }} | {{ sector_comp.get('relative_strength', 'N/A') }} | {{ '✅' if sector_comp.get('sector_leading') else '❌' if sector_comp.get('sector_leading') is not none else 'N/A' }} |
+
+{% endif %}
+
+{% set risk_m = data_persp.get('risk_metrics', {}) %}
+{% if risk_m %}
+### ⚖️ {{ labels.risk_metrics_heading }}
+
+{% if risk_m.get('potential_upside_pct') is not none or risk_m.get('potential_downside_pct') is not none %}
+| {{ labels.potential_upside_label }} | {{ labels.potential_downside_label }} | {{ labels.risk_reward_ratio_label }} |
+|:---:|:---:|:---:|
+| {{ risk_m.get('potential_upside_pct', 'N/A') }}% | {{ risk_m.get('potential_downside_pct', 'N/A') }}% | 1:{{ risk_m.get('risk_reward_ratio', 'N/A') }} |
+{% endif %}
+{% if risk_m.get('max_drawdown') is not none or risk_m.get('volatility') is not none %}
+| {{ labels.max_drawdown_label }} | {{ labels.volatility_label }} | {{ labels.sharpe_ratio_label }} | {{ labels.beta_label }} |
+|:---:|:---:|:---:|:---:|
+| {{ risk_m.get('max_drawdown', 'N/A') }} | {{ risk_m.get('volatility', 'N/A') }} | {{ risk_m.get('sharpe_ratio', 'N/A') }} | {{ risk_m.get('beta', 'N/A') }} |
+{% endif %}
+{% endif %}
+
 {% if battle %}
 ### 🎯 {{ labels.battle_plan_heading }}
 

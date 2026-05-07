@@ -12,7 +12,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from src.auth import COOKIE_NAME, is_auth_enabled, verify_session
+from src.auth import COOKIE_NAME, is_auth_enabled, get_session_user
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         cookie_val = request.cookies.get(COOKIE_NAME)
-        if not cookie_val or not verify_session(cookie_val):
+        user_info = get_session_user(request)
+        if not cookie_val or not user_info:
             return JSONResponse(
                 status_code=401,
                 content={

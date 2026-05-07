@@ -13,9 +13,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const BUTTON_SIZE_STYLES = {
   xsm: 'h-6 rounded-lg px-2 text-sm',
   sm: 'h-9 rounded-lg px-3 text-sm',
-  md: 'h-10 rounded-xl px-4 text-sm',
-  lg: 'h-11 rounded-xl px-5 text-sm',
-  xl: 'h-12 rounded-xl px-6 text-sm',
+  md: 'h-10 rounded-md px-4 text-sm',
+  lg: 'h-11 rounded-md px-5 text-sm',
+  xl: 'h-12 rounded-md px-6 text-sm',
 } as const;
 
 const ACTION_AI_STYLES = 'bg-[var(--home-action-ai-bg)] border border-[var(--home-action-ai-border)] text-[var(--home-action-ai-text)] hover:bg-[var(--home-action-ai-hover-bg)]';

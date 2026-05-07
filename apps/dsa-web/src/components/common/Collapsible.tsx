@@ -24,7 +24,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-2xl border border-subtle bg-card/70 shadow-soft-card transition-all duration-300',
+        'overflow-hidden rounded-md border border-subtle bg-card/70 shadow-soft-card transition-all duration-300',
         'hover:border-accent',
         className,
       )}

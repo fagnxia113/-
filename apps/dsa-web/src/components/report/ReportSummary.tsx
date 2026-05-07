@@ -4,6 +4,14 @@ import { ReportOverview } from './ReportOverview';
 import { ReportStrategy } from './ReportStrategy';
 import { ReportNews } from './ReportNews';
 import { ReportDetails } from './ReportDetails';
+import { FactorScoreCard } from './FactorScoreCard';
+import { FactorRadarChart } from './FactorRadarChart';
+import { FinancialInsightsCard } from './FinancialInsightsCard';
+import { RiskRewardCard } from './RiskRewardCard';
+import { HistoryComparisonCard } from './HistoryComparisonCard';
+import { KlineChartView } from './KlineChartView';
+import { DebateConsensusPanel } from './DebateConsensusPanel';
+import { TradingPlanPanel } from './TradingPlanPanel';
 import { getReportText, normalizeReportLanguage } from '../../utils/reportLanguage';
 
 interface ReportSummaryProps {
@@ -11,20 +19,14 @@ interface ReportSummaryProps {
   isHistory?: boolean;
 }
 
-/**
- * 完整报告展示组件
- * 整合概览、策略、资讯、详情四个区域
- */
 export const ReportSummary: React.FC<ReportSummaryProps> = ({
   data,
   isHistory = false,
 }) => {
-  // 兼容 AnalysisResult 和 AnalysisReport 两种数据格式
   const report: AnalysisReport = 'report' in data ? data.report : data;
-  // 使用 report id，因为 queryId 在批量分析时可能重复，且历史报告详情接口需要 recordId 来获取关联资讯和详情数据
   const recordId = report.meta.id;
 
-  const { meta, summary, strategy, details } = report;
+  const { meta, summary, strategy, details, agentOpinions, factorScores, debateSummary, tradingPlan, historyComparison } = report;
   const reportLanguage = normalizeReportLanguage(meta.reportLanguage);
   const text = getReportText(reportLanguage);
   const modelUsed = (meta.modelUsed || '').trim();
@@ -34,7 +36,6 @@ export const ReportSummary: React.FC<ReportSummaryProps> = ({
 
   return (
     <div className="space-y-5 pb-8 animate-fade-in">
-      {/* 概览区（首屏） */}
       <ReportOverview
         meta={meta}
         summary={summary}
@@ -42,16 +43,50 @@ export const ReportSummary: React.FC<ReportSummaryProps> = ({
         isHistory={isHistory}
       />
 
-      {/* 策略点位区 */}
+      <KlineChartView
+        stockCode={meta.stockCode}
+        stockName={meta.stockName}
+        language={reportLanguage}
+      />
+
       <ReportStrategy strategy={strategy} language={reportLanguage} />
 
-      {/* 资讯区 */}
+      {factorScores && <FactorScoreCard factorScores={factorScores} />}
+
+      {factorScores?.scores && (
+        <FactorRadarChart scores={factorScores.scores} language={reportLanguage} />
+      )}
+
+      <FinancialInsightsCard
+        financialMetrics={details?.financialMetrics}
+        sectorComparison={details?.sectorComparison}
+        language={reportLanguage}
+      />
+
+      <RiskRewardCard
+        riskMetrics={details?.riskMetrics}
+        language={reportLanguage}
+      />
+
+      {historyComparison && (
+        <HistoryComparisonCard
+          comparison={historyComparison}
+          currentScore={summary.sentimentScore}
+          currentAdvice={summary.operationAdvice}
+          language={reportLanguage}
+        />
+      )}
+
+      {debateSummary && (
+        <DebateConsensusPanel debateSummary={debateSummary} agentOpinions={agentOpinions} />
+      )}
+
+      {tradingPlan && <TradingPlanPanel tradingPlan={tradingPlan} />}
+
       <ReportNews recordId={recordId} limit={8} language={reportLanguage} />
 
-      {/* 透明度与追溯区 */}
       <ReportDetails details={details} recordId={recordId} language={reportLanguage} />
 
-      {/* 分析模型标记（Issue #528）— 报告末尾 */}
       {shouldShowModel && (
         <p className="px-1 text-xs text-muted-text">
           {text.analysisModel}: {modelUsed}

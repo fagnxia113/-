@@ -22,6 +22,7 @@ const LoginPage: React.FC = () => {
   const redirect =
     rawRedirect.startsWith('/') && !rawRedirect.startsWith('//') ? rawRedirect : '/';
 
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,9 +56,17 @@ const LoginPage: React.FC = () => {
       setError('两次输入的密码不一致');
       return;
     }
+    if (!isFirstTime && !username.trim()) {
+      setError('请输入用户名');
+      return;
+    }
     setIsSubmitting(true);
     try {
-      const result = await login(password, isFirstTime ? passwordConfirm : undefined);
+      const result = await login(
+        isFirstTime ? (username.trim() || 'admin') : username.trim(),
+        password,
+        isFirstTime ? passwordConfirm : undefined
+      );
       if (result.success) {
         navigate(redirect, { replace: true });
       } else {
@@ -142,9 +151,9 @@ const LoginPage: React.FC = () => {
           className="relative group z-20 pointer-events-auto"
         >
           {/* Card Border Glow */}
-          <div className="pointer-events-none absolute -inset-0.5 rounded-3xl bg-gradient-to-b from-[var(--login-accent-glow)] to-[hsl(214_100%_56%_/_0.18)] opacity-50 blur-sm transition duration-1000 group-hover:opacity-100 group-hover:duration-200" />
+          <div className="pointer-events-none absolute -inset-0.5 rounded-lg bg-gradient-to-b from-[var(--login-accent-glow)] to-[hsl(214_100%_56%_/_0.18)] opacity-50 blur-sm transition duration-1000 group-hover:opacity-100 group-hover:duration-200" />
 
-          <div className="pointer-events-auto relative flex flex-col overflow-hidden rounded-3xl border border-[var(--login-border-card)] bg-[var(--login-bg-card)]/80 p-8 shadow-2xl backdrop-blur-xl">
+          <div className="pointer-events-auto relative flex flex-col overflow-hidden rounded-lg border border-[var(--login-border-card)] bg-[var(--login-bg-card)]/80 p-8 shadow-2xl backdrop-blur-xl">
             {/* Inner corner glow */}
             <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[var(--login-accent-soft)] blur-[50px]" />
             <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-blue-600/10 blur-[50px]" />
@@ -154,24 +163,55 @@ const LoginPage: React.FC = () => {
                 {isFirstTime ? (
                   <>
                     <ShieldCheck className="h-6 w-6 text-emerald-400" />
-                    <span>设置初始密码</span>
+                    <span>设置初始管理员</span>
                   </>
                 ) : (
                   <>
                     <Lock className="h-5 w-5 text-[var(--login-accent-text)]" />
-                    <span>管理员登录</span>
+                    <span>用户登录</span>
                   </>
                 )}
               </h1>
               <p className="mt-2 text-sm text-[var(--login-text-secondary)]">
                 {isFirstTime
-                  ? '首次启用认证，请为系统工作台设置管理员密码。'
+                  ? '首次启用认证，请设置管理员用户名和密码。'
                   : '访问 DSA 量化决策引擎需要有效的身份凭证。'}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
+                {isFirstTime && (
+                  <Input
+                    id="username"
+                    type="text"
+                    appearance="login"
+                    iconType="none"
+                    label="管理员用户名"
+                    placeholder="设置管理员用户名（默认 admin）"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    disabled={isSubmitting}
+                    autoComplete="username"
+                  />
+                )}
+
+                {!isFirstTime && (
+                  <Input
+                    id="username"
+                    type="text"
+                    appearance="login"
+                    iconType="none"
+                    label="用户名"
+                    placeholder="请输入用户名"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    disabled={isSubmitting}
+                    autoFocus
+                    autoComplete="username"
+                  />
+                )}
+
                 <Input
                   id="password"
                   type="password"
@@ -183,7 +223,7 @@ const LoginPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isSubmitting}
-                  autoFocus
+                  autoFocus={isFirstTime}
                   autoComplete={isFirstTime ? 'new-password' : 'current-password'}
                 />
 
@@ -230,7 +270,7 @@ const LoginPage: React.FC = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>{isFirstTime ? '初始化中...' : '正在建立连接...'}</span>
+                      <span>{isFirstTime ? '初始化中...' : '正在验证...'}</span>
                     </>
                   ) : (
                     <span>{isFirstTime ? '完成设置并登录' : '授权进入工作台'}</span>

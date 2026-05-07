@@ -184,7 +184,7 @@ const HomePage: React.FC = () => {
                 className={inputError ? 'border-danger/50' : undefined}
               />
             </div>
-            <label className="flex h-10 flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-subtle bg-surface/60 px-3 text-xs text-secondary-text select-none transition-colors hover:border-subtle-hover hover:text-foreground">
+            <label className="flex h-10 flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-subtle bg-surface/60 px-3 text-xs text-secondary-text select-none transition-colors hover:border-subtle-hover hover:text-foreground">
               <input
                 type="checkbox"
                 checked={notify}
@@ -221,7 +221,7 @@ const HomePage: React.FC = () => {
                 variant="danger"
                 title="输入有误"
                 message={inputError}
-                className="rounded-xl px-3 py-2 text-xs shadow-none"
+                className="rounded-md px-3 py-2 text-xs shadow-none"
               />
             ) : null}
             {!inputError && duplicateError ? (
@@ -229,7 +229,7 @@ const HomePage: React.FC = () => {
                 variant="warning"
                 title="任务已存在"
                 message={duplicateError}
-                className="rounded-xl px-3 py-2 text-xs shadow-none"
+                className="rounded-md px-3 py-2 text-xs shadow-none"
               />
             ) : null}
           </div>

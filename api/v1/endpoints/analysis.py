@@ -814,5 +814,9 @@ def _build_analysis_report(
         meta=meta,
         summary=summary,
         strategy=strategy,
-        details=details
+        details=details,
+        agent_opinions=report_data.get("agent_opinions"),
+        factor_scores=report_data.get("factor_scores"),
+        debate_summary=report_data.get("debate_summary"),
+        trading_plan=report_data.get("trading_plan"),
     )

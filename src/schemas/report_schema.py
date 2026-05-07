@@ -69,6 +69,52 @@ class ChipStructure(BaseModel):
     chip_health: Optional[str] = None
 
 
+class FinancialMetrics(BaseModel):
+    """Core financial metrics for fundamental assessment."""
+
+    pe_ratio: Optional[Union[int, float, str]] = None
+    pb_ratio: Optional[Union[int, float, str]] = None
+    roe: Optional[Union[int, float, str]] = None
+    debt_ratio: Optional[Union[int, float, str]] = None
+    revenue_growth: Optional[Union[int, float, str]] = None
+    profit_growth: Optional[Union[int, float, str]] = None
+    dividend_yield: Optional[Union[int, float, str]] = None
+    market_cap: Optional[Union[int, float, str]] = None
+
+
+class SectorComparison(BaseModel):
+    """Sector / industry comparison context."""
+
+    sector_name: Optional[str] = None
+    sector_rank: Optional[str] = None
+    sector_trend: Optional[str] = None
+    peer_avg_pe: Optional[Union[int, float, str]] = None
+    relative_strength: Optional[Union[int, float, str]] = None
+    sector_leading: Optional[bool] = None
+
+
+class RiskMetrics(BaseModel):
+    """Quantitative risk metrics."""
+
+    max_drawdown: Optional[Union[int, float, str]] = None
+    volatility: Optional[Union[int, float, str]] = None
+    sharpe_ratio: Optional[Union[int, float, str]] = None
+    beta: Optional[Union[int, float, str]] = None
+    risk_reward_ratio: Optional[Union[int, float, str]] = None
+    potential_upside_pct: Optional[Union[int, float, str]] = None
+    potential_downside_pct: Optional[Union[int, float, str]] = None
+
+
+class FactorDimensionScores(BaseModel):
+    """Multi-dimensional factor scores from FactorScoringAgent."""
+
+    technical: Optional[Union[int, float, str]] = None
+    fundamental: Optional[Union[int, float, str]] = None
+    sentiment: Optional[Union[int, float, str]] = None
+    capital_flow: Optional[Union[int, float, str]] = None
+    composite: Optional[Union[int, float, str]] = None
+
+
 class DataPerspective(BaseModel):
     """Data perspective block."""
 
@@ -76,6 +122,10 @@ class DataPerspective(BaseModel):
     price_position: Optional[PricePosition] = None
     volume_analysis: Optional[VolumeAnalysis] = None
     chip_structure: Optional[ChipStructure] = None
+    financial_metrics: Optional[FinancialMetrics] = None
+    sector_comparison: Optional[SectorComparison] = None
+    risk_metrics: Optional[RiskMetrics] = None
+    factor_scores: Optional[FactorDimensionScores] = None
 
 
 class Intelligence(BaseModel):

@@ -22,7 +22,7 @@ export const ApiErrorAlert: React.FC<ApiErrorAlertProps> = ({
 
   return (
     <div
-      className={`rounded-xl border border-[hsl(var(--color-danger-alert-border)/0.3)] bg-[hsl(var(--color-danger-alert-bg)/0.1)] px-4 py-3 text-[hsl(var(--color-danger-alert-text))] ${className}`}
+      className={`rounded-md border border-[hsl(var(--color-danger-alert-border)/0.3)] bg-[hsl(var(--color-danger-alert-bg)/0.1)] px-4 py-3 text-[hsl(var(--color-danger-alert-text))] ${className}`}
       role="alert"
     >
       <div className="flex items-start justify-between gap-3">

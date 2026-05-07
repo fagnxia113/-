@@ -358,7 +358,7 @@ class StockAnalysisPipeline:
                     # Issue #234: Augment with realtime for intraday MA calculation
                     if self.config.enable_realtime_quote and realtime_quote:
                         df = self._augment_historical_with_realtime(df, realtime_quote, code)
-                    trend_result = self.trend_analyzer.analyze(df, code)
+                    trend_result = self.trend_analyzer.analyze(df, code, stock_name=stock_name)
                     logger.info(f"{stock_name}({code}) 趋势分析: {trend_result.trend_status.value}, "
                               f"买入信号={trend_result.buy_signal.value}, 评分={trend_result.signal_score}")
             except Exception as e:
@@ -1060,6 +1060,16 @@ class StockAnalysisPipeline:
             # methods (get_sniper_points, get_core_conclusion, etc.) expect that inner
             # structure, so we unwrap it here.
             result.dashboard = nested_dashboard or dash
+            if hasattr(agent_result, "agent_context_data") and agent_result.agent_context_data:
+                ctx_data = agent_result.agent_context_data
+                if "agent_opinions" in ctx_data:
+                    result.agent_opinions = ctx_data["agent_opinions"]
+                if "factor_scores" in ctx_data:
+                    result.factor_scores = ctx_data["factor_scores"]
+                if "debate_summary" in ctx_data:
+                    result.debate_summary = ctx_data["debate_summary"]
+                if "trading_plan" in ctx_data:
+                    result.trading_plan = ctx_data["trading_plan"]
             self._backfill_agent_dashboard_fields(result, trend_result, report_language)
         else:
             self._apply_trend_fallback(result, trend_result, report_language)

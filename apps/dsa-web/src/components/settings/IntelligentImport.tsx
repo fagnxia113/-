@@ -302,7 +302,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
         onDrop={onDrop}
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
-        className={`flex min-h-[96px] flex-col gap-4 rounded-xl border border-dashed  p-4 transition-colors ${
+        className={`flex min-h-[96px] flex-col gap-4 rounded-md border border-dashed  p-4 transition-colors ${
           isDragging ? 'settings-drag-active' : 'settings-border-strong settings-surface-overlay-soft'
         } ${disabled || isLoading ? 'cursor-not-allowed opacity-60' : ''}`}
       >
@@ -343,7 +343,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
         <div className="flex flex-col gap-2 sm:flex-row">
           <textarea
             placeholder="或粘贴 CSV/Excel 复制的文本..."
-            className="input-surface settings-surface-strong settings-border-strong min-h-[72px] w-full rounded-xl border px-3 py-2 text-sm text-foreground shadow-none transition-colors placeholder:text-muted-text focus:outline-none"
+            className="input-surface settings-surface-strong settings-border-strong min-h-[72px] w-full rounded-md border px-3 py-2 text-sm text-foreground shadow-none transition-colors placeholder:text-muted-text focus:outline-none"
             value={pasteText}
             onChange={(e) => setPasteText(e.target.value)}
             disabled={disabled || isLoading}
@@ -374,7 +374,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
           <InlineAlert
             variant="warning"
             message="建议人工逐条核对后再合并。高置信度默认勾选，中/低置信度需手动确认。"
-            className="rounded-xl px-3 py-2 text-xs shadow-none"
+            className="rounded-md px-3 py-2 text-xs shadow-none"
           />
           <div className="flex items-center justify-between">
             <span className="text-xs text-secondary-text">
@@ -400,7 +400,7 @@ export const IntelligentImport: React.FC<IntelligentImportProps> = ({
               return (
                 <div
                   key={it.id}
-                  className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm ${
+                  className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm ${
                     it.code ? 'settings-border bg-[var(--settings-surface-strong)]' : 'border-danger/25 bg-danger/10'
                   }`}
                 >

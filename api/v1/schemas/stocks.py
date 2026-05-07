@@ -109,3 +109,30 @@ class StockHistoryResponse(BaseModel):
                 "data": []
             }
         }
+
+
+class OrderBookLevel(BaseModel):
+    price: float = Field(0, description="价格")
+    volume: int = Field(0, description="挂单量（手）")
+
+
+class OrderBookResponse(BaseModel):
+    code: str = Field(..., description="股票代码")
+    name: Optional[str] = Field(None, description="股票名称")
+    price: float = Field(0, description="最新价")
+    pre_close: float = Field(0, description="昨收价")
+    bids: List[OrderBookLevel] = Field(default_factory=list, description="买盘五档")
+    asks: List[OrderBookLevel] = Field(default_factory=list, description="卖盘五档")
+
+
+class TradeTick(BaseModel):
+    time: str = Field("", description="成交时间")
+    price: float = Field(0, description="成交价格")
+    volume: int = Field(0, description="成交量（手）")
+    num: int = Field(0, description="成交笔数")
+    type: int = Field(0, description="成交方向: 0-买, 1-卖, 2-中性")
+
+
+class TradeTicksResponse(BaseModel):
+    code: str = Field(..., description="股票代码")
+    ticks: List[TradeTick] = Field(default_factory=list, description="成交明细列表")

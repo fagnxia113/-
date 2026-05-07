@@ -64,11 +64,27 @@ _MARKET_GUIDELINES = {
     "cn": {
         "zh": (
             "- 本次分析对象为 **A 股**（中国沪深交易所上市股票）。\n"
-            "- 请关注 A 股特有的涨跌停机制（±10%/±20%/±30%）、T+1 交易制度及相关政策因素。"
+            "- 请关注 A 股特有的涨跌停机制（主板±10%、科创板/创业板±20%、ST±5%、北交所±30%）、T+1 交易制度及相关政策因素。\n"
+            "\n"
+            "## A 股政策与资金分析要点\n"
+            "- **政策权重极高**：国务院/证监会/央行/发改委等监管层政策对 A 股影响优先于纯技术面判断。\n"
+            "- **关键政策信号**：降准降息、IPO 节奏变化、印花税调整、两融余额变动、国家队入市等。\n"
+            "- **行业政策联动**：新能源补贴、AI 产业政策、房地产调控、医药集采等直接影响对应板块估值。\n"
+            "- **政策利好辨别**：区分「利好预期→兑现」（可能见光死）与「政策持续催化」（可参与），避免高位接盘。\n"
+            "- **板块轮动意识**：A 股板块轮动频繁（通常 3~7 天一轮），需判断个股所在板块处于启动期、发酵期、高潮期还是退潮期。\n"
+            "- **涨停板文化**：涨停板是 A 股短线资金的核心博弈场，连板高度、封板率和板块效应是重要情绪指标。"
         ),
         "en": (
             "- This analysis covers a **China A-share** (listed on Shanghai/Shenzhen exchanges).\n"
-            "- Consider A-share-specific rules: daily price limits (±10%/±20%/±30%), T+1 settlement, and PRC policy factors."
+            "- Consider A-share-specific rules: daily price limits (±10%/±20%/±30%), T+1 settlement, and PRC policy factors.\n"
+            "\n"
+            "## A-Share Policy & Capital Analysis\n"
+            "- **Policy carries outsized weight**: State Council, CSRC, PBOC, and NDRC policy changes should be prioritized over pure technical signals.\n"
+            "- **Key policy signals**: RRR/rate cuts, IPO pace changes, stamp duty, margin balance shifts, national team buying.\n"
+            "- **Sector policy linkage**: NEV subsidies, AI industrial policy, property controls, pharma procurement directly impact sector valuations.\n"
+            "- **Policy catalyst assessment**: Distinguish 'buy the rumor sell the news' from sustained policy catalysts to avoid chasing tops.\n"
+            "- **Sector rotation awareness**: A-share sector rotation is rapid (typically 3-7 day cycles). Assess whether the stock's sector is in initiation, acceleration, climax, or retreat phase.\n"
+            "- **Limit-up culture**: Limit-up boards are the core battleground for A-share short-term capital. Consecutive limit-up count, seal rate, and sector resonance are key sentiment indicators."
         ),
     },
     "hk": {

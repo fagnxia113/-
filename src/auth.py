@@ -30,6 +30,7 @@ RATE_LIMIT_WINDOW_SEC = 300
 RATE_LIMIT_MAX_FAILURES = 5
 SESSION_MAX_AGE_HOURS_DEFAULT = 24
 MIN_PASSWORD_LEN = 6
+VALID_ROLES = ("admin", "user")
 
 # Lazy-loaded state
 _auth_enabled: Optional[bool] = None
@@ -494,6 +495,355 @@ def _main() -> int:
         return reset_password_cli()
     print("Usage: python -m src.auth reset_password", file=sys.stderr)
     return 1
+
+
+def _hash_password(password: str) -> str:
+    """Hash a password with PBKDF2, returning salt_b64:hash_b64."""
+    salt = secrets.token_bytes(32)
+    derived = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        salt=salt,
+        iterations=PBKDF2_ITERATIONS,
+    )
+    salt_b64 = base64.standard_b64encode(salt).decode("ascii")
+    hash_b64 = base64.standard_b64encode(derived).decode("ascii")
+    return f"{salt_b64}:{hash_b64}"
+
+
+def _verify_hash(password: str, stored: str) -> bool:
+    """Verify password against a salt_b64:hash_b64 string."""
+    parsed = _parse_password_hash(stored)
+    if parsed is None:
+        return False
+    salt, stored_hash = parsed
+    return _verify_password_hash(password, salt, stored_hash)
+
+
+def _get_db_session():
+    """Get a SQLAlchemy session from the shared DatabaseManager."""
+    from src.storage import DatabaseManager
+    db = DatabaseManager()
+    return db.get_session()
+
+
+def _get_user_model():
+    """Lazy import User model to avoid circular imports."""
+    from src.storage import User
+    return User
+
+
+def migrate_legacy_password_to_user() -> bool:
+    """Migrate the legacy .admin_password_hash file to a 'admin' user in DB.
+
+    Returns True if migration happened, False if skipped.
+    """
+    cred_path = _get_credential_path()
+    if not cred_path.exists():
+        return False
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        existing = session.query(User).filter(User.username == "admin").first()
+        if existing is not None:
+            return False
+
+        raw = cred_path.read_text().strip()
+        if not raw or ":" not in raw:
+            return False
+
+        user = User(
+            username="admin",
+            password_hash=raw,
+            role="admin",
+            is_active=True,
+        )
+        session.add(user)
+        session.commit()
+        logger.info("Migrated legacy .admin_password_hash to 'admin' user in DB")
+        return True
+    except Exception as e:
+        session.rollback()
+        logger.warning("Failed to migrate legacy password: %s", e)
+        return False
+    finally:
+        session.close()
+
+
+def create_user(username: str, password: str, role: str = "user") -> Optional[str]:
+    """Create a new user. Returns error message or None on success."""
+    if not username or not username.strip():
+        return "用户名不能为空"
+    username = username.strip().lower()
+    if len(username) < 2 or len(username) > 64:
+        return "用户名长度需在 2-64 位之间"
+    if not username.replace("_", "").replace("-", "").isalnum():
+        return "用户名只能包含字母、数字、下划线和连字符"
+    if role not in VALID_ROLES:
+        return f"无效角色，可选: {', '.join(VALID_ROLES)}"
+    err = _validate_password(password)
+    if err:
+        return err
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        existing = session.query(User).filter(User.username == username).first()
+        if existing is not None:
+            return f"用户名 '{username}' 已存在"
+
+        user = User(
+            username=username,
+            password_hash=_hash_password(password),
+            role=role,
+            is_active=True,
+        )
+        session.add(user)
+        session.commit()
+        logger.info("Created user '%s' (role=%s)", username, role)
+        return None
+    except Exception as e:
+        session.rollback()
+        logger.error("Failed to create user '%s': %s", username, e)
+        return "创建用户失败"
+    finally:
+        session.close()
+
+
+def verify_user(username: str, password: str) -> Optional[dict]:
+    """Verify user credentials. Returns user dict on success, None on failure."""
+    if not username or not password:
+        return None
+
+    username = username.strip().lower()
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        user = session.query(User).filter(User.username == username).first()
+        if user is None:
+            return None
+        if not user.is_active:
+            return None
+        if not _verify_hash(password, user.password_hash):
+            return None
+        return {
+            "id": user.id,
+            "username": user.username,
+            "role": user.role,
+        }
+    except Exception as e:
+        logger.error("Failed to verify user '%s': %s", username, e)
+        return None
+    finally:
+        session.close()
+
+
+def list_users() -> list:
+    """List all users (without password hashes)."""
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        users = session.query(User).order_by(User.id).all()
+        return [
+            {
+                "id": u.id,
+                "username": u.username,
+                "role": u.role,
+                "isActive": u.is_active,
+                "createdAt": u.created_at.isoformat() if u.created_at else None,
+            }
+            for u in users
+        ]
+    except Exception as e:
+        logger.error("Failed to list users: %s", e)
+        return []
+    finally:
+        session.close()
+
+
+def delete_user(username: str) -> Optional[str]:
+    """Delete a user. Returns error message or None on success."""
+    if not username:
+        return "用户名不能为空"
+    username = username.strip().lower()
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        user = session.query(User).filter(User.username == username).first()
+        if user is None:
+            return f"用户 '{username}' 不存在"
+        if user.role == "admin":
+            admin_count = session.query(User).filter(User.role == "admin").count()
+            if admin_count <= 1:
+                return "不能删除最后一个管理员账户"
+        session.delete(user)
+        session.commit()
+        logger.info("Deleted user '%s'", username)
+        return None
+    except Exception as e:
+        session.rollback()
+        logger.error("Failed to delete user '%s': %s", username, e)
+        return "删除用户失败"
+    finally:
+        session.close()
+
+
+def change_user_password(username: str, current_password: str, new_password: str) -> Optional[str]:
+    """Change a user's password. Returns error message or None on success."""
+    if not username:
+        return "用户名不能为空"
+    username = username.strip().lower()
+
+    err = _validate_password(new_password)
+    if err:
+        return err
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        user = session.query(User).filter(User.username == username).first()
+        if user is None:
+            return f"用户 '{username}' 不存在"
+        if not _verify_hash(current_password, user.password_hash):
+            return "当前密码错误"
+        user.password_hash = _hash_password(new_password)
+        session.commit()
+        logger.info("Password changed for user '%s'", username)
+        return None
+    except Exception as e:
+        session.rollback()
+        logger.error("Failed to change password for '%s': %s", username, e)
+        return "修改密码失败"
+    finally:
+        session.close()
+
+
+def admin_reset_user_password(username: str, new_password: str) -> Optional[str]:
+    """Admin resets a user's password without knowing the current one."""
+    if not username:
+        return "用户名不能为空"
+    username = username.strip().lower()
+
+    err = _validate_password(new_password)
+    if err:
+        return err
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        user = session.query(User).filter(User.username == username).first()
+        if user is None:
+            return f"用户 '{username}' 不存在"
+        user.password_hash = _hash_password(new_password)
+        session.commit()
+        logger.info("Admin reset password for user '%s'", username)
+        return None
+    except Exception as e:
+        session.rollback()
+        logger.error("Failed to admin-reset password for '%s': %s", username, e)
+        return "重置密码失败"
+    finally:
+        session.close()
+
+
+def toggle_user_active(username: str, active: bool) -> Optional[str]:
+    """Enable or disable a user account."""
+    if not username:
+        return "用户名不能为空"
+    username = username.strip().lower()
+
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        user = session.query(User).filter(User.username == username).first()
+        if user is None:
+            return f"用户 '{username}' 不存在"
+        if user.role == "admin" and not active:
+            admin_count = session.query(User).filter(User.role == "admin", User.is_active == True).count()
+            if admin_count <= 1:
+                return "不能禁用最后一个活跃管理员账户"
+        user.is_active = active
+        session.commit()
+        logger.info("User '%s' active=%s", username, active)
+        return None
+    except Exception as e:
+        session.rollback()
+        logger.error("Failed to toggle user '%s': %s", username, e)
+        return "操作失败"
+    finally:
+        session.close()
+
+
+def create_session_for_user(username: str, role: str) -> str:
+    """Create a signed session payload that includes username and role.
+
+    Format: nonce.ts.username.role.signature
+    """
+    secret = _get_session_secret()
+    if not secret:
+        return ""
+    nonce = secrets.token_urlsafe(32)
+    ts = str(int(time.time()))
+    payload = f"{nonce}.{ts}.{username}.{role}"
+    sig = hmac.new(secret, payload.encode("utf-8"), hashlib.sha256).hexdigest()
+    return f"{payload}.{sig}"
+
+
+def verify_session_and_get_user(value: str) -> Optional[dict]:
+    """Verify session cookie and return user info dict, or None if invalid."""
+    secret = _get_session_secret()
+    if not secret or not value:
+        return None
+    parts = value.split(".")
+    if len(parts) != 5:
+        return None
+    nonce, ts_str, username, role, sig = parts
+    payload = f"{nonce}.{ts_str}.{username}.{role}"
+    expected = hmac.new(secret, payload.encode("utf-8"), hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(sig, expected):
+        return None
+    try:
+        ts = int(ts_str)
+    except ValueError:
+        return None
+    try:
+        max_age_hours = int(os.getenv("ADMIN_SESSION_MAX_AGE_HOURS", str(SESSION_MAX_AGE_HOURS_DEFAULT)))
+    except ValueError:
+        max_age_hours = SESSION_MAX_AGE_HOURS_DEFAULT
+    if time.time() - ts > max_age_hours * 3600:
+        return None
+    return {"username": username, "role": role}
+
+
+def get_session_user(request) -> Optional[dict]:
+    """Get the current session user from request cookies. Returns user dict or None."""
+    if not is_auth_enabled():
+        return None
+    cookie_val = request.cookies.get(COOKIE_NAME) if hasattr(request, "cookies") else None
+    if not cookie_val:
+        return None
+    user_info = verify_session_and_get_user(cookie_val)
+    if user_info is None:
+        legacy_ok = verify_session(cookie_val)
+        if legacy_ok:
+            return {"username": "admin", "role": "admin"}
+        return None
+    return user_info
+
+
+def has_any_users() -> bool:
+    """Check if any users exist in the database."""
+    User = _get_user_model()
+    session = _get_db_session()
+    try:
+        return session.query(User).first() is not None
+    except Exception:
+        return False
+    finally:
+        session.close()
 
 
 if __name__ == "__main__":

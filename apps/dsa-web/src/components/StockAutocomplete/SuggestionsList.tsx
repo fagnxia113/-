@@ -56,6 +56,7 @@ export function SuggestionsList({
             "hover:bg-[var(--autocomplete-hover-bg)]/25",
             index === highlightedIndex && "bg-[var(--autocomplete-hover-bg)]/25"
           )}
+          onMouseDown={(e) => e.preventDefault()}
           onClick={() => onSelect(suggestion)}
           onMouseEnter={() => onMouseEnter(index)}
         >
@@ -96,7 +97,11 @@ function MarketBadge({ market }: { market: string }) {
   const config = MARKET_BADGE_CONFIG[market as keyof typeof MARKET_BADGE_CONFIG];
 
   if (!config) {
-    throw new Error(`Unsupported market in stock suggestion: ${market}`);
+    return (
+      <Badge variant="default" size="sm" className="min-w-[3rem] justify-center shadow-none border-border/55 bg-elevated/75 text-muted-text">
+        {market}
+      </Badge>
+    );
   }
 
   return (
