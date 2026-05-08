@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel">
+			<splitpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+					<condpanel>
+						<ctrls rowcount="1">
+							<ctrl rowindex="0" index="1" text="?" tooltip="<b>创新高：</b>昨日实际流通市值>30亿;当天最高价=上市至今最高价;
+<b>事件驱动：</b>昨日实际流通市值（自由流通市值）>30亿;当日开盘价相对昨收涨幅>1%;					      	
+<b>前两日事件驱动：</b>实际流通市值>30亿;开盘价相对昨收涨幅>1%;收盘价>开盘价;收盘价相对昨收涨幅>4%
+<b>流动空间：</b>1,昨日实际换手率>=5%的股票需同时满足以下条件:1.1昨日成交额>15亿;1.2（当日收盘价/3日前的收盘价-1）>15%;1.3（当日收盘价/2日前的收盘价-1）>10%.2,昨日实际换手率<<5%的股票需同时满足以下条件:2.1昨日成交额>15亿;2.2（当日收盘价/3日前的收盘价-1）>10%.
+<b>涨停开板：</b>昨日实际流通市值>30亿;当日曾涨停（最高价=涨停价）.涨停后曾开板过（第一次最高价后，又出现价格<涨停价的情形）;开盘至开板时成交额>4亿.如当天有多次开板.依次计算每次开板时的成交额，直到符合条件为止.
+<b>低换手追涨：</b>初选股票池：昨日往前3个交易日成交额均值>18亿,昨日实际换手率<5%,且按照昨日成交额排名前50名;初选股票池中当日成交额排名前30，并按当日涨幅排名取前6个个股	
+<b>高换手追涨：</b>初选股票池：A股中,昨日往前3个交易日成交额均值>18亿,昨日实际换手率>5%,且按照昨日成交额排名前50名;初选股票池中当日成交额排名前20,并按当日涨幅排名取前6个个股" type="static" hoffset="5" align="L" width="10"/>
+							<ctrl rowindex="0" index="0" text="基于分析模型电脑自动计算，据此操作，风险自担" type="static" hoffset="5" align="L" width="800" bindparam="CacheId">
+								<edit change="0" defval="-1"/>
+							</ctrl>
+						</ctrls>
+					</condpanel>
+				</table>
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel">
+					<splitpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="1" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="tabpanel">
+									<tabpanel >
+										<component caption="创新高" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" showtip="1" firstswitchzst="1" ingcode="true" defsort="$ZAF" dbclkchg="2">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;CXGXG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="事件驱动" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200225&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="前两日事件驱动" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;SJQUXG_QLR&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="流动空间" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;LDXKJXG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="涨停开板" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;ZTKBXG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+									</tabpanel>
+								</table>
+							</branchpanel>
+						</table>
+						<table X="0" Y="0" width="1" height="" isleaf="true" hdirection="true" id="1" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="tabpanel">
+									<tabpanel >
+										<component caption="低换手追涨" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;FLOW_UP_LOW_XG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="高换手追涨" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;FLOW_UP_HIGH_XG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+										<component caption="高流动性增强" id="3" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="$ZAF">
+													<gridcol name="code" caption=" 证券代码" syscol="$ZQDM" filter="false"  visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"  />
+													<gridcol name="market" caption="市场" syscol="$SC" filter="false"  visible="false" align="R" headalign="R" width="40" datatype="I" digital="2" autosize="1" fmtinvalid="1"/>
+													<gridcol name="name" caption="名称" filter="false"  visible="true" align="L" headalign="L" autosize="1" width="80" datatype="S" clrtype="S"/>
+													<gridcol name="$NOW" caption="现价" syscol="$NOW" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" digital="2"/>
+													<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" filter="false"  visible="true" align="R" autosize="1" headalign="R" width="60" datatype="F" clrtype="Z"/>
+													<gridcol name="kpzf" caption="开盘涨幅%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="Z"/>
+													<gridcol name="hsl" caption="换手率%" syscol="$HSL" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="sjhsl" caption="实际换手率%" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N"/>
+													<gridcol name="cje" caption="成交额" filter="false"  visible="true" align="R" headalign="R" width="80" autosize="1" datatype="F" digital="2" clrtype="A" fmttype="9"> </gridcol>
+													<gridcol name="sjltsz" caption="实际流通市值" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="ZSZ" caption="AB股总市值" syscol="$J_ZSZ" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="100" datatype="F" digital="2" clrtype="N" fmttype="9"/>
+													<gridcol name="hy" caption="行业" syscol="$TDXHY" filter="false"  visible="true" align="R" headalign="R" autosize="1" width="110" datatype="S" clrtype="N"/>
+													<gridcol name="rxtime" caption="入选时间" filter="false"  visible="false" align="R" headalign="R" autosize="1" width="72" datatype="S"/>
+												</gridcols>
+												<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_DXQX" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_dxqx.dll;ReqByte={&quot;ReqId&quot;:&quot;200250&quot;,&quot;XgName&quot;:&quot;GLDXZQ_XG&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_dxqx.dll&quot;}">
+                                                </datasource>
+											</gridctrl>
+										</component>
+									</tabpanel>
+								</table>
+							</branchpanel>
+						</table>
+					</splitpanel>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

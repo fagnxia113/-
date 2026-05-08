@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+  <table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+    <vars luafile="cloud_cfg"/>
+    <table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+      <branchpanel hdirection="true">
+        <table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="2" name="branchpanel" >
+          <branchpanel hdirection="true">
+            <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+              <condpanel>
+                <ctrls rowcount="1">
+                  <!--ctrl rowindex="0" index="3" text="?" tooltip="<b>近一季度波动率均值处于历史中上分位点时，Alpha环境较好；处于中下分位点时，Alpha环境一般" 
+												type="static" hoffset="5" align="L" width="10" ></ctrl-->
+                  <ctrl rowindex="0" index="5" text="波动率天数" type="edit"  hoffset="5" align="L" width="100" bindparam="Window" >
+                    <edit  change="0" defval="5" />
+                  </ctrl>
+                  <ctrl rowindex="0" index="2" text="起始日期" type="date" hide="true" hoffset="10" width="140"  bindparam="StartDate" >
+                    <datectrl change="1"/>
+                    <datevalue datetype="0" datespan="2" spantype="2" maxinterv="0"/>
+                  </ctrl>
+                  <ctrl rowindex="0" index="3" text="截止日期" type="date" hide="true" width="140" bindparam="EndDate" >
+                    <datectrl change="1"/>
+                    <datevalue datetype="0" datespan="1" spantype="3" />
+                  </ctrl>
+                  <ctrl rowindex="0" index="7" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK"  >
+                    <button  imageno="0" />
+                  </ctrl>
+                  <ctrl rowindex="0" index="8" text="近一季度波动率均值处于历史中上分位点（80%以上）时，预示价格接近或已在底部；处于中下分位点（20%以下）时，预示价格接近或已在顶部" type="static" hoffset="10" align="L" width="1000">
+                    <button  imageno="0" />
+                  </ctrl>
+                </ctrls>
+              </condpanel>
+            </table>
+            <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="gridctrl">
+              <gridctrl>
+                <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code"  firstorder="true" firstcheck="false" dbclkchg="2"  frameline="10">
+                  <gridcol  name="code" caption="指数代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+                  <gridcol  name="market" caption="市场" syscol="$SC" visible="false"  align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="zqjc" caption="名称"  syscol="$ZQJC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+                  <gridcol name="mc" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S">
+                    <lua func="getdefmc">
+                      <param name="code"/>
+                      <param name="market"/>
+                      <param name="zqjc"/>
+                    </lua>
+                  </gridcol>
+                  <gridcol  name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true"  align="R" headalign="R" width="60" datatype="F" autosize="1" clrtype="Z" filter="0" ></gridcol>
+                  <gridcol  name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>
+                  <gridcol  name="meanStdOfLastTwoYears" caption="波动率均值%|两年" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="meanStdOfLastOneYear" caption="波动率均值%|一年" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="meanStdOfLastHalfYear" caption="波动率均值%|半年" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="meanStdOfLastQuarter" caption="波动率均值%|季度" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="quantileOfMQO2Y" caption="季度均值分位数占比%|占两年" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="QuantileOfMQO1Y" caption="季度均值分位数占比%|占一年" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                  <gridcol  name="QuantileOfMQOhY" caption="季度均值分位数占比%|占半年" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                </gridcols>
+                <datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp_indexCorr64" condid="3" body="[{'ReqId': '200004','Window': '$$Window$$','modname': 'mod_indexCorr64.dll'}]" >
+                </datasource>
+                <!--datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC" condid="3" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=module_risk_return.dll;ReqByte={&quot;ReqId&quot;:&quot;500030&quot;,&quot;style_type&quot;:&quot;$$style_type$$&quot;,&quot;style_details&quot;:&quot;$$style_details$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;basic_code&quot;:&quot;$$basic_code$$&quot;,&quot;calc_type&quot;:&quot;0&quot;,&quot;rate_freerisk&quot;:&quot;$$rate_freerisk$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}"></datasource-->
+                <menu>
+                  <item name="$M_EXP" text="导出"/>
+                  <item name="$M_ADDZXG" text="加入自选股"/>
+                  <item name="$M_ADDBLOCK" text="加入板块股"/>
+                </menu>
+              </gridctrl>
+            </table>
+          </branchpanel>
+        </table>
+        <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="tabpanel">
+          <tabpanel >
+            <component caption="波动率走势" id="6" name="chartctrl" >
+              <chartctrl>
+                <properties >
+                  <prop index="10" name="realizedVolatility" caption="指数波动率%" style="1"  baseline="0.0" defsel="1" ></prop>
+                  <xaxis name="date" caption="日期" datadesc="0"></xaxis>
+                </properties>
+                <datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp_indexCorr64" body="[{'ReqId': '200003','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','IndexCode': '$$code$$','Market': '$$market$$','Window': '$$Window$$','modname': 'mod_indexCorr64.dll'}]" >
+                </datasource>
+              </chartctrl>
+            </component>
+            <!--component caption="波动率明细" id="7" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" defsort="date" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="1">
+									 <gridcol  name="date" caption="日期" visible="true"  align="R" headalign="R" width="70" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>		
+									 <gridcol  name="realizedVolatility" caption="波动率" visible="true" align="R" headalign="R" width="110" datatype="F" digital="4" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>			
+								</gridcols>
+								<datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp" body="[{'ReqId': '200003','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','IndexCode': '$$code$$','Market': '$$market$$','Window': '$$Window$$','modname': 'mod_volatility64.dll'}]" >
+		    	      </datasource>	
+								<menu>
+									<item name="$M_EXP" text="导出"/>
+									<item name="$M_ADDBLOCK" text="加入板块股"/>
+								</menu>
+							</gridctrl>	
+						</component-->
+          </tabpanel>
+        </table>
+      </branchpanel>
+    </table>
+  </table>
+</root>

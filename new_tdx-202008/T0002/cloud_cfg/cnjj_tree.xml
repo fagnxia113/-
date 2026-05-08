@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+  <!--showcheck:是否显示复选框; showsearch:是否显示搜索框,0:不显示,1:顶端,2:底部;; showdblclkopt:是否显示双击设置框(暂未使用); caption:显示名称; visible:是否显示,不配置则不显示; check:是否默认选中,不配置则不选中,若子节点配置选中,则父节点需配置为-1; expand:是否默认展开,不配置则不展开; blockid为板块代码,作为参数传给对应的gridctrl;source为数据来源,1:主框架接口,2:tdxhy.cfg与tdxhy2.cfg文件,3:speczztree.txt文件,4:后台接口-->
+	<tree showcheck="false" showsearch="1" showdblclkopt="false" url="$HOMEPATH$/webs/xmlweb/tree/page_tree.html?color=##tdxbk##">
+		<node caption="沪深交易所基金" visible="true" blockid="00"  expand="true" defsel="TRUE"  check='-1'>
+			<node caption="ETF基金" visible="true" blockid="10"  expand="true" >
+				<node caption="权益类" visible="true" blockid="1001" expand="true" >
+					<node caption="宽基指数" visible="true" blockid="100101" >
+						<node caption="沪深300" visible="true" blockid="10010103" />
+						<node caption="上证50" visible="true" blockid="10010101" />
+						<node caption="上证指数" visible="true" blockid="10010113" />
+						<node caption="深证100" visible="true" blockid="10010102" />
+						<node caption="深证成指" visible="true" blockid="10010114" />
+						<node caption="科创板" visible="true" blockid="10010108" />							
+						<node caption="创业板" visible="true" blockid="10010107" />
+						<node caption="科创创业50" visible="true" blockid="10010115" />
+						<node caption="中证A50" visible="true" blockid="10010117" />						
+						<node caption="中证A100" visible="true" blockid="10010104" />
+						<node caption="中证A500" visible="true" blockid="10010116" />
+						<node caption="中证500" visible="true" blockid="10010105" />
+						<node caption="中证800" visible="true" blockid="10010106" />
+						<node caption="中证1000" visible="true" blockid="10010111" />
+						<node caption="中证2000" visible="true" blockid="10010112" />
+						<node caption="MSCI中国A50" visible="true" blockid="10010109" />
+						<node caption="国证2000" visible="true" blockid="10010110" />
+					</node>	
+					<node caption="行业指数" visible="true" blockid="100102" >
+						<node caption="资源" visible="true" blockid="10010201" />
+						<node caption="消费" visible="true" blockid="10010202" />
+						<node caption="医药卫生" visible="true" blockid="10010203" />
+						<node caption="国防军工" visible="true" blockid="10010204" />
+						<node caption="金融地产" visible="true" blockid="10010205" />
+						<node caption="券商" visible="true" blockid="10010206" />
+						<node caption="银行" visible="true" blockid="10010207" />
+						<node caption="TMT" visible="true" blockid="10010208" />
+						<node caption="新能源" visible="true" blockid="10010209" />
+						<node caption="高端装备" visible="true" blockid="10010210" />
+						<node caption="半导体" visible="true" blockid="10010211" />
+					</node>		
+					<node caption="风格策略" visible="true" blockid="100103" >
+						<node caption="规模" visible="true" blockid="10010301" />
+						<node caption="红利" visible="true" blockid="10010302" />
+						<node caption="ESG" visible="true" blockid="10010303" />
+						<node caption="基本面" visible="true" blockid="10010304" />
+						<node caption="低波动" visible="true" blockid="10010305" />
+						<node caption="价值成长" visible="true" blockid="10010306" />
+						<node caption="增强指数" visible="true" blockid="10010307" />
+						<node caption="专精特新" visible="true" blockid="10010308" />
+					</node>	
+					<node caption="主题概念" visible="true" blockid="100104" >
+						<node caption="国企" visible="true" blockid="10010401" />
+						<node caption="央企" visible="true" blockid="10010402" />
+						<node caption="区域经济" visible="true" blockid="10010403" />
+						<node caption="人工智能" visible="true" blockid="10010404" />
+						<node caption="新能源车" visible="true" blockid="10010405" />
+						<node caption="MSCI" visible="true" blockid="10010406" />
+						<node caption="碳中和" visible="true" blockid="10010407" />
+						<node caption="黄金股票" visible="true" blockid="10010408" />
+					</node>	
+				</node>		
+				<node caption="其他类" visible="true" blockid="1002" expand="true">
+					<node caption="固收类" visible="true" blockid="100201" >
+						<node caption="债券型" visible="true" blockid="10020101" />
+						<node caption="货币型" visible="true" blockid="10020102" />
+					</node>	
+					<node caption="商品类" visible="true" blockid="100202" >
+						<node caption="商品型" visible="true" blockid="10020201" />
+						<node caption="贵金属" visible="true" blockid="10020202" />
+					</node>	
+					<node caption="海外类" visible="true" blockid="100203" >
+						<node caption="海外" visible="true" blockid="10020301" />
+						<node caption="香港" visible="true" blockid="10020302" />
+					</node>	
+				</node>
+			</node>	
+			
+			<node caption="LOF基金" visible="true" blockid="20" expand="true" >
+				<node caption="股票型" visible="true" blockid="2001" expand="true">
+					<node caption="宽基指数" visible="true" blockid="200101" >
+						<node caption="上证50" visible="true" blockid="20010101" />
+						<node caption="深证100" visible="true" blockid="20010102" />
+						<node caption="沪深300" visible="true" blockid="20010103" />
+						<node caption="中证100" visible="true" blockid="20010104" />
+						<node caption="中证500" visible="true" blockid="20010105" />
+						<node caption="创业板" visible="true" blockid="20010106" />
+					</node>				
+					<node caption="行业指数" visible="true" blockid="200102" >
+						<node caption="资源" visible="true" blockid="20010201" />
+						<node caption="消费" visible="true" blockid="20010202" />
+						<node caption="医药卫生" visible="true" blockid="20010203" />
+						<node caption="国防军工" visible="true" blockid="20010204" />
+						<node caption="金融地产" visible="true" blockid="20010205" />
+						<node caption="证券" visible="true" blockid="20010206" />
+						<node caption="银行" visible="true" blockid="20010207" />
+						<node caption="TMT" visible="true" blockid="20010208" />
+						<node caption="新能源车" visible="true" blockid="20010209" />
+						<node caption="高端制造" visible="true" blockid="20010210" />
+						<node caption="环境治理" visible="true" blockid="20010211" />
+					</node>	
+					<node caption="主题风格" visible="true" blockid="200103" >
+						<node caption="规模" visible="true" blockid="20010301" />
+						<node caption="红利" visible="true" blockid="20010302" />
+						<node caption="主题" visible="true" blockid="20010303" />
+					</node>
+				</node>		
+				<node caption="混合型" visible="true" blockid="2002" />
+				<node caption="债券型" visible="true" blockid="2003" />
+				<node caption="商品型" visible="true" blockid="2004" />
+				<node caption="FOF类" visible="true" blockid="2005" />
+				<node caption="海外类" visible="true" blockid="2006" expand="true" >
+					<node caption="海外" visible="true" blockid="200601" />
+					<node caption="香港" visible="true" blockid="200602" />
+				</node>
+			</node>
+			<node caption="REITs基金" visible="true" blockid="30" expand="true" >
+			</node>
+			<node caption="封闭基金" visible="true" blockid="40" expand="true" >
+			</node>
+		</node>	
+	</tree>
+</root>

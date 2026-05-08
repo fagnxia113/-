@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root	width="832"	height="226" >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	    <table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="2" name="condpanel" >
+			<condpanel>
+				<ctrls rowcount="1" >
+					<ctrl rowindex="0" index="0" type="paginate" hoffset="5" align="R" width="320"  >
+						<paginate pagerows="28" pagebegin="1" pageunit="true" >
+								<text w="110" />
+									<!--statnum w="40" format="共%d条" pagenum="false" /-->
+								<upbtn h="20" w="45" text="首页" bmppre="def"/>
+								<upbtn2 h="20" w="45" text="上页" bmppre="def"/>
+								<downbtn h="20" w="45" text="下页" bmppre="def"/>
+						</paginate>
+					</ctrl>		
+				</ctrls>		
+			</condpanel>
+		</table>
+		<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+			<gridctrl>
+				<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="$ZAF" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" showtip="1">
+					<gridcol name="N001" caption="码"  syscol="$ZQDM" visible="true" align="L" headalign="L"   width="80" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+					<gridcol name="N033" caption="SC"  syscol="$SC" visible="true" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="0" fmtinvalid="1" filter="0" ></gridcol>
+					<gridcol name="N002" caption="证券简称"  syscol="$ZQJC"  visible="true"  align="L"  headalign="L"  width="120" datatype="S" fmtinvalid="1" clrtype="T" filter="0" ></gridcol>
+					<gridcol name="N003" caption="基准日期"  visible="true"   align="L"  headalign="L"  width="100" datatype="S" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N004" caption="涨跌幅(%)|5日"  visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N005" caption="涨跌幅(%)|10日"  visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N006" caption="涨跌幅(%)|20日"  visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N007" caption="涨跌幅(%)|30日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N008" caption="涨跌幅(%)|60日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N009" caption="涨跌幅(%)|120日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N010" caption="涨跌幅(%)|250日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N011" caption="换手率(%)|5日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N012" caption="换手率(%)|10日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N013" caption="换手率(%)|20日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N014" caption="换手率(%)|30日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N015" caption="换手率(%)|60日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N016" caption="换手率(%)|120日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N017" caption="换手率(%)|250日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N018" caption="成交量(万股)|5日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N019" caption="成交量(万股)|10日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N020" caption="成交量(万股)|20日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N021" caption="成交量(万股)|30日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N022" caption="成交量(万股)|60日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N023" caption="成交量(万股)|120日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N024" caption="成交量(万股)|250日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N025" caption="成交额(万元)|5日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N026" caption="成交额(万元)|10日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N027" caption="成交额(万元)|20日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N028" caption="成交额(万元)|30日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N029" caption="成交额(万元)|60日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N030" caption="成交额(万元)|120日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2" fmtinvalid="1"  filter="0" ></gridcol>
+					<gridcol name="N031" caption="成交额(万元)|250日"  visible="true"   align="R"  headalign="R"  width="100" datatype="F" fmttype="1" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>	
+					<gridcol name="N032" caption="恒生行业"  visible="true"   align="L"  headalign="L"  width="160" datatype="S" fmtinvalid="1"  filter="0" ></gridcol>
+				</gridcols>
+				<datasource reqformat="1" condid="2" name="CWServ.fastapi_ggzt_scbx_ggjdbx" body="$$$STARTPOS$ $$,$$$PAGEROWS$ $$"></datasource>
+			</gridctrl>													
+		</table>
+	</table>
+</root>

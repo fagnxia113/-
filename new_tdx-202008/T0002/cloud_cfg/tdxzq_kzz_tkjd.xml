@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="2" name="branchpanel">
+					<branchpanel hdirection="true">
+						<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="false" id="4" name="branchpanel">
+							<branchpanel hdirection="false">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true"  ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  showtip="1" gridline="1">
+											<gridcol name="$SC" caption="市场" syscol="$SC" visible="false" filter="false" align="L" headalign="L" width="40" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S"/>
+											<gridcol name="$ZQJC" caption="债券简称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" fmtinvalid="1"/>
+											<gridcol name="FXZL" caption="发行总量(亿元)"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"  fmtinvalid="1" />
+											<gridcol name="ZQYE" caption="债券余额(亿元)"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"   fmtinvalid="1" />
+											<gridcol name="YEZB" caption="余额占比%"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"   fmtinvalid="1"/>
+											<gridcol name="QXRQ" caption="起息日期"  visible="true" align="R" headalign="R" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="ZGQSRQ" caption="转股|起始日期"  visible="true" align="R" headalign="R" width="100" datatype="L" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="ZGJD" caption="转股|转股进度%"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="MZ" caption="债券面值"  visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="YZGME" caption="转股|已转股面额(万元)"  visible="true" align="R" headalign="R" width="120" datatype="F" digital="2" autosize="1" fmtinvalid="1" fmtzero="2"/>
+											<gridcol name="SHQSRQ" caption="赎回|起始日期"  visible="true" align="R" headalign="S" width="100" datatype="L" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="SHJD" caption="赎回|赎回进度%"  visible="true" align="R" headalign="S" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="YSHME" caption="赎回|已赎回面额(万元)"  visible="true" align="R" headalign="S" width="120" datatype="F" digital="2" autosize="1" fmtinvalid="1" fmtzero="2"/>
+											<gridcol name="HSQSRQ" caption="回售|回售起始日期" visible="true" align="R" headalign="F" width="100" datatype="L" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="HSJD" caption="回售|回售进度%"   visible="true" align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="YHSME" caption="回售|已回售面额(万元)"  visible="true" align="R" headalign="F" width="120" datatype="F" digital="2" autosize="1" fmtinvalid="1" fmtzero="2"/>
+											<gridcol name="DQRQ" caption="到期|到期日期"  visible="true"  align="R" headalign="F" width="80" datatype="L" digital="0" autosize="1" fmtinvalid="1"/>
+											<gridcol name="DQJD" caption="到期|到期进度%"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="LLLX" caption="利率类型"  visible="false"  align="R" headalign="F" width="80" datatype="C" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="FXRQXL" caption="付息日期序列"  visible="false"  align="R" headalign="F" width="100" datatype="C" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="XGFXRQ" caption="下个付息日期"  visible="false"  align="R" headalign="F" width="100" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+										</gridcols>
+										<datasource reqformat="11" name=" " waitmsg=" " body="list/func_kzz_tkjd201.jsn"/>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>
+					</branchpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

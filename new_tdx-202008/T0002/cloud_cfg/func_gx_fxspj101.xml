@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" calcflag="1" defsort="ZXRQ">
+							<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="C" align="C" width="70" datatype="S" clrtype="S" />
+							<gridcol name="$SC" caption="市场" syscol="$SC" visible="true" align="C" width="0" datatype="I" clrtype="S"/>
+							<gridcol name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" />
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z"/>
+							<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2" calcflag="1"/>
+							<gridcol name="ZXRQ" caption="最新日期" visible="true" headalign="C" align="C" width="85" datatype="S" digital="0" fmtinvalid="1"/>
+							<gridcol name="JGSL" caption="近六月机构|调研数" visible="true" headalign="R" align="R" width="70" datatype="F" digital="0" fmtinvalid="1"/>
+							<gridcol name="ZHPJ" caption="近六月机构|综合评级" visible="true" headalign="R" align="R" width="85" datatype="F" digital="2" fmtinvalid="1" clrtype="Z"/>
+							<gridcol name="PE" caption="PE" visible="true" headalign="R" align="R" width="0" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="YCEPS" caption="预测|EPS%" visible="true" headalign="R" align="R" width="0" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="PEG" caption="预测|PEG" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" formula="PE/YCEPS" calccol="PE,YCEPS" fmtinvalid="1"/>
+							<gridcol name="MBJ" caption="预测|目标价" visible="true" headalign="R" align="R" width="70" datatype="F" digital="2" calcflag="1" fmtinvalid="1"/>
+							<gridcol name="MBZF" caption="预测|涨幅%" visible="true" headalign="R" align="R" width="70" datatype="F" digital="2" clrtype="Z" formula="(MBJ-NOW)*100/NOW" calccol="NOW,MBJ" fmtinvalid="1"/>
+							<gridcol name="BGQ" caption="当前|报告期" visible="true" align="C" width="85" datatype="S" digital="0" fmtinvalid="1"/>
+							<gridcol name="MGSY" caption="当前|每股收益" visible="true" align="R" width="85" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="TBGQ" caption="预测每股收益|T年度" visible="true" headalign="C" align="C" width="65" datatype="I" digital="0" fmtinvalid="1"/>
+							<gridcol name="MGSY0" caption="预测每股收益|T年" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="MGSY1" caption="预测每股收益|T+1年" visible="true" headalign="R" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="MGSY2" caption="预测每股收益|T+2年" visible="true" headalign="R" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="hy" caption="所属行业" visible="true" headalign="L" align="L" width="110" datatype="S" digital="0" fmtinvalid="1"/>
+						</gridcols>
+						<datasource reqformat="11" name="" body="list/func_gx_fxspj101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+						</datasource>
+					</gridctrl>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

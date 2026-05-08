@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<vars luafile="gp_gz_xgxd"/>
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel">
+			<splitpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+							<condpanel>
+								<ctrls rowcount="1">
+									<ctrl rowindex="0" index="1" text="?" tooltip="机会值：机会值是根据行业的资金流入情况，指数趋势走势情况，估值情况、盈利情况综合计算得出。值越大，说明投资机会越好
+趋势值：根据行业指数的量价、及走势情况综合计算得出，值越大，说明趋势越好
+资金值：根据行业的主力资金流向计算得出，值越大，说明资金越青睐
+安全分：根据行业的PE,PB及其对应的历史百分位综合计算得出，值越大，说明目前相对于历史估值越低
+盈利潜力：根据行业的净利润、营收等综合计算，值越大，说明盈利潜力越大
+" type="static" hoffset="5" align="L" width="10"/>
+									<ctrl rowindex="0" index="0" text=" 从趋势强弱、资金流入、盈利潜力以及估值水平来寻找行业ETF的投资机会，内容仅供参考，不作为投资建议" type="static" hoffset="5" align="L" width="1800" bindparam="CacheId">
+										<edit change="0" defval="-1"/>
+									</ctrl>
+								</ctrls>
+							</condpanel>
+						</table>
+				
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true"  hdirection="true" id="3"  name="gridctrl" >
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="N007" expandfull="0">
+						
+							<gridcol  name="N002" caption="行业代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="T027" caption="行业市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>													
+							<gridcol  name="N003" caption="行业名称"  visible="true" headalign="L" align="L" width="120" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="N004" caption="ETF代码" syscol="$ZQDM" refzqdm="1" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="N005" caption="ETF市场" syscol="$SC" refzqdm="1" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>							
+							<gridcol  name="N006" caption="ETF名称" syscol="$ZQJC" refzqdm="1"  visible="true" headalign="L" align="L" width="120" datatype="S" clrtype="S" filter="0" ></gridcol>	
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" refzqdm="1"  visible="true" headalign="R" align="R"  width="60" datatype="F"  filter="0" ></gridcol>
+							<gridcol name="NOW" caption="现价" syscol="$NOW"  refzqdm="1" visible="true" digital="3"  headalign="R" align="R" width="60" datatype="F"   filter="0" ></gridcol>								
+							<gridcol  name="N007" caption="机会值|值"  visible="true" headalign="R" align="R"  width="50" datatype="I" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="bd" caption="机会值|变动" enumcolorid="2"  visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="O" filter="0" ></gridcol>								
+							<gridcol  name="N009" caption="趋势值"  visible="true" headalign="R" align="R"  width="80" datatype="I" clrtype="S" filter="0" ></gridcol>					
+							<gridcol  name="N011" caption="资金值"  visible="true" headalign="R" align="R"  width="90" datatype="I" clrtype="S" filter="0" ></gridcol>					
+							<gridcol  name="N013" caption="安全分"  visible="true" headalign="R" align="R"  width="80" datatype="I" clrtype="S" filter="0" ></gridcol>					
+							<gridcol  name="N015" caption="盈利潜力"  visible="true" headalign="R" align="R"  width="90" datatype="I" clrtype="S" filter="0" ></gridcol>	
+	                        <gridcol  name="N001" caption="涨幅%|统计日期" visible="true" align="C" headalign="C" width="100" datatype="D"  filter="0" ></gridcol>							
+							<gridcol  name="N017" caption="涨幅%|近5日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="N018" caption="涨幅%|近10日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>					
+							<gridcol  name="N019" caption="涨幅%|近20日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>					
+							<gridcol  name="N020" caption="涨幅%|近30日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>					
+							<gridcol  name="N021" caption="涨幅%|近一周" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>					
+							<gridcol  name="N022" caption="涨幅%|近一月" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>		
+							<gridcol  name="N023" caption="涨幅%|近三月" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="N024" caption="涨幅%|近半年" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="N025" caption="涨幅%|今年以来" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="N026" caption="涨幅%|近一年" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+
+
+
+
+
+
+						</gridcols>	
+					<datasource  reqformat="1"  name="cfg_fx_etfjhb" body="001">
+													<filter fldname="N007" op="5" value="60" level="2"/>
+					</datasource>
+						<enumcolors>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="上升" clrtype="R"/>
+                        <item val="下降" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>					
+					</gridctrl>
+					
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>
+
+

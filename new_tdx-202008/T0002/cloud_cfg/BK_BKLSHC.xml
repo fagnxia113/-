@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="100" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="101" name="tabpanel">
+					<tabpanel >
+						<btnschema selbkclr="222,48,49"/>
+						<btnschema name="white" selbkclr="222,48,49" seltextclr="255,255,255"/>
+						<component caption="全部" id="102" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="300" name="splitpanel">
+									<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="301" name="condpanel">
+											<condpanel>
+												<ctrls rowcount="1">
+													<ctrl rowindex="0" index="0" text="起始日期" type="date" hoffset="10" width="150" bindparam="BeginDate">
+														<datevalue datetype="5" datespan="5" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="4" text="截止日期" type="date" hoffset="10" width="150" bindparam="EndDate">
+														<datevalue datetype="0" datespan="1" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="2" text="复权类型" type="combox" hoffset="5" align="L" width="120" bindparam="AdjustType">
+														<combox cbchange="0" defsel="1">
+															<item text="不复权" value="0"/>
+															<item text="前复权" value="1"/>
+															<item text="后复权" value="2"/>
+														</combox>
+													</ctrl>
+													<ctrl rowindex="0" index="3" text="查询" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+														<button imageno="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="6" text="帮助" type="url" hoffset="10" align="R" width="40" >
+														<url open="2" url="http://fast.icfqs.com/site/apps/zyyjb/help/bkhc.html"/> 
+													</ctrl>													
+												</ctrls>
+											</condpanel>
+										</table>
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="303" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="308" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" ingcode="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="板块代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="板块名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>															
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" condid="301" switchid="7" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;12:0&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="3080" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>															
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" masterid="308" condid="301" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;2:$$code$$|1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="switchcond" ><switchcond><switchitems swgroup="1" blockid="A01"></switchitems><codelists><codelist code="0" caption="A股"/><codelist code="3" caption="沪A"/><codelist code="4" caption="深A"/><codelist code="5" caption="中小"/><codelist code="6" caption="创业"/><codelist code="7" caption="科创"/></codelists></switchcond></table>-->
+											</branchpanel>
+										</table>
+									</splitpanel>
+								</table>
+							</branchpanel>
+						</component>
+						<component caption="行业板块" id="102" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="310" name="splitpanel">
+									<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="311" name="condpanel">
+											<condpanel>
+												<ctrls rowcount="1">
+													<ctrl rowindex="0" index="0" text="起始日期" type="date" hoffset="10" width="150" bindparam="BeginDate">
+														<datevalue datetype="5" datespan="5" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="4" text="截止日期" type="date" hoffset="10" width="150" bindparam="EndDate">
+														<datevalue datetype="0" datespan="1" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="2" text="复权类型" type="combox" hoffset="5" align="L" width="120" bindparam="AdjustType">
+														<combox cbchange="0" defsel="1">
+															<item text="不复权" value="0"/>
+															<item text="前复权" value="1"/>
+															<item text="后复权" value="2"/>
+														</combox>
+													</ctrl>
+													<ctrl rowindex="0" index="3" text="查询" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+														<button imageno="0"/>
+													</ctrl>
+												</ctrls>
+											</condpanel>
+										</table>
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="313" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="318" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" ingcode="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="板块代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="板块名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>																
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" condid="311" switchid="7" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;12:1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="3180" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" masterid="318" condid="311" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;2:$$code$$|1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="switchcond" ><switchcond><switchitems swgroup="1" blockid="A01"></switchitems><codelists><codelist code="0" caption="A股"/><codelist code="3" caption="沪A"/><codelist code="4" caption="深A"/><codelist code="5" caption="中小"/><codelist code="6" caption="创业"/><codelist code="7" caption="科创"/></codelists></switchcond></table>-->
+											</branchpanel>
+										</table>
+									</splitpanel>
+								</table>
+							</branchpanel>
+						</component>
+						<component caption="概念板块" id="102" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="320" name="splitpanel">
+									<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="321" name="condpanel">
+											<condpanel>
+												<ctrls rowcount="1">
+													<ctrl rowindex="0" index="0" text="起始日期" type="date" hoffset="10" width="150" bindparam="BeginDate">
+														<datevalue datetype="5" datespan="5" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="4" text="截止日期" type="date" hoffset="10" width="150" bindparam="EndDate">
+														<datevalue datetype="0" datespan="1" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="2" text="复权类型" type="combox" hoffset="5" align="L" width="120" bindparam="AdjustType">
+														<combox cbchange="0" defsel="1">
+															<item text="不复权" value="0"/>
+															<item text="前复权" value="1"/>
+															<item text="后复权" value="2"/>
+														</combox>
+													</ctrl>
+													<ctrl rowindex="0" index="3" text="查询" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+														<button imageno="0"/>
+													</ctrl>
+												</ctrls>
+											</condpanel>
+										</table>
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="323" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="328" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" ingcode="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="板块代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="板块名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" condid="321" switchid="7" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;12:2&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="3280" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" masterid="328" condid="321" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;2:$$code$$|1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="switchcond" ><switchcond><switchitems swgroup="1" blockid="A01"></switchitems><codelists><codelist code="0" caption="A股"/><codelist code="3" caption="沪A"/><codelist code="4" caption="深A"/><codelist code="5" caption="中小"/><codelist code="6" caption="创业"/><codelist code="7" caption="科创"/></codelists></switchcond></table>-->
+											</branchpanel>
+										</table>
+									</splitpanel>
+								</table>
+							</branchpanel>
+						</component>
+						<component caption="风格板块" id="102" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="330" name="splitpanel">
+									<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="331" name="condpanel">
+											<condpanel>
+												<ctrls rowcount="1">
+													<ctrl rowindex="0" index="0" text="起始日期" type="date" hoffset="10" width="150" bindparam="BeginDate">
+														<datevalue datetype="5" datespan="5" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="4" text="截止日期" type="date" hoffset="10" width="150" bindparam="EndDate">
+														<datevalue datetype="0" datespan="1" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="2" text="复权类型" type="combox" hoffset="5" align="L" width="120" bindparam="AdjustType">
+														<combox cbchange="0" defsel="1">
+															<item text="不复权" value="0"/>
+															<item text="前复权" value="1"/>
+															<item text="后复权" value="2"/>
+														</combox>
+													</ctrl>
+													<ctrl rowindex="0" index="3" text="查询" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+														<button imageno="0"/>
+													</ctrl>
+												</ctrls>
+											</condpanel>
+										</table>
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="333" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="338" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" ingcode="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="板块代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="板块名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" condid="331" switchid="7" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;12:3&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="3380" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" masterid="338" condid="331" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;2:$$code$$|1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="switchcond" ><switchcond><switchitems swgroup="1" blockid="A01"></switchitems><codelists><codelist code="0" caption="A股"/><codelist code="3" caption="沪A"/><codelist code="4" caption="深A"/><codelist code="5" caption="中小"/><codelist code="6" caption="创业"/><codelist code="7" caption="科创"/></codelists></switchcond></table>-->
+											</branchpanel>
+										</table>
+									</splitpanel>
+								</table>
+							</branchpanel>
+						</component>
+						<component caption="地域板块" id="102" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="370" name="splitpanel">
+									<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="341" name="condpanel">
+											<condpanel>
+												<ctrls rowcount="1">
+													<ctrl rowindex="0" index="0" text="起始日期" type="date" hoffset="10" width="150" bindparam="BeginDate">
+														<datevalue datetype="5" datespan="5" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="4" text="截止日期" type="date" hoffset="10" width="150" bindparam="EndDate">
+														<datevalue datetype="0" datespan="1" spantype="3" maxinterv="0"/>
+													</ctrl>
+													<ctrl rowindex="0" index="2" text="复权类型" type="combox" hoffset="5" align="L" width="120" bindparam="AdjustType">
+														<combox cbchange="0" defsel="1">
+															<item text="不复权" value="0"/>
+															<item text="前复权" value="1"/>
+															<item text="后复权" value="2"/>
+														</combox>
+													</ctrl>
+													<ctrl rowindex="0" index="3" text="查询" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+														<button imageno="0"/>
+													</ctrl>
+												</ctrls>
+											</condpanel>
+										</table>
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="343" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="348" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" ingcode="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="板块代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="板块名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" condid="341" switchid="7" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;12:4&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="3480" name="gridctrl">
+													<gridctrl>
+														<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="qjzdf" firstorder="true" firstcheck="false" autosize="1" dbclkchg="2" frameline="2">
+															<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="70" datatype="S" clrtype="S"/>
+															<gridcol name="setcode" caption="市场" syscol="$SC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" fmtinvalid="1" clrtype="S"/>
+															<gridcol name="name" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" fmtinvalid="1" autosize="1" clrtype="S"/>
+															<gridcol name="" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="35" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="" caption="振幅%" syscol="$ZEF" visible="true" align="R" headalign="R" width="38" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+															<gridcol name="trade_date" caption="交易日期" visible="false" align="L" autosize="1" headalign="L" width="80" datatype="S"/>
+															<gridcol name="qspj" caption="前收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zgj" caption="最高价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1"/>
+															<gridcol name="zdj" caption="最低价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="spj" caption="收盘价" visible="false" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdzf" caption="区间|单日最大涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzdf" caption="区间|涨幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzf" caption="区间|振幅%" visible="true" align="R" headalign="R" width="40" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjzdhc" caption="区间|最大回撤%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjhsl" caption="区间|换手率%" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcjl" caption="区间|成交量" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="5" digital="2" autosize="1" fmtinvalid="1"/>
+															<gridcol name="qjcje" caption="区间|成交额" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1"/>
+																		<gridcol name="qjjlr" caption="区间|净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+															<gridcol name="qjzllr" caption="区间|主力净流入" visible="true" align="R" headalign="R" width="60" datatype="F" fmttype="6" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>													
+														</gridcols>
+														<datasource reqformat="22" keeporiginal="true" masterid="348" condid="341" name="HQServ.PBRPC_GPSJ" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_gpsj.dll;ReqByte={ &quot;ReqId&quot;:&quot;200199&quot;,
+									&quot;AdjustType&quot;: &quot;$$AdjustType$$&quot;,
+									&quot;BeginDate&quot;: &quot;$$BeginDate$$&quot;,
+									&quot;EndDate&quot;: &quot;$$EndDate$$&quot;,
+									&quot;CodeList&quot;: &quot;2:$$code$$|1&quot;,
+									&quot;Fields&quot;: &quot;TRADE_DATE:trade_date|PRECLOSEP:qspj|HIGHP:zgj|LOWP:zdj|CLOSEP:spj|PCTCHANGEP:qjzdf|MAXUPDAILYP:qjzdzf|SWINGP:qjzf|MAXDAWNDOWNP:qjzdhc|VOLUMEP:qjcjl|AMOUNTP:qjcje|BKTURNP:qjhsl|QJNETINFLOW2:qjjlr|QJNETINFLOW1:qjzllr&quot;,
+									&quot;Page&quot;: &quot;-1&quot;,
+									&quot;modname&quot;: &quot;mod_gpsj.dll&quot;}"/>
+														<menu>
+															<item name="$M_EXP" text="导出"/>
+															<item name="$M_ADDZXG" text="加入自选股"/>
+															<item name="$M_ADDBLOCK" text="加入板块"/>
+														</menu>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="switchcond" ><switchcond><switchitems swgroup="1" blockid="A01"></switchitems><codelists><codelist code="0" caption="A股"/><codelist code="3" caption="沪A"/><codelist code="4" caption="深A"/><codelist code="5" caption="中小"/><codelist code="6" caption="创业"/><codelist code="7" caption="科创"/></codelists></switchcond></table>-->
+											</branchpanel>
+										</table>
+									</splitpanel>
+								</table>
+							</branchpanel>
+						</component>
+					</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

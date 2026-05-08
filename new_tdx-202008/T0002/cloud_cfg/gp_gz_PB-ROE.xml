@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="0" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="2" name="branchpanel">
+					<branchpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+							<condpanel>
+								<ctrls rowcount="1">
+									<ctrl rowindex="0" index="1" text="?" tooltip="基于用户自行设定ROE取值范围及ROE垃圾股分割点，分别对ROE分割点两侧行业成分股的PB和ROE数据做简单线性回归，
+得出线性回归斜率及线性回归截距，形成位于分割点左右两侧的两条线性回归方程式PB=β*ROE+α。通常情况下，
+位于回归线下方属于PB估值未被高估的股票尚有价值发现的可能性，而位于回归线上方属于PB被高估或已被价值发现的股票，
+此外，用户可以自行设定PB偏移值水平从而形成PB估值均衡带，来排除掉预期合理PB估值浮动区间内的个股。同时结合ROE水平，
+帮助用户找到满足用户要求回报率水平的股票。       " type="static" hoffset="5" align="L" width="10"/>
+									<ctrl rowindex="0" index="3" text="日期" type="date" width="140" bindparam="end_date">
+										<datectrl change="0"/>
+										<datevalue datetype="0" datespan="0" spantype="0"/>
+									</ctrl>
+									<ctrl rowindex="0" index="11" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+										<button imageno="0"/>
+									</ctrl>
+									<ctrl rowindex="0" index="0" text="  回归线均衡带代表估值预期合理的区域，个股落在均衡带里意味着估值合理，落在均衡带之上是高估，落在之下是低估。默认ROE大于行业ROE中位数的股票属于价值投资的范畴，在PB-ROE估值模型中建议选择ROE大于行业ROE中位数的个股。" type="static" hoffset="5" align="L" width="1800" bindparam="CacheId">
+										<edit change="0" defval="-1"/>
+									</ctrl>
+								</ctrls>
+							</condpanel>
+						</table>
+						<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="false" id="4" name="branchpanel">
+							<branchpanel hdirection="false">
+								<table X="0" Y="0" width="0.55" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="return_rate" ascsort="false" ingcode="true" firstorder="true" firstcheck="false" dbclkchg="2" frameline="14" showtip="1">
+											<gridcol name="code_hy" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="market_hy" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="$ZQJC" caption="行业名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="1" clrtype="Z"/>
+											<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+											<gridcol name="$QRSD" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="1" clrtype="Z"/>
+											<gridcol name="$UPN" caption="涨家数" syscol="$UPN" visible="true" align="R" headalign="R" width="80" datatype="I" autosize="1" clrtype="Z"/>
+											<gridcol name="$DOWNN" caption="跌家数" syscol="$DOWNN" visible="true" align="R" headalign="R" width="80" datatype="I" autosize="1"/>
+											<gridcol name="PB_hy" caption="行业PB" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+											<gridcol name="ROE_hy" caption="行业ROE" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+											<gridcol name="mean_ROE_industry" caption="成分股ROE中位数" visible="true" align="R" headalign="R" width="130" datatype="F" digital="2" autosize="0"/>
+										</gridcols>
+										<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200305&quot;,
+								&quot;end_date&quot;:&quot;$$end_date$$&quot;,
+								&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+		    	    	</datasource>
+										<menu>
+											<item name="$M_EXP" text="导出"/>
+											<item name="$M_ADDZXG" text="加入自选股"/>
+											<item name="$M_ADDBLOCK" text="加入板块股"/>
+											<item name="$M_SEARCH" text="列表中查找"/>
+										</menu>
+									</gridctrl>
+								</table>
+								<table X="-1" Y="-1" width="1" height="0" isleaf="true" hdirection="true" id="202" name="webpanel">
+									<webpanel>
+										<prop url="http://hot.icfqs.com:7615/site/tdx-pc-pcwebcall/page-hygzmx.html?stock=$$code_hy$$&amp;date=$$end_date$$&amp;color=##tdxbk##&amp;bkcolor=##tdxbkcolor##">
+										</prop>
+										<datasource masterid="5" reqformat="20" name="" body=""/>
+									</webpanel>
+								</table>
+							</branchpanel>
+						</table>
+					</branchpanel>
+				</table>
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="7" name="tabpanel">
+					<tabpanel >
+						<component caption="板块个股明细" id="8" name="gridctrl">
+							<gridctrl>
+								<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="return_rate" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="8" showtip="1">
+									<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="0" clrtype="S"/>
+									<gridcol name="market" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+									<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="110" datatype="S" autosize="1" clrtype="S"/>
+									<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0" clrtype="Z"/>
+									<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+									<gridcol name="$QRSD" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="1" clrtype="Z"/>
+									<gridcol name="$ZS" caption="涨速" syscol="$ZS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+									<gridcol name="$HSL" caption="换手%" syscol="$HSL" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+									<gridcol name="$J_ZSZ" caption="AB股总市值" syscol="$J_ZSZ" visible="true" align="R" headalign="R" width="100" datatype="F" autosize="0"/>
+									<gridcol name="$ZEF" caption="振幅" syscol="$ZEF" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+									<gridcol name="$CJJJ" caption="均价" syscol="$CJJJ" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"/>
+									<gridcol name="PB" caption="PB" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+									<gridcol name="ROE" caption="ROE" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+									<gridcol name="forcast_PB" caption="预测PB" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+									<gridcol name="gzpd" caption="估值判断" visible="false" align="R" headalign="R" width="80" datatype="S" digital="0" autosize="0" fmtinvalid="1" enumid="1" clrtype='O' enumcolorid="1"/>
+								</gridcols>
+								<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" masterid="5" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200303&quot;,								
+		    	    			&quot;end_date&quot;:&quot;$$end_date$$&quot;,
+		    	    			&quot;code_hy&quot;:&quot;$$code_hy$$&quot;,
+		    	    			&quot;market_hy&quot;:&quot;$$market_hy$$&quot;,		    	    			
+		    	    			&quot;Page&quot;:&quot;-1&quot;,
+		    	    			&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+		    	    	</datasource>
+								<menu>
+									<item name="$M_EXP" text="导出"/>
+									<item name="$M_ADDZXG" text="加入自选股"/>
+									<item name="$M_ADDBLOCK" text="加入板块股"/>
+									<item name="$M_SEARCH" text="列表中查找"/>
+								</menu>
+								<enums>
+									<enum id="1">
+										<item code="1" value="高估"/>
+										<item code="2" value="低估"/>
+										<item code="3" value="合理"/>
+									</enum>
+								</enums>
+								<enumcolors>
+									<enumcolor id="1" clrtype="T">
+										<item val="高估" clrtype="R"/>
+										<item val="低估" clrtype="G"/>
+									</enumcolor>
+								</enumcolors>
+							</gridctrl>
+						</component>
+					</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

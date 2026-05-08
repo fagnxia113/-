@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false"  hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2" name="cellpanel">
+					<cellpanel>		
+						<rows frameline="">
+							<row height="30">
+								<cell text="基于分析模型电脑自动计算，据此操作，风险自担" align="L" width="0" frameline="8"/>
+							</row>
+							
+						</rows>
+						<datasource reqformat="20" name="" body="" />
+					</cellpanel>
+				</table>
+				
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true"  hdirection="true" id="3"  name="gridctrl" >
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="date" expandfull="0">
+							<gridcol  name="ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="120" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>	
+							<gridcol  name="NOW1" caption="现价" syscol="$NOW2" visible="false" align="R" headalign="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>							
+							<gridcol  name="zdf_5d" caption="近5日%" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="fqprice_rx" caption="入选价格"  visible="true" align="R" headalign="R" width="100" datatype="F" digital="2"  filter="0" ></gridcol>
+							<gridcol  name="zf_rx" caption="入选至今%"   visible="true" align="R" headalign="R" width="110" datatype="F"  digital="2" clrtype="Z" formula="(NOW1/fqprice_rx-1)*100" calccol="NOW1,fqprice_rx"> </gridcol>							
+							<gridcol  name="date" caption="入选日期" visible="true" align="R" headalign="R" width="100" datatype="D"  filter="0" ></gridcol>
+							<gridcol  name="xgcl" caption="选股策略"  visible="true" headalign="L" align="L" width="400" datatype="S" clrtype="S"    filter="0" ></gridcol>
+						</gridcols>	
+					<datasource  reqformat="1"  name="cfg_sc_xgcl" body="1,0"></datasource>
+					</gridctrl>
+					
+				</table>
+			</branchpanel>	
+		</table>
+	</table>
+</root>

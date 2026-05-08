@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="2" name="tabpanel">
+					<tabpanel >
+						<component caption="个股RPS" id="3" name="splitpanel">
+							<splitpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="4" name="condpanel">
+									<condpanel>
+										<ctrls rowcount="1">
+											<ctrl rowindex="0" index="1" text="时间1" type="combox" width="100" bindtype="1" bindparam="A">
+												<combox cbchange="false" defsel="4">
+													<item text="--" value="0"/>
+													<item text="1日" value="1"/>
+													<item text="3日" value="3"/>
+													<item text="5日" value="5"/>
+													<item text="10日" value="10"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="2" text="RPS1" type="combox" width="100" bindtype="1" bindparam="B">
+												<combox cbchange="false" defsel="4">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="3" text="         时间2" type="combox" width="130" bindtype="1" bindparam="C">
+												<combox cbchange="false" defsel="1">
+												    <item text="--" value="0"/>
+													<item text="20日" value="20"/>
+													<item text="30日" value="30"/>
+												</combox>
+											</ctrl>
+
+											<ctrl rowindex="0" index="4" text="RPS2" type="combox" width="100" bindtype="1" bindparam="D">
+												<combox cbchange="false" defsel="4">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="5" text="         时间3" type="combox" width="130" bindtype="1" bindparam="E">
+												<combox cbchange="false" defsel="1">
+													<item text="--" value="0"/>
+													<item text="60日" value="60"/>
+													<item text="120日" value="120"/>
+													<item text="250日" value="250"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="6" text="RPS3" type="combox" width="100" bindtype="1" bindparam="F">
+												<combox cbchange="false" defsel="4">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+
+											<ctrl rowindex="0" index="7" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+												<button imageno="0" notifyindex="1,2,3,4,5,6" dtclr="R"/>
+											</ctrl>
+											<ctrl rowindex="0" index="0" text="     RPS是指在一段时间内个股涨幅在全部股票涨幅排名中的位次值。" type="static" hoffset="5" align="L" width="1800" bindparam="CacheId">
+												<edit change="0" defval="-1"/>
+											</ctrl>
+										</ctrls>
+									</condpanel>
+								</table>
+
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" keycol="fund_code" defsort="$ZAF" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="10" showtip="1">
+											<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="0" clrtype="S"/>
+											<gridcol name="market" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="100" datatype="F" autosize="0" clrtype="Z"/>
+											<gridcol name="$CJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="100" datatype="F" fmttype="9" autosize="0" clrtype="A"/>
+
+											
+											<gridcol name="RPS1" caption="时间1|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"  digital="2"  clrtype="S"/>
+											<gridcol name="Growth1" caption="时间1|涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" clrtype="Z"/>
+											<gridcol name="RPS2" caption="时间2|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0" digital="2"  clrtype="S"/>
+											<gridcol name="Growth2" caption="时间2|涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" clrtype="Z"/>
+											<gridcol name="RPS3" caption="时间3|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0" digital="2"  clrtype="S"/>
+											<gridcol name="Growth3" caption="时间3|涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2"  autosize="0" clrtype="Z"/>
+											<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N"/>
+
+									        
+										</gridcols>
+										<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="4" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200452&quot;,
+								&quot;DataType&quot;:&quot;0&quot;,&quot;Duration1&quot;:&quot;$$A$$&quot;,&quot;RPS1&quot;:&quot;$$B$$&quot;,&quot;Duration2&quot;:&quot;$$C$$&quot;,&quot;RPS2&quot;:&quot;$$D$$&quot;,&quot;Duration3&quot;:&quot;$$E$$&quot;,&quot;RPS3&quot;:&quot;$$F$$&quot;,
+								&quot;Page&quot;:&quot;0&quot;,&quot;PageSize&quot;:&quot;700&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+										</datasource>
+									</gridctrl>
+								</table>
+							</splitpanel>
+						</component>
+						
+						<component caption="板块RPS" id="6" name="splitpanel">
+							<splitpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="7" name="condpanel">
+									<condpanel>
+										<ctrls rowcount="1">
+											<ctrl rowindex="0" index="1" text="时间1" type="combox" width="100" bindtype="1" bindparam="A">
+												<combox cbchange="false" defsel="4">
+													<item text="--" value="0"/>
+													<item text="1日" value="1"/>
+													<item text="3日" value="3"/>
+													<item text="5日" value="5"/>
+													<item text="10日" value="10"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="2" text="RPS1" type="combox" width="100" bindtype="1" bindparam="B">
+												<combox cbchange="false" defsel="3">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="3" text="         时间2" type="combox" width="130" bindtype="1" bindparam="C">
+												<combox cbchange="false" defsel="1">
+												    <item text="--" value="0"/>
+													<item text="20日" value="20"/>
+													<item text="30日" value="30"/>
+												</combox>
+											</ctrl>
+
+											<ctrl rowindex="0" index="4" text="RPS2" type="combox" width="100" bindtype="1" bindparam="D">
+												<combox cbchange="false" defsel="3">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="5" text="         时间3" type="combox" width="130" bindtype="1" bindparam="E">
+												<combox cbchange="false" defsel="1">
+													<item text="--" value="0"/>
+													<item text="60日" value="60"/>
+													<item text="120日" value="120"/>
+													<item text="250日" value="250"/>
+												</combox>
+											</ctrl>
+											<ctrl rowindex="0" index="6" text="RPS3" type="combox" width="100" bindtype="1" bindparam="F">
+												<combox cbchange="false" defsel="3">
+													<item text="60" value="60"/>
+													<item text="70" value="70"/>
+													<item text="80" value="80"/>
+													<item text="85" value="85"/>
+													<item text="90" value="90"/>
+													<item text="95" value="95"/>
+													<item text="99" value="99"/>
+												</combox>
+											</ctrl>
+
+											<ctrl rowindex="0" index="7" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+												<button imageno="0" notifyindex="1,2,3,4,5,6" dtclr="R"/>
+											</ctrl>
+											<ctrl rowindex="0" index="0" text="     RPS是指在一段时间内个股涨幅在全部股票涨幅排名中的位次值。" type="static" hoffset="5" align="L" width="1800" bindparam="CacheId">
+												<edit change="0" defval="-1"/>
+											</ctrl>
+										</ctrls>
+									</condpanel>
+								</table>
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="8" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" keycol="fund_code" defsort="$ZAF" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="10" showtip="1">
+											<gridcol name="code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="0" clrtype="S"/>
+											<gridcol name="market" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="100" datatype="F" autosize="0" clrtype="Z"/>
+											<gridcol name="$CJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="100" datatype="F" fmttype="9" autosize="0" clrtype="A"/>
+											
+											<gridcol name="RPS1" caption="时间1|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0"  digital="2"  clrtype="S"/>
+											<gridcol name="Growth1" caption="时间1|涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" clrtype="Z"/>
+											<gridcol name="RPS2" caption="时间2|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0" digital="2"  clrtype="S"/>
+											<gridcol name="Growth2" caption="时间2|涨幅%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" clrtype="Z"/>
+											<gridcol name="RPS3" caption="时间3|RPS" visible="true" align="R" headalign="R" width="80" datatype="F" autosize="0" digital="2"  clrtype="S"/>
+											<gridcol name="Growth3" caption="时间3|涨幅%" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" clrtype="Z"/>
+										</gridcols>
+										<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="7" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200453&quot;,
+								&quot;DataType&quot;:&quot;0&quot;,&quot;Duration1&quot;:&quot;$$A$$&quot;,&quot;RPS1&quot;:&quot;$$B$$&quot;,&quot;Duration2&quot;:&quot;$$C$$&quot;,&quot;RPS2&quot;:&quot;$$D$$&quot;,&quot;Duration3&quot;:&quot;$$E$$&quot;,&quot;RPS3&quot;:&quot;$$F$$&quot;,
+								&quot;Page&quot;:&quot;0&quot;,&quot;PageSize&quot;:&quot;500&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+										</datasource>
+									</gridctrl>
+								</table>
+							</splitpanel>
+						</component>
+
+					</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="2" name="branchpanel">
+					<branchpanel hdirection="true">
+						<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="3" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="4" name="condpanel">	
+									<condpanel>
+					            <ctrls rowcount="1" >
+					            	<ctrl rowindex="0" index="1" text="债券代码" type="edit" hoffset="5" align="L" width="140" bindparam="$ZQDM" filterop="7">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="2" text="债券评级" type="combox" align="L" width="140" bindtype="0" filterop="1" bindparam="ZQPJ">
+													<combox cbchange="1" defsel="0" itemheight="450">
+														<item text="全部" value=""/>
+														<item text="AAA" value="AAA"/>
+														<item text="AA+" value="AA+"/>
+														<item text="AA" value="AA"/>
+														<item text="AA-" value="AA-"/>
+														<item text="A+" value="AA+"/>
+														<item text="A" value="AA"/>
+														<item text="A-" value="AA-"/>
+														<item text="BBB+" value="BBB+"/>
+														<item text="BBB" value="BBB"/>
+														<item text="BBB-" value="BBB-"/>
+														<item text="BB+" value="BB+"/>
+														<item text="BB" value="BB"/>
+														<item text="BB-" value="BB-"/>
+														<item text="B+" value="B+"/>
+														<item text="B" value="B"/>
+														<item text="B-" value="B-"/>
+														<item text="CCC" value="CCC"/>
+														<item text="CC" value="CC"/>
+														<item text="C" value="C"/>
+													</combox>
+												</ctrl>
+												<ctrl rowindex="0" index="3" text="主体评级" type="combox" align="L" width="140" bindtype="0" filterop="1" bindparam="ZTPJ">
+													<combox cbchange="1" defsel="0" itemheight="450">
+														<item text="全部" value=""/>
+														<item text="AAA" value="AAA"/>
+														<item text="AA+" value="AA+"/>
+														<item text="AA" value="AA"/>
+														<item text="AA-" value="AA-"/>
+														<item text="A+" value="AA+"/>
+														<item text="A" value="AA"/>
+														<item text="A-" value="AA-"/>
+														<item text="BBB+" value="BBB+"/>
+														<item text="BBB" value="BBB"/>
+														<item text="BBB-" value="BBB-"/>
+														<item text="BB+" value="BB+"/>
+														<item text="BB" value="BB"/>
+														<item text="BB-" value="BB-"/>
+														<item text="B+" value="B+"/>
+														<item text="B" value="B"/>
+														<item text="B-" value="B-"/>
+														<item text="CCC" value="CCC"/>
+														<item text="CC" value="CC"/>
+														<item text="C" value="C"/>
+													</combox>
+												</ctrl>
+												<ctrl rowindex="0" index="4" text="现价(元)" type="edit" hoffset="5" align="L" width="110" bindparam="$NOW" filterop="5">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="5" text="—" type="static" hoffset="5" align="L" width="1" bindparam=" ">
+												</ctrl>
+												<ctrl rowindex="0" index="6" text="" type="edit" hoffset="5" align="L" width="60" bindparam="$NOW" filterop="3">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="7" text="债券余额(亿元)" type="edit" hoffset="5" align="L" width="145" bindparam="ZQYE" filterop="5">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="8" text="—" type="static" hoffset="5" align="L" width="1" bindparam=" ">
+												</ctrl>
+												<ctrl rowindex="0" index="9" text="" type="edit" hoffset="5" align="L" width="60" bindparam="ZQYE" filterop="3">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="10" text="转股溢价率(%)" type="edit" hoffset="5" align="L" width="140" bindparam="YJL" filterop="5">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="11" text="—" type="static" hoffset="5" align="L" width="1" bindparam=" ">
+												</ctrl>
+												<ctrl rowindex="0" index="12" text="" type="edit" hoffset="5" align="L" width="60" bindparam="YJL" filterop="3">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="13" text="收益率(%)" type="edit" hoffset="5" align="L" width="120" bindparam="DQSYL2" filterop="5">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="14" text="—" type="static" hoffset="5" align="L" width="1" bindparam=" ">
+												</ctrl>
+												<ctrl rowindex="0" index="15" text="" type="edit" hoffset="5" align="L" width="60" bindparam="DQSYL2" filterop="3">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="16" text="成交额" type="edit" hoffset="5" align="L" width="100" bindparam="$ZCJJE" filterop="5">
+													<edit change="1"/>
+												</ctrl>
+												<ctrl rowindex="0" index="17" text="—" type="static" hoffset="5" align="L" width="1" bindparam=" ">
+												</ctrl>
+												<ctrl rowindex="0" index="18" text="" type="edit" hoffset="5" align="L" width="60" bindparam="$ZCJJE" filterop="3">
+													<edit change="1"/>
+												</ctrl>
+					            </ctrls>
+					          </condpanel>
+								</table>
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true"  ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  showtip="1" gridline="1">
+											<gridcol name="$SC" caption="市场" syscol="$SC" visible="false" filter="false" align="L" headalign="L" width="40" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="false"/>
+											<gridcol name="ZQJC" caption="债券简称"  visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXTS" caption="风险提示" visible="true" align="L" headalign="L" width="80" datatype="T" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" clrtype="Z" filter="false"/>
+											<gridcol name="$ZS" caption="涨速" syscol="$ZS" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="$ZCJJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="$HSL" caption="换手率%" syscol="$HSL" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="MZ" caption="债券面值"  visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="$BONDAI" caption="应计利息" syscol="$BONDAI" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="false"/>
+											<gridcol name="QJ" caption="全价"  visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"  formula="$NOW+0" calccol="$NOW" fmtinvalid="1" filter="false"/>
+											<gridcol name="SSRQ" caption="上市日期"  visible="false" align="R" headalign="R" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXJG" caption="发行价格"  visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZF1" caption="涨幅%|上市至今"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZF2" caption="涨幅%|近5日"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZF3" caption="涨幅%|近10日"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="$ZQDM1" caption="正股代码" syscol="$ZQDM" visible="true" refzqdm="1" align="R" headalign="S" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="$SC1" caption="正股市场" syscol="$SC" visible="false" refzqdm="1" align="R" headalign="S" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGJC" caption="正股名称" syscol="$ZQJC" refzqdm="1" visible="true" align="R" headalign="S" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGZF" caption="正股涨幅%" syscol="$ZAF" refzqdm="1" visible="true" align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGZS" caption="正股涨速%" syscol="$ZS" refzqdm="1" visible="true" align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGXJ" caption="正股现价" syscol="$NOW" refzqdm="1" visible="true" align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGDM" caption="转股代码"  visible="false"  align="R" headalign="S" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGJ" caption="转股价格"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGJZ" caption="转股价值"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"  formula="ZGXJ*MZ/ZGJ" calccol="ZGXJ,MZ,ZGJ" fmtinvalid="1" filter="false"/>
+											<gridcol name="YJL" caption="转股溢价率%"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1"  formula="(QJ/ZGJZ-1)*100" calccol="QJ,ZGJZ" fmtinvalid="1" clrtype="Z" filter="false"/>
+											<gridcol name="CZJZ" caption="纯债价值"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="$B_CalcPV_All$" calccol="LLLXBZ,MZ,SYFXLLXL,FXPL2,SYNXSYL,XYFXSJ,SYFXCS,SYNX,DQLL2,FXQX" fmtinvalid="1" filter="false"/>
+											<gridcol name="CZYJL" caption="纯债溢价%"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="(QJ/CZJZ-1)*100" calccol="QJ,CZJZ" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQSYL" caption="到期收益率原值"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="$B_CalcYTM_All$" calccol="LLLXBZ,MZ,SYFXLLXL,FXPL2,QJ,XYFXSJ,SYFXCS,SYNX,DQLL2,FXQX" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQSYL2" caption="收益率%"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="DQSYL*100" calccol="DQSYL" fmtinvalid="1" filter="false"/>
+											<gridcol name="PJDJYJL" caption="平价底价|溢价率%"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="(ZGJZ/CZJZ-1)*100" calccol="ZGJZ,CZJZ" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGQSR" caption="转股时间|起始日"  visible="false"  align="R" headalign="F" width="80" datatype="C" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGJZR" caption="转股时间|截止日"  visible="false"  align="R" headalign="F" width="80" datatype="C" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="XXCFBL" caption="下修触发比例"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="XXCFJG" caption="下修触发价"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="ZGJ*XXCFBL/100" calccol="ZGJ,XXCFBL" fmtinvalid="1" filter="false"/>
+											<gridcol name="HSCFBL" caption="回售触发比例"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="HSCFJG" caption="回售触发价"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="ZGJ*HSCFBL/100" calccol="ZGJ,HSCFBL" fmtinvalid="1" filter="false"/>
+											<gridcol name="QSCFBL" caption="强赎触发比例"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="QSCFJG" caption="强赎触发价"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="ZGJ*QSCFBL/100" calccol="ZGJ,QSCFBL" fmtinvalid="1" filter="false"/>
+											<gridcol name="SHDJR" caption="赎回|登记日"  visible="false" align="R" headalign="R" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="SHJG" caption="赎回价格"  visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQRQ" caption="到期日期"  visible="true"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="SYNX" caption="剩余年限(年)"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQSHJ" caption="到期赎回价"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQLL" caption="当前利率(%)"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQLL2" caption="当前利率"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="DQLL/100" calccol="DQLL" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXZE" caption="面额(亿元)|发行总额"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="YZGME" caption="面额(亿元)|已转股"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="YHSME" caption="面额(亿元)|已回售"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="YSHME" caption="面额(亿元)|已赎回"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZQYE" caption="债券余额(亿元)"  visible="true"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="YEZB" caption="余额占比%"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZGBL" caption="转股比例%"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="SSHY" caption="所属行业"  visible="false"  syscol="$TDXHY" align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="CurrDate" caption="当前日期"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" formula="$SF_CurrDate$" calccol="" fmtinvalid="1" filter="false"/>
+											<gridcol name="QXRQ" caption="起息日期"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZQPJ" caption="债券评级"  visible="true"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZTPJ" caption="主体评级"  visible="true"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZSQX1" caption="企业债指数期限1"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZSSYL1" caption="企业债指数收益率1"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZSQX2" caption="企业债指数期限2"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZSSYL2" caption="企业债指数收益率2"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="SYNXSYL" caption="剩余年限对应收益率"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="LLLX" caption="利率类型"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="LLLXBZ" caption="利率类型标志"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXRQXL" caption="付息日期序列"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="0" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXLLXL" caption="付息利率序列"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="0" fmtinvalid="1" filter="false"/>
+											<gridcol name="SYFXCS" caption="剩余付息次数"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="SYFXRQXL" caption="剩余付息日期序列"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="0" fmtinvalid="1" filter="false"/>
+											<gridcol name="SYFXLLXL" caption="剩余付息利率序列"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="0" fmtinvalid="1" filter="false"/>
+											<gridcol name="XYFXSJ" caption="下一付息进度"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="JFXTS/DQFXZQTS" calccol="JFXTS,DQFXZQTS" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXQX" caption="发行期限(年)"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="$B_CalcRemainTime$" calccol="QXRQ,DQRQ,365" fmtinvalid="1" filter="false"/>
+											<gridcol name="SGFXRQ" caption="上个付息日期"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQFXZQTS" caption="当前付息周期天数"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" formula="$B_GetDateDiff_d$" calccol="SGFXRQ,XGFXRQ" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXPL1" caption="付息频率(月)"  visible="false"  align="R" headalign="F" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="FXPL2" caption="付息频率(次/年)"  visible="false"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" formula="12/FXPL1" calccol="FXPL1" fmtinvalid="1" filter="false"/>
+											<gridcol name="XGFXRQ" caption="下个付息日期"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="JFXTS" caption="距付息(天)"  visible="false"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" formula="$B_GetDateDiff_d$" calccol="CurrDate,XGFXRQ" fmtinvalid="1" filter="false"/>
+											<gridcol name="ZHJYR" caption="最后交易日"  visible="true"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="DQLB" caption="到期类别"  visible="true"  align="R" headalign="F" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="BSHQSRQ" caption="不赎回起始日期"  visible="true"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+											<gridcol name="BSHJZRQ" caption="不赎回截止日期"  visible="true"  align="R" headalign="F" width="80" datatype="L" digital="2" autosize="1" fmtinvalid="1" filter="false"/>
+										</gridcols>
+										<datasource reqformat="11" name=" " condid="4" waitmsg=" " body="list/kzz_kzzsy201_1.jsn"/>
+										<menu>
+											<item name="$M_EXP" text="导出"/>
+											<item name="$M_ADDZXG" text="加入到自选"/>
+											<item name="$M_ADDBLOCK" text="加入到板块"/>
+											<item name="$M_ADDALLBLOCK" text="所有品种加入到板块"/>
+											<item name="$M_SEARCH" text="列表中查找"/>
+										</menu>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>
+					</branchpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

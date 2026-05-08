@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root	width="832"	height="226">
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	
+			
+						<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="7" name="gridctrl" >
+							<gridctrl>
+								<gridcols fixednum="1" rowchgmsg="true" postslave="true" expandfull="0" defsort="N001" showtip="1" filteremptyline="2">
+									<gridcol name="N001" caption="日期" visible="true" headalign="L" align="L" width="80" datatype="D"  fmtinvalid="1"/>
+									<gridcol name="N002" caption="评级机构" visible="true" headalign="L" align="L" width="120" datatype="S"  fmtinvalid="1"/>
+									<gridcol name="N003" caption="评级" visible="true" headalign="L" align="L" width="80" datatype="S"  fmtinvalid="1"/>
+									<gridcol name="N004" caption="上次评级" visible="true" headalign="L" align="L" width="80" datatype="S"  fmtinvalid="1"/>
+									<gridcol name="N005" caption="调整类型" visible="true" headalign="L" align="L" width="70" datatype="S"  fmtinvalid="1"/>
+									<gridcol name="N006" caption="目标价" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  fmtinvalid="1"/>
+									<gridcol name="N007" caption="期初价" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  fmtinvalid="1"/>
+								</gridcols>					
+				                <datasource    reqformat="1" cache="1"  name="tdxyj_mgzt_zhp_tzpj" body="002,,,$INGCODE$"></datasource>
+							</gridctrl>
+						</table>
+																				
+													
+	</table>
+</root>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+  <!--showcheck:是否显示复选框; showsearch:是否显示搜索框; showdblclkopt:是否显示双击设置框; caption:显示名称; visible:是否显示,不配置则不显示; check:是否默认选中,不配置则不选中; expand:是否默认展开,不配置则不展开; blockid为板块代码,作为参数传给对应的gridctrl;source为数据来源,1:主框架接口,2:tdxhy.cfg文件,3:tdxhy2.cfg文件,其中1、2默认全部展示-->
+  <tree showcheck="false" showsearch="1"  showdblclkopt="true"  url="$HOMEPATH$/webs/xmlweb/tree/page_tree.html?color=##tdxbk##">
+      <node caption="全部主题" visible="true" blockid="" defsel="true" source="2"  />	
+
+    <node caption="行业主题" visible="true" blockid="X" source="2"  check='-1' expand="true"  >	
+	<node caption="煤炭" visible="true" blockid="X10" />
+	<node caption="石油" visible="true" blockid="X11"/>
+	<node caption="化工" visible="true" blockid="X12"/>
+	<node caption="钢铁" visible="true" blockid="X13"/>
+	<node caption="有色" visible="true" blockid="X14"/>
+	<node caption="建材" visible="true" blockid="X15"/>
+	<node caption="农林牧渔" visible="true" blockid="X20"/>
+	<node caption="食品饮料" visible="true" blockid="X21"/>
+	<node caption="纺织服饰" visible="true" blockid="X22"/>
+	<node caption="轻工制造" visible="true" blockid="X23"/>
+	<node caption="家电" visible="true" blockid="X24"/>
+	<node caption="商贸" visible="true" blockid="X25"/>
+	<node caption="汽车" visible="true" blockid="X26"/>
+	<node caption="医药医疗" visible="true" blockid="X27"/>
+	<node caption="电力设备" visible="true" blockid="X30"/>
+	<node caption="国防军工" visible="true" blockid="X31"/>
+	<node caption="机械设备" visible="true" blockid="X32"/>
+	<node caption="电子" visible="true" blockid="X40"/>
+	<node caption="通信" visible="true" blockid="X41"/>
+	<node caption="计算机" visible="true" blockid="X42"/>
+	<node caption="传媒" visible="true" blockid="X43"/>
+	<node caption="银行" visible="true" blockid="X50"/>
+	<node caption="非银金融" visible="true" blockid="X51"/>
+	<node caption="建筑" visible="true" blockid="X52"/>
+	<node caption="房地产" visible="true" blockid="X53"/>
+	<node caption="社会服务" visible="true" blockid="X60"/>
+	<node caption="交通运输" visible="true" blockid="X61"/>
+	<node caption="公用事业" visible="true" blockid="X62"/>
+	<node caption="环保" visible="true" blockid="X63"/>
+	<node caption="综合" visible="true" blockid="X99"/>
+    </node>	
+    <node caption="风格板块" visible="true" blockid="F" source="3" expand="true" >
+      <node caption="估值特征" visible="true" blockid="F01"  >
+      </node>
+      <node caption="业绩特征" visible="true" blockid="F02">
+      </node>
+      <node caption="行情特征" visible="true" blockid="F03" >
+
+      </node>
+      <node caption="股份特征" visible="true" blockid="F04">
+    </node>
+ </node>
+     <node caption="地域板块" visible="true" expand="true" blockid="D" source="3"  >
+      <node caption="省市区域" visible="true" blockid="D01" >
+      </node>
+      <node caption="开发区" visible="true" blockid="D03"  >
+      </node>
+      <node caption="自贸区" visible="true" blockid="D04" >
+      </node>
+      <node caption="其他区" visible="true" blockid="D05" >
+      </node>
+    </node>
+	    <node caption="资本派系" visible="true" blockid="T" source="3" expand="true" >
+      <node caption="中央国企" visible="true" blockid="T01"  >
+      </node>
+      <node caption="地方国企" visible="true" blockid="T02"  >
+      </node>
+      <node caption="超级公司" visible="true" blockid="T03"  >
+      </node>
+      <node caption="机构持股" visible="true" blockid="T04"  >
+      </node>
+      <node caption="投资参股" visible="true" blockid="T05"  >
+
+      </node>
+    </node>
+  </tree>
+</root>

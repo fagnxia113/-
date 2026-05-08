@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+  <!--showcheck:是否显示复选框; showsearch:是否显示搜索框,0:不显示,1:顶端,2:底部; showdblclkopt:是否显示双击设置框(暂未使用); caption:显示名称; visible:是否显示,不配置则不显示; check:是否默认选中,不配置则不选中,若子节点配置选中,则父节点需配置为-1; expand:是否默认展开,不配置则不展开; blockid为板块代码,作为参数传给对应的gridctrl;source为数据来源,1:主框架接口,2:tdxhy.cfg与tdxhy2.cfg文件,3:speczztree.txt文件,4:后台接口-->
+  <tree showcheck="false" showsearch="1" showdblclkopt="false" check="TRUE" url="$HOMEPATH$/webs/xmlweb/tree/page_tree.html?color=##tdxbk##">
+	<node caption="通达信研究行业" visible="true" blockid="X" defsel="TRUE" expand="true" source="3" check='-1' >
+	
+		<node caption="煤炭" visible="TRUE" blockid="X10">
+			<node caption="煤炭开采" visible="TRUE" blockid="X1001">
+				<node caption="动力煤" visible="TRUE" blockid="X100101"/>
+				<node caption="炼焦煤" visible="TRUE" blockid="X100102"/>
+			</node>    
+			<node caption="焦炭加工" visible="TRUE" blockid="X1002"/>
+		</node>    
+			
+		<node caption="石油" visible="TRUE" blockid="X11" >
+			<node caption="油气开采" visible="TRUE" blockid="X1101"/>
+			<node caption="油服工程" visible="TRUE" blockid="X1102">
+				<node caption="油田服务" visible="TRUE" blockid="X110201"/>
+				<node caption="油气工程" visible="TRUE" blockid="X110202"/>
+			</node>    
+			<node caption="石油化工" visible="TRUE" blockid="X1103">
+				<node caption="炼油化工" visible="TRUE" blockid="X110301"/>
+				<node caption="石油贸易" visible="TRUE" blockid="X110302"/>
+				<node caption="其他石化" visible="TRUE" blockid="X110303"/>
+			</node>    
+		</node>    
+			
+		<node caption="化工" visible="TRUE" blockid="X12" >
+			<node caption="日用化工" visible="TRUE" blockid="X1201">
+				<node caption="洗护用品" visible="TRUE" blockid="X120101"/>
+				<node caption="化妆品" visible="TRUE" blockid="X120102"/>
+			</node>    
+			<node caption="化纤" visible="TRUE" blockid="X1202">
+				<node caption="涤纶" visible="TRUE" blockid="X120201"/>
+				<node caption="氨纶" visible="TRUE" blockid="X120202"/>
+				<node caption="粘胶纤维" visible="TRUE" blockid="X120203"/>
+				<node caption="锦纶" visible="TRUE" blockid="X120204"/>
+				<node caption="碳纤维" visible="TRUE" blockid="X120205"/>
+				<node caption="其他化学纤维" visible="TRUE" blockid="X120299"/>
+			</node>    
+			<node caption="化学原料" visible="TRUE" blockid="X1203">
+				<node caption="煤化工" visible="TRUE" blockid="X120301"/>
+				<node caption="钛白粉" visible="TRUE" blockid="X120302"/>
+				<node caption="氯碱" visible="TRUE" blockid="X120303"/>
+				<node caption="纯碱" visible="TRUE" blockid="X120304"/>
+				<node caption="无机盐" visible="TRUE" blockid="X120305"/>
+				<node caption="有机化工原料" visible="TRUE" blockid="X120306"/>
+				<node caption="其他化学原料" visible="TRUE" blockid="X120399"/>
+			</node>    
+			<node caption="化学制品" visible="TRUE" blockid="X1204">
+				<node caption="聚氨酯" visible="TRUE" blockid="X120401"/>
+				<node caption="涂料油墨" visible="TRUE" blockid="X120402"/>
+				<node caption="民爆制品" visible="TRUE" blockid="X120403"/>
+				<node caption="纺织化学品" visible="TRUE" blockid="X120404"/>
+				<node caption="氟化工" visible="TRUE" blockid="X120405"/>
+				<node caption="食品助剂" visible="TRUE" blockid="X120406"/>
+				<node caption="有机硅" visible="TRUE" blockid="X120407"/>
+				<node caption="胶黏剂及胶带" visible="TRUE" blockid="X120408"/>
+				<node caption="其他化学制品" visible="TRUE" blockid="X120499"/>
+			</node>    
+			<node caption="塑料" visible="TRUE" blockid="X1205">
+				<node caption="合成树脂" visible="TRUE" blockid="X120501"/>
+				<node caption="塑料薄膜" visible="TRUE" blockid="X120502"/>
+				<node caption="改性塑料" visible="TRUE" blockid="X120503"/>
+				<node caption="合成革" visible="TRUE" blockid="X120504"/>
+				<node caption="塑料助剂" visible="TRUE" blockid="X120505"/>
+				<node caption="其他塑料制品" visible="TRUE" blockid="X120506"/>
+			</node>    
+			<node caption="橡胶" visible="TRUE" blockid="X1206">
+				<node caption="橡胶助剂" visible="TRUE" blockid="X120601"/>
+				<node caption="炭黑" visible="TRUE" blockid="X120602"/>
+				<node caption="橡胶制品" visible="TRUE" blockid="X120603"/>
+			</node>    
+			<node caption="农用化工" visible="TRUE" blockid="X1207">
+				<node caption="农药" visible="TRUE" blockid="X120701"/>
+				<node caption="氮肥" visible="TRUE" blockid="X120702"/>
+				<node caption="磷肥及磷化工" visible="TRUE" blockid="X120703"/>
+				<node caption="钾肥" visible="TRUE" blockid="X120704"/>
+				<node caption="复合肥" visible="TRUE" blockid="X120705"/>
+			</node> 
+			<node caption="非金属材料" visible="TRUE" blockid="X1208"/>			
+		</node>    
+			
+		<node caption="钢铁" visible="TRUE" blockid="X13" >
+			<node caption="冶钢原料" visible="TRUE" blockid="X1301">
+				<node caption="铁矿石" visible="TRUE" blockid="X130101"/>
+				<node caption="冶钢辅料" visible="TRUE" blockid="X130102"/>
+			</node>    
+			<node caption="普钢" visible="TRUE" blockid="X1302">
+				<node caption="长材" visible="TRUE" blockid="X130201"/>
+				<node caption="板材" visible="TRUE" blockid="X130202"/>
+				<node caption="其他钢材" visible="TRUE" blockid="X130203"/>
+			</node>    
+			<node caption="特钢" visible="TRUE" blockid="X1303"/>
+		</node>    
+			
+		<node caption="有色" visible="TRUE" blockid="X14" >
+			<node caption="工业金属" visible="TRUE" blockid="X1401">
+				<node caption="铜" visible="TRUE" blockid="X140101"/>
+				<node caption="铝" visible="TRUE" blockid="X140102"/>
+				<node caption="铅锌" visible="TRUE" blockid="X140103"/>
+			</node>    
+			<node caption="贵金属" visible="TRUE" blockid="X1402">
+				<node caption="黄金" visible="TRUE" blockid="X140201"/>
+				<node caption="白银" visible="TRUE" blockid="X140202"/>
+			</node>    
+			<node caption="能源金属" visible="TRUE" blockid="X1403">
+				<node caption="锂" visible="TRUE" blockid="X140301"/>
+				<node caption="镍" visible="TRUE" blockid="X140302"/>
+				<node caption="钴" visible="TRUE" blockid="X140303"/>
+			</node>    
+			<node caption="稀有金属" visible="TRUE" blockid="X1404">
+				<node caption="稀土" visible="TRUE" blockid="X140401"/>
+				<node caption="钨钼" visible="TRUE" blockid="X140402"/>
+				<node caption="钛" visible="TRUE" blockid="X140403"/>
+				<node caption="其他金属" visible="TRUE" blockid="X140404"/>
+			</node>    
+			<node caption="金属新材料" visible="TRUE" blockid="X1405">
+				<node caption="磁性材料" visible="TRUE" blockid="X140501"/>
+				<node caption="其他金属新材料" visible="TRUE" blockid="X140502"/>
+			</node>    
+		</node>    
+			
+		<node caption="建材" visible="TRUE" blockid="X15" >
+			<node caption="水泥" visible="TRUE" blockid="X1501">
+				<node caption="水泥制造" visible="TRUE" blockid="X150101"/>
+				<node caption="水泥制品" visible="TRUE" blockid="X150102"/>
+			</node>    
+			<node caption="玻璃玻纤" visible="TRUE" blockid="X1502">
+				<node caption="玻璃制造" visible="TRUE" blockid="X150201"/>
+				<node caption="玻纤制造" visible="TRUE" blockid="X150202"/>
+			</node>    
+			<node caption="装饰建材" visible="TRUE" blockid="X1503">
+				<node caption="陶瓷" visible="TRUE" blockid="X150301"/>
+				<node caption="管材" visible="TRUE" blockid="X150302"/>
+				<node caption="耐火材料" visible="TRUE" blockid="X150303"/>
+				<node caption="防水材料" visible="TRUE" blockid="X150304"/>
+				<node caption="涂料" visible="TRUE" blockid="X150305"/>
+				<node caption="其他建材" visible="TRUE" blockid="X150306"/>
+			</node>    	
+		</node>    
+			
+		<node caption="农林牧渔" visible="TRUE" blockid="X20" >
+			<node caption="种植业" visible="TRUE" blockid="X2001">
+				<node caption="粮食种植" visible="TRUE" blockid="X200101"/>
+				<node caption="食用菌" visible="TRUE" blockid="X200102"/>
+				<node caption="种子" visible="TRUE" blockid="X200103"/>
+				<node caption="其他种植业" visible="TRUE" blockid="X200104"/>
+			</node>    
+			<node caption="养殖业" visible="TRUE" blockid="X2002">
+				<node caption="生猪养殖" visible="TRUE" blockid="X200201"/>
+				<node caption="肉鸡养殖" visible="TRUE" blockid="X200202"/>
+				<node caption="其他养殖" visible="TRUE" blockid="X200203"/>
+			</node>    
+			<node caption="林业" visible="TRUE" blockid="X2003"/>
+			<node caption="渔业" visible="TRUE" blockid="X2004">
+				<node caption="水产养殖" visible="TRUE" blockid="X200401"/>
+				<node caption="水产捕捞" visible="TRUE" blockid="X200402"/>
+			</node>    
+			<node caption="饲料" visible="TRUE" blockid="X2005">
+				<node caption="畜禽饲料" visible="TRUE" blockid="X200501"/>
+				<node caption="水产饲料" visible="TRUE" blockid="X200502"/>
+				<node caption="宠物食品" visible="TRUE" blockid="X200503"/>
+			</node>    
+			<node caption="农产品加工" visible="TRUE" blockid="X2006">
+				<node caption="粮油加工" visible="TRUE" blockid="X200601"/>
+				<node caption="果蔬加工" visible="TRUE" blockid="X200602"/>
+				<node caption="其他农产品加工" visible="TRUE" blockid="X200603"/>
+			</node>    
+			<node caption="动物保健" visible="TRUE" blockid="X2007"/>
+		</node>    
+			
+		<node caption="食品饮料" visible="TRUE" blockid="X21" >
+			<node caption="酿酒" visible="TRUE" blockid="X2102">
+				<node caption="啤酒" visible="TRUE" blockid="X210201"/>
+				<node caption="葡萄酒" visible="TRUE" blockid="X210202"/>
+				<node caption="黄酒" visible="TRUE" blockid="X210203"/>
+				<node caption="其他酒类" visible="TRUE" blockid="X210204"/>
+				<node caption="白酒" visible="TRUE" blockid="X210205"/>
+			</node>    
+			<node caption="饮料乳品" visible="TRUE" blockid="X2103">
+				<node caption="软饮料" visible="TRUE" blockid="X210301"/>
+				<node caption="乳制品" visible="TRUE" blockid="X210302"/>
+			</node>    
+			<node caption="调味品" visible="TRUE" blockid="X2104"/>
+			<node caption="休闲食品" visible="TRUE" blockid="X2105">
+				<node caption="零食" visible="TRUE" blockid="X210501"/>
+				<node caption="烘焙食品" visible="TRUE" blockid="X210502"/>
+				<node caption="熟食" visible="TRUE" blockid="X210503"/>
+			</node>    
+			<node caption="食品加工" visible="TRUE" blockid="X2106">
+				<node caption="肉制品" visible="TRUE" blockid="X210601"/>
+				<node caption="制糖业" visible="TRUE" blockid="X210602"/>
+				<node caption="预加工食品" visible="TRUE" blockid="X210603"/>
+				<node caption="保健品" visible="TRUE" blockid="X210604"/>
+				<node caption="其他食品" visible="TRUE" blockid="X210605"/>
+			</node>    
+		</node>    
+			
+		<node caption="纺织服饰" visible="TRUE" blockid="X22" >
+			<node caption="纺织制造" visible="TRUE" blockid="X2201">
+				<node caption="棉纺制品" visible="TRUE" blockid="X220101"/>
+				<node caption="印染" visible="TRUE" blockid="X220102"/>
+				<node caption="辅料" visible="TRUE" blockid="X220103"/>
+				<node caption="其他纺织" visible="TRUE" blockid="X220104"/>
+				<node caption="纺织鞋类制造" visible="TRUE" blockid="X220105"/>
+			</node>    
+			<node caption="服装家纺" visible="TRUE" blockid="X2202">
+				<node caption="家纺" visible="TRUE" blockid="X220201"/>
+				<node caption="鞋帽及其他" visible="TRUE" blockid="X220202"/>
+				<node caption="运动服装" visible="TRUE" blockid="X220203"/>
+				<node caption="非运动服装" visible="TRUE" blockid="X220204"/>
+			</node>    
+			<node caption="饰品" visible="TRUE" blockid="X2203">
+				<node caption="钟表珠宝" visible="TRUE" blockid="X220301"/>
+				<node caption="其他饰品" visible="TRUE" blockid="X220303"/>
+			</node>    
+		</node>    
+			
+		<node caption="轻工制造" visible="TRUE" blockid="X23" >
+			<node caption="造纸" visible="TRUE" blockid="X2301">
+				<node caption="大宗用纸" visible="TRUE" blockid="X230101"/>
+				<node caption="生活用纸" visible="TRUE" blockid="X230102"/>
+				<node caption="特种纸" visible="TRUE" blockid="X230103"/>
+			</node>    
+			<node caption="包装印刷" visible="TRUE" blockid="X2302">
+				<node caption="印刷" visible="TRUE" blockid="X230201"/>
+				<node caption="金属包装" visible="TRUE" blockid="X230202"/>
+				<node caption="塑料包装" visible="TRUE" blockid="X230203"/>
+				<node caption="纸包装" visible="TRUE" blockid="X230204"/>
+				<node caption="其他包装" visible="TRUE" blockid="X230205"/>
+			</node>    
+			<node caption="家居用品" visible="TRUE" blockid="X2303">
+				<node caption="家具" visible="TRUE" blockid="X230301"/>
+				<node caption="其他家居" visible="TRUE" blockid="X230302"/>
+			</node>    
+			<node caption="文娱用品" visible="TRUE" blockid="X2304">
+				<node caption="文化用品" visible="TRUE" blockid="X230401"/>
+				<node caption="娱乐用品" visible="TRUE" blockid="X230402"/>
+			</node>    
+		</node>    
+			
+		<node caption="家电" visible="TRUE" blockid="X24" >
+			<node caption="白色家电" visible="TRUE" blockid="X2401">
+				<node caption="空调" visible="TRUE" blockid="X240101"/>
+				<node caption="冰洗" visible="TRUE" blockid="X240102"/>
+			</node>    
+			<node caption="黑色家电" visible="TRUE" blockid="X2402">
+				<node caption="电视" visible="TRUE" blockid="X240201"/>
+				<node caption="其他黑色家电" visible="TRUE" blockid="X240202"/>
+			</node>    
+			<node caption="小家电" visible="TRUE" blockid="X2403">
+				<node caption="厨房小家电" visible="TRUE" blockid="X240301"/>
+				<node caption="清洁小家电" visible="TRUE" blockid="X240302"/>
+				<node caption="个护小家电" visible="TRUE" blockid="X240303"/>
+			</node>    
+			<node caption="厨卫电器" visible="TRUE" blockid="X2404">
+				<node caption="厨房电器" visible="TRUE" blockid="X240401"/>
+				<node caption="卫浴电器" visible="TRUE" blockid="X240402"/>
+			</node>    
+			<node caption="家电零部件" visible="TRUE" blockid="X2406"/>
+		</node>    
+			
+		<node caption="商贸" visible="TRUE" blockid="X25" >
+			<node caption="一般零售" visible="TRUE" blockid="X2501">
+				<node caption="超市及便利店" visible="TRUE" blockid="X250101"/>
+				<node caption="百货" visible="TRUE" blockid="X250102"/>
+				<node caption="多业态零售" visible="TRUE" blockid="X250103"/>
+			</node>    
+			<node caption="商业物业经营" visible="TRUE" blockid="X2503"/>
+			<node caption="专业连锁" visible="TRUE" blockid="X2504"/>
+			<node caption="贸易" visible="TRUE" blockid="X2505"/>
+			<node caption="电子商务" visible="TRUE" blockid="X2506">
+				<node caption="综合电商" visible="TRUE" blockid="X250601"/>
+				<node caption="跨境电商" visible="TRUE" blockid="X250602"/>
+				<node caption="电商服务" visible="TRUE" blockid="X250603"/>
+			</node>    
+		</node>    
+			
+		<node caption="汽车" visible="TRUE" blockid="X26" >
+			<node caption="乘用车" visible="TRUE" blockid="X2601">
+				<node caption="电动乘用车" visible="TRUE" blockid="X260101"/>
+				<node caption="综合乘用车" visible="TRUE" blockid="X260102"/>
+			</node>    
+			<node caption="商用车" visible="TRUE" blockid="X2602">
+				<node caption="商用载货车" visible="TRUE" blockid="X260201"/>
+				<node caption="商用载客车" visible="TRUE" blockid="X260202"/>
+			</node>    
+			<node caption="汽车零部件" visible="TRUE" blockid="X2603">
+				<node caption="车身附件及饰件" visible="TRUE" blockid="X260301"/>
+				<node caption="底盘与发动机系统" visible="TRUE" blockid="X260302"/>
+				<node caption="轮胎轮毂" visible="TRUE" blockid="X260303"/>
+				<node caption="其他汽车零部件" visible="TRUE" blockid="X260304"/>
+				<node caption="汽车电子电气系统" visible="TRUE" blockid="X260305"/>
+			</node>    
+			<node caption="汽车服务" visible="TRUE" blockid="X2604">
+				<node caption="汽车经销商" visible="TRUE" blockid="X260401"/>
+				<node caption="汽车综合服务" visible="TRUE" blockid="X260402"/>
+			</node>    
+			<node caption="摩托车及其他" visible="TRUE" blockid="X2605">
+				<node caption="摩托车" visible="TRUE" blockid="X260501"/>
+				<node caption="其他交通设备" visible="TRUE" blockid="X260502"/>
+			</node>    
+		</node>    
+			
+		<node caption="医药医疗" visible="TRUE" blockid="X27" >
+			<node caption="化学制药" visible="TRUE" blockid="X2701">
+				<node caption="化学制剂" visible="TRUE" blockid="X270101"/>
+				<node caption="原料药" visible="TRUE" blockid="X270102"/>
+			</node>    
+			<node caption="生物制品" visible="TRUE" blockid="X2702">
+				<node caption="血液制品" visible="TRUE" blockid="X270201"/>
+				<node caption="疫苗" visible="TRUE" blockid="X270202"/>
+				<node caption="抗体" visible="TRUE" blockid="X270203"/>
+				<node caption="诊断试剂" visible="TRUE" blockid="X270204"/>
+				<node caption="基因药物" visible="TRUE" blockid="X270205"/>
+				<node caption="其他生物制药" visible="TRUE" blockid="X270206"/>
+			</node>    
+			<node caption="医疗器械" visible="TRUE" blockid="X2703">
+				<node caption="家用器械" visible="TRUE" blockid="X270301"/>
+				<node caption="医疗设备" visible="TRUE" blockid="X270302"/>
+				<node caption="医疗耗材" visible="TRUE" blockid="X270303"/>
+				<node caption="体外诊断" visible="TRUE" blockid="X270304"/>
+				<node caption="制药装备" visible="TRUE" blockid="X270305"/>
+			</node>    
+			<node caption="医疗服务" visible="TRUE" blockid="X2704">
+				<node caption="诊断服务" visible="TRUE" blockid="X270401"/>
+				<node caption="医疗研发外包" visible="TRUE" blockid="X270402"/>
+				<node caption="医院" visible="TRUE" blockid="X270403"/>
+				<node caption="其他医疗服务" visible="TRUE" blockid="X270404"/>
+			</node>    
+			<node caption="医药商业" visible="TRUE" blockid="X2705">
+				<node caption="医药流通" visible="TRUE" blockid="X270501"/>
+				<node caption="线下药店" visible="TRUE" blockid="X270502"/>
+			</node>    
+			<node caption="中药" visible="TRUE" blockid="X2706"/>
+			<node caption="医疗美容" visible="TRUE" blockid="X2707">
+				<node caption="医美耗材" visible="TRUE" blockid="X270701"/>
+				<node caption="医美服务" visible="TRUE" blockid="X270702"/>
+			</node>    
+		</node>    
+			
+		<node caption="电力设备" visible="TRUE" blockid="X30" >
+			<node caption="电机制造" visible="TRUE" blockid="X3001"/>
+			<node caption="电池" visible="TRUE" blockid="X3002">
+				<node caption="锂电池" visible="TRUE" blockid="X300201"/>
+				<node caption="电池化学品" visible="TRUE" blockid="X300202"/>
+				<node caption="锂电设备" visible="TRUE" blockid="X300203"/>
+				<node caption="燃料电池" visible="TRUE" blockid="X300204"/>
+				<node caption="其他电池" visible="TRUE" blockid="X300205"/>
+			</node>    
+			<node caption="电网设备" visible="TRUE" blockid="X3003">
+				<node caption="电工仪器" visible="TRUE" blockid="X300301"/>
+				<node caption="电网自动化" visible="TRUE" blockid="X300302"/>
+				<node caption="输变电设备" visible="TRUE" blockid="X300303"/>
+				<node caption="配电设备" visible="TRUE" blockid="X300304"/>
+				<node caption="线缆部件及其他" visible="TRUE" blockid="X300305"/>
+			</node>    
+			<node caption="光伏设备" visible="TRUE" blockid="X3004">
+				<node caption="光伏硅料" visible="TRUE" blockid="X300401"/>
+				<node caption="光伏硅片" visible="TRUE" blockid="X300402"/>
+				<node caption="光伏电池组件" visible="TRUE" blockid="X300403"/>
+				<node caption="光伏逆变器" visible="TRUE" blockid="X300404"/>
+				<node caption="光伏辅材" visible="TRUE" blockid="X300405"/>
+				<node caption="光伏加工设备" visible="TRUE" blockid="X300406"/>
+			</node>    
+			<node caption="风电设备" visible="TRUE" blockid="X3005">
+				<node caption="风电整机" visible="TRUE" blockid="X300501"/>
+				<node caption="风电零部件" visible="TRUE" blockid="X300502"/>
+			</node>    
+			<node caption="其它发电设备" visible="TRUE" blockid="X3006"/>
+		</node>    
+			
+		<node caption="国防军工" visible="TRUE" blockid="X31" >
+			<node caption="地面兵装" visible="TRUE" blockid="X3101"/>
+			<node caption="航空装备" visible="TRUE" blockid="X3102"/>
+			<node caption="航天装备" visible="TRUE" blockid="X3103"/>
+			<node caption="航海装备" visible="TRUE" blockid="X3104"/>
+			<node caption="军工电子" visible="TRUE" blockid="X3105"/>
+		</node>    
+			
+		<node caption="机械设备" visible="TRUE" blockid="X32" >
+			<node caption="轨交设备" visible="TRUE" blockid="X3201"/>
+			<node caption="通用设备" visible="TRUE" blockid="X3202">
+				<node caption="仪器仪表" visible="TRUE" blockid="X320201"/>
+				<node caption="机床制造" visible="TRUE" blockid="X320202"/>
+				<node caption="机械基础件" visible="TRUE" blockid="X320203"/>
+				<node caption="金属制品" visible="TRUE" blockid="X320204"/>
+				<node caption="内燃机" visible="TRUE" blockid="X320205"/>
+				<node caption="制冷空调设备" visible="TRUE" blockid="X320206"/>
+				<node caption="磨具磨料" visible="TRUE" blockid="X320207"/>
+				<node caption="其他通用设备" visible="TRUE" blockid="X320299"/>
+			</node>    
+			<node caption="专用设备" visible="TRUE" blockid="X3203">
+				<node caption="能源及重型设备" visible="TRUE" blockid="X320301"/>
+				<node caption="印刷包装机械" visible="TRUE" blockid="X320302"/>
+				<node caption="纺织服装设备" visible="TRUE" blockid="X320303"/>
+				<node caption="农用机械" visible="TRUE" blockid="X320304"/>
+				<node caption="楼宇设备" visible="TRUE" blockid="X320305"/>
+				<node caption="其他专用设备" visible="TRUE" blockid="X320399"/>
+			</node>    
+			<node caption="工程机械" visible="TRUE" blockid="X3204">
+				<node caption="工程机械整机" visible="TRUE" blockid="X320401"/>
+				<node caption="工程机械零件" visible="TRUE" blockid="X320402"/>
+			</node>    
+			<node caption="自动化设备" visible="TRUE" blockid="X3205">
+				<node caption="机器人" visible="TRUE" blockid="X320501"/>
+				<node caption="工业控制设备" visible="TRUE" blockid="X320502"/>
+				<node caption="激光设备" visible="TRUE" blockid="X320503"/>
+				<node caption="其他自动化设备" visible="TRUE" blockid="X320599"/>
+			</node>    
+		</node>    
+			
+		<node caption="电子" visible="TRUE" blockid="X40" >
+			<node caption="半导体" visible="TRUE" blockid="X4001">
+				<node caption="半导体材料" visible="TRUE" blockid="X400101"/>
+				<node caption="半导体设备" visible="TRUE" blockid="X400102"/>
+				<node caption="集成电路设计" visible="TRUE" blockid="X400103"/>
+				<node caption="功率半导体" visible="TRUE" blockid="X400104"/>
+				<node caption="半导体制造" visible="TRUE" blockid="X400105"/>
+				<node caption="半导体封测" visible="TRUE" blockid="X400106"/>
+			</node>    
+			<node caption="消费电子" visible="TRUE" blockid="X4002">
+				<node caption="消费电子组件" visible="TRUE" blockid="X400201"/>
+				<node caption="品牌消费电子" visible="TRUE" blockid="X400202"/>
+			</node>    
+			<node caption="光学光电" visible="TRUE" blockid="X4003">
+				<node caption="面板" visible="TRUE" blockid="X400301"/>
+				<node caption="光学元件" visible="TRUE" blockid="X400302"/>
+				<node caption="LED" visible="TRUE" blockid="X400303"/>
+			</node>    
+			<node caption="元器件" visible="TRUE" blockid="X4004">
+				<node caption="PCB" visible="TRUE" blockid="X400401"/>
+				<node caption="被动元件" visible="TRUE" blockid="X400402"/>
+			</node>    
+			<node caption="其他电子" visible="TRUE" blockid="X4005"/>
+		</node>    
+			
+		<node caption="通信" visible="TRUE" blockid="X41" >
+			<node caption="通信设备" visible="TRUE" blockid="X4101">
+				<node caption="光纤光缆" visible="TRUE" blockid="X410101"/>
+				<node caption="网络接配及塔设" visible="TRUE" blockid="X410102"/>
+				<node caption="系统设备" visible="TRUE" blockid="X410103"/>
+				<node caption="通信终端及配件" visible="TRUE" blockid="X410104"/>
+				<node caption="其他通信设备" visible="TRUE" blockid="X410105"/>
+			</node>    
+			<node caption="电信服务" visible="TRUE" blockid="X4102">
+				<node caption="电信运营服务" visible="TRUE" blockid="X410201"/>
+				<node caption="电信增值服务" visible="TRUE" blockid="X410202"/>
+			</node>    
+			<node caption="通信工程" visible="TRUE" blockid="X4103">
+				<node caption="网络规划设计" visible="TRUE" blockid="X410301"/>
+				<node caption="网络工程施工" visible="TRUE" blockid="X410302"/>
+				<node caption="网络优化运维" visible="TRUE" blockid="X410303"/>
+			</node>    
+		</node>    
+			
+		<node caption="计算机" visible="TRUE" blockid="X42" >
+			<node caption="IT设备" visible="TRUE" blockid="X4201">
+				<node caption="安防设备" visible="TRUE" blockid="X420101"/>
+				<node caption="其他IT设备" visible="TRUE" blockid="X420102"/>
+			</node>    
+			<node caption="软件服务" visible="TRUE" blockid="X4202">
+				<node caption="基础软件" visible="TRUE" blockid="X420201"/>
+				<node caption="行业应用软件" visible="TRUE" blockid="X420202"/>
+				<node caption="新兴软件" visible="TRUE" blockid="X420203"/>
+			</node>    
+			<node caption="云服务" visible="TRUE" blockid="X4203">
+				<node caption="云基础设施服务" visible="TRUE" blockid="X420301"/>
+				<node caption="云平台服务" visible="TRUE" blockid="X420302"/>
+				<node caption="云软件服务" visible="TRUE" blockid="X420303"/>
+				<node caption="其他云服务" visible="TRUE" blockid="X420304"/>
+			</node>    
+			<node caption="产业互联网" visible="TRUE" blockid="X4204">
+				<node caption="产联网信息服务" visible="TRUE" blockid="X420401"/>
+				<node caption="产联网平台服务" visible="TRUE" blockid="X420402"/>
+				<node caption="产联网综合服务" visible="TRUE" blockid="X420403"/>
+			</node>    
+		</node>    
+			
+		<node caption="传媒" visible="TRUE" blockid="X43" >
+			<node caption="游戏" visible="TRUE" blockid="X4301"/>
+			<node caption="广告营销" visible="TRUE" blockid="X4302">
+				<node caption="互联网广告" visible="TRUE" blockid="X430201"/>
+				<node caption="其他广告营销" visible="TRUE" blockid="X430202"/>
+			</node>    
+			<node caption="影视院线" visible="TRUE" blockid="X4303">
+				<node caption="影视制作" visible="TRUE" blockid="X430301"/>
+				<node caption="发行院线" visible="TRUE" blockid="X430302"/>
+			</node>    
+			<node caption="数字媒体" visible="TRUE" blockid="X4304">
+				<node caption="视频音频媒体" visible="TRUE" blockid="X430401"/>
+				<node caption="文字图片媒体" visible="TRUE" blockid="X430402"/>
+			</node>    
+			<node caption="出版业" visible="TRUE" blockid="X4306">
+				<node caption="教育出版" visible="TRUE" blockid="X430601"/>
+				<node caption="大众出版" visible="TRUE" blockid="X430602"/>
+				<node caption="其他出版" visible="TRUE" blockid="X430603"/>
+			</node>    
+			<node caption="广播电视" visible="TRUE" blockid="X4307"/>
+		</node>    
+			
+		<node caption="银行" visible="TRUE" blockid="X50" >
+			<node caption="全国性银行" visible="TRUE" blockid="X5001">
+				<node caption="国有大型银行" visible="TRUE" blockid="X500101"/>
+				<node caption="股份制银行" visible="TRUE" blockid="X500102"/>
+			</node>    
+			<node caption="地方性银行" visible="TRUE" blockid="X5002">
+				<node caption="城商行" visible="TRUE" blockid="X500201"/>
+				<node caption="农商行" visible="TRUE" blockid="X500202"/>
+			</node>    
+		</node>    
+			
+		<node caption="非银金融" visible="TRUE" blockid="X51" >
+			<node caption="证券" visible="TRUE" blockid="X5101"/>
+			<node caption="保险" visible="TRUE" blockid="X5102"/>
+			<node caption="多元金融" visible="TRUE" blockid="X5103">
+				<node caption="非货币银行" visible="TRUE" blockid="X510301"/>
+				<node caption="信托" visible="TRUE" blockid="X510302"/>
+				<node caption="投资管理" visible="TRUE" blockid="X510303"/>
+				<node caption="期货" visible="TRUE" blockid="X510304"/>
+				<node caption="租赁" visible="TRUE" blockid="X510305"/>
+				<node caption="金融控股" visible="TRUE" blockid="X510306"/>
+				<node caption="其他金融服务" visible="TRUE" blockid="X510399"/>
+			</node>    
+		</node>    
+			
+		<node caption="建筑" visible="TRUE" blockid="X52" >
+			<node caption="房屋建设" visible="TRUE" blockid="X5201"/>
+			<node caption="基础建设" visible="TRUE" blockid="X5202">
+				<node caption="基建工程" visible="TRUE" blockid="X520201"/>
+				<node caption="园林工程" visible="TRUE" blockid="X520202"/>
+			</node>    
+			<node caption="专业工程" visible="TRUE" blockid="X5203">
+				<node caption="化学工程" visible="TRUE" blockid="X520301"/>
+				<node caption="钢结构" visible="TRUE" blockid="X520302"/>
+				<node caption="国际工程" visible="TRUE" blockid="X520303"/>
+				<node caption="其他专业工程" visible="TRUE" blockid="X520304"/>
+			</node>    
+			<node caption="工程咨询服务" visible="TRUE" blockid="X5204"/>
+			<node caption="装修装饰" visible="TRUE" blockid="X5205"/>
+		</node>    
+			
+		<node caption="房地产" visible="TRUE" blockid="X53" >
+			<node caption="房地产开发" visible="TRUE" blockid="X5301">
+				<node caption="住宅开发" visible="TRUE" blockid="X530101"/>
+				<node caption="商业地产" visible="TRUE" blockid="X530102"/>
+				<node caption="产业地产" visible="TRUE" blockid="X530103"/>
+			</node>    
+			<node caption="房产服务" visible="TRUE" blockid="X5302">
+				<node caption="物业管理" visible="TRUE" blockid="X530201"/>
+				<node caption="租赁经纪" visible="TRUE" blockid="X530202"/>
+			</node>    
+		</node>    
+			
+		<node caption="社会服务" visible="TRUE" blockid="X60" >
+			<node caption="体育" visible="TRUE" blockid="X6001"/>
+			<node caption="教育培训" visible="TRUE" blockid="X6002"/>
+			<node caption="酒店餐饮" visible="TRUE" blockid="X6003">
+				<node caption="酒店" visible="TRUE" blockid="X600301"/>
+				<node caption="餐饮" visible="TRUE" blockid="X600302"/>
+			</node>    
+			<node caption="旅游" visible="TRUE" blockid="X6005">
+				<node caption="旅游景区" visible="TRUE" blockid="X600501"/>
+				<node caption="旅游服务" visible="TRUE" blockid="X600502"/>
+				<node caption="休闲综合" visible="TRUE" blockid="X600503"/>
+			</node>    
+			<node caption="专业服务" visible="TRUE" blockid="X6006">
+				<node caption="人力资源服务" visible="TRUE" blockid="X600601"/>
+				<node caption="检测服务" visible="TRUE" blockid="X600602"/>
+				<node caption="会展服务" visible="TRUE" blockid="X600603"/>
+				<node caption="其他专业服务" visible="TRUE" blockid="X600604"/>
+			</node>    
+		</node>    
+			
+		<node caption="交通运输" visible="TRUE" blockid="X61" >
+			<node caption="公路铁路" visible="TRUE" blockid="X6101">
+				<node caption="铁路运输" visible="TRUE" blockid="X610101"/>
+				<node caption="高速公路" visible="TRUE" blockid="X610102"/>
+				<node caption="公共交通" visible="TRUE" blockid="X610103"/>
+			</node>    
+			<node caption="航空机场" visible="TRUE" blockid="X6102">
+				<node caption="航空运输" visible="TRUE" blockid="X610201"/>
+				<node caption="机场" visible="TRUE" blockid="X610202"/>
+			</node>    
+			<node caption="航运港口" visible="TRUE" blockid="X6103">
+				<node caption="港口" visible="TRUE" blockid="X610301"/>
+				<node caption="航运" visible="TRUE" blockid="X610302"/>
+			</node>    
+			<node caption="物流" visible="TRUE" blockid="X6104">
+				<node caption="供应链服务" visible="TRUE" blockid="X610401"/>
+				<node caption="快递" visible="TRUE" blockid="X610402"/>
+				<node caption="跨境物流" visible="TRUE" blockid="X610403"/>
+				<node caption="仓储物流" visible="TRUE" blockid="X610404"/>
+				<node caption="公路货运" visible="TRUE" blockid="X610405"/>
+			</node>    
+		</node>    
+			
+		<node caption="公用事业" visible="TRUE" blockid="X62" >
+			<node caption="电力" visible="TRUE" blockid="X6201">
+				<node caption="水力发电" visible="TRUE" blockid="X620101"/>
+				<node caption="火力发电" visible="TRUE" blockid="X620102"/>
+				<node caption="热力服务" visible="TRUE" blockid="X620103"/>
+				<node caption="风力发电" visible="TRUE" blockid="X620104"/>
+				<node caption="光伏发电" visible="TRUE" blockid="X620105"/>
+				<node caption="核力发电" visible="TRUE" blockid="X620106"/>
+				<node caption="其他能源发电" visible="TRUE" blockid="X620107"/>
+			</node>    
+			<node caption="燃气" visible="TRUE" blockid="X6202"/>
+			<node caption="水务" visible="TRUE" blockid="X6203"/>
+		</node>    
+			
+		<node caption="环保" visible="TRUE" blockid="X63" >
+			<node caption="环保设备" visible="TRUE" blockid="X6301"/>
+			<node caption="环境治理" visible="TRUE" blockid="X6302">
+				<node caption="大气治理" visible="TRUE" blockid="X630201"/>
+				<node caption="水治理" visible="TRUE" blockid="X630202"/>
+				<node caption="固废治理" visible="TRUE" blockid="X630203"/>
+				<node caption="生态修复" visible="TRUE" blockid="X630204"/>
+			</node>    
+			<node caption="环境监测" visible="TRUE" blockid="X6303"/>
+		</node>    
+			
+		<node caption="综合" visible="TRUE" blockid="X99" >
+			<node caption="综合类" visible="TRUE" blockid="X9901"/>
+		</node>
+     </node>
+ </tree>
+</root>

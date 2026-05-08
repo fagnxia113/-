@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root	width="832"	height="226" >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+
+			
+
+		<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="1" name="gridctrl" >
+			<gridctrl>
+				<gridcols fixednum="2" rowchgmsg="true" postslave="true" expandfull="0" defsort="N001" ascsort="true"   ingcode="true" showtip="1" >
+							<gridcol name="N001" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="S" fmtinvalid="1"/>
+							<gridcol name="N002" caption="名称" visible="true" align="L" headalign="L" width="150" datatype="S" clrtype="S" fmtinvalid="1"/>
+							<gridcol name="N003" caption="涨蝠%" syscol="$ZAF" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N004" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N005" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N006" caption="买价" syscol="$BP1" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N007" caption="卖价" syscol="$SP1" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N008" caption="总量"  syscol="$CJL" visible="true" align="R" headalign="R" width="100" datatype="I"  fmtinvalid="1"/>
+							<gridcol name="N009" caption="总金额"  syscol="$ZCJJE" visible="true" align="R" headalign="R" width="80" datatype="F" fmtinvalid="1"/>
+							<gridcol name="N010" caption="涨速%" syscol="$ZS" visible="true" align="R" headalign="R" width="65" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N011" caption="换手%" syscol="$HSL" visible="true" align="R" headalign="R" width="65" datatype="F" fmtinvalid="1"/>
+							<gridcol name="N012" caption="今开" syscol="$OPEN" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N013" caption="最高" syscol="$MAX" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"  />
+							<gridcol name="N014" caption="最低" syscol="$MIN" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N015" caption="昨收" syscol="$CLOSE" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" fmtinvalid="1"/>
+							<gridcol name="N016" caption="量比" syscol="$" visible="false" align="R" headalign="R" width="65" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N017" caption="细分行业" visible="true" align="L" headalign="L" width="110" datatype="S" clrtype="S" fmtinvalid="1"/>
+							<gridcol name="N018" caption="振蝠%" syscol="$ZEF" visible="true" align="R" headalign="R" width="65" datatype="F" fmtinvalid="1"/>
+							<gridcol name="N019" caption="盘前盘后%" syscol="$" visible="false" align="R" headalign="R" width="80" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N020" caption="活跃度" syscol="$" visible="false" align="R" headalign="R" width="65" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N021" caption="总市值" fmttype="9" syscol="$J_ZSZ" visible="true" align="R" headalign="R" width="90" datatype="F"  fmtinvalid="1"  />
+						    <gridcol name="N034" caption="总股本" fmttype="9" syscol="$J_ZGB" visible="true" align="R" headalign="R" width="110" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N022" caption="年初至今%" clrtype="Z" syscol="$" visible="false" align="R" headalign="R" width="80" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N023" caption="市盈(静)" syscol="$PES" visible="true" align="R" headalign="R" width="70" datatype="F"  fmtinvalid="1"/>
+							<gridcol name="N024" caption="开盘%" clrtype="Z" formula="(N012-N015)/N015*100" calccol="N012,N015" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N025" caption="最高%" clrtype="Z" formula="(N013-N015)/N015*100" calccol="N013,N015" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N026" caption="最低%" clrtype="Z" formula="(N014-N015)/N015*100" calccol="N014,N015" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" fmtinvalid="1"  />
+							<gridcol name="N027" caption="均涨蝠%" clrtype="Z" formula="(N045-N015)/N015*100" calccol="N045,N015" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N028" caption="实体涨蝠%" clrtype="Z" formula="(N004-N012)/N012*100" calccol="N004,N012" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N029" caption="回头波%" clrtype="Z" formula="(N004-N013)/N013*100" calccol="N004,N013" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N030" caption="攻击波%" clrtype="Z" formula="(N004-N014)/N014*100" calccol="N004,N014" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N031" caption="现均差%" clrtype="Z" formula="(N004-N045)/N015*100" calccol="N004,N045,N015" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" fmtinvalid="1"  />
+							<gridcol name="N032" caption="财务更新" visible="true" headalign="C" align="C" width="90" datatype="S"  fmtinvalid="1"/>
+							<gridcol name="N033" caption="上市日期" visible="true" headalign="C" align="C" width="90" datatype="S"  fmtinvalid="1"/>
+							<gridcol name="N035" caption="总资产(百万)" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N036" caption="净资产(百万)" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N037" caption="营业收入(百万)"  visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" fmtinvalid="1"  />
+							<gridcol name="N038" caption="净利润(百万)" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N039" caption="每股收益"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="3" fmtinvalid="1"/>
+							<!--	<gridcol name="N040" caption="每股净资"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"/>	-->
+							<gridcol name="N041" caption="每股股息" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="N042" caption="股息率%"  visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"/>
+							<!--	<gridcol name="N043" caption="净益率%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"/>	-->
+							<gridcol name="N044" caption="权益比%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1"  />
+						    <gridcol name="N045" caption="成交均价" syscol="$CJJJ" visible="false" align="R" headalign="R" width="130" datatype="F"  fmtinvalid="1"  />
+
+				</gridcols>
+				<datasource reqformat="1" condid="2" name="tdxyj_mgzt_zhp_zgg" body=""></datasource>
+			</gridctrl>
+		</table>
+	
+	</table>
+</root>

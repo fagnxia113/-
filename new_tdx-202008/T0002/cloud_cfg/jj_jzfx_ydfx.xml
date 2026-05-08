@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">
+			  <table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="2" name="branchpanel" >
+	        <branchpanel hdirection="true">
+			      <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+				      <condpanel>		
+					      <ctrls rowcount="1">
+					      	<ctrl rowindex="0" index="1" text="?" tooltip="<b>平均收益率%：</b>AVERAGE（区间内当月涨幅）
+<b>最大收益率%：</b>MAX（区间内当月涨幅）
+<b>最小收益率%：</b>MIN（区间内当月涨幅）
+<b>平均月损失%：</b>AVERAGE（区间内当月涨幅小于0的数据）
+<b>平均牛市收益%：</b>AVERAGE（区间内牛市时的当月涨幅）,其中指数当月涨幅大于0时为牛市
+<b>平均熊市收益%：</b>AVERAGE（区间内熊市时的当月涨幅）,其中指数当月涨幅小于0时为熊市
+<b>胜率：</b>基金当月涨幅>指数当月涨幅的月份数量/区间总月份数量
+<b>波动率%：</b>STDEV（区间内当月涨幅）
+" 
+												type="static" hoffset="5" align="L" width="10" ></ctrl>	
+					      	
+								<!--<ctrl rowindex="0" index="4" text="投资类型" type="combox" hoffset="5" align="L" width="120" bindparam="style_type" >					
+								    <combox cbchange="1" defsel="1" >
+								    	<item text="全部"  value=""/>
+								    	<item text="股票型"  value="004001"/>
+								    	<item text="混合型"  value="004003"/>
+									    <item text="债券型"  value="004002"/>
+									    <item text="货币型"  value="004004"/>									  
+									    <item text="基金型"  value="004006"/>									  
+								    </combox>
+							    </ctrl>-->
+							    <ctrl rowindex="0" index="5" text="投资风格" type="combox" hoffset="5" align="L" width="165" bindparam="style_details" >					
+											<combox cbchange="1" defsel="1" >
+											<item text="全部"  value=""/>
+											<item text="普通股票型"  value="005001"/>
+											<item text="复制指数型"  value="005002"/>
+											<item text="增强指数型"  value="005003"/>
+											<item text="平衡混合型"  value="005004"/>
+											<item text="偏股混合型"  value="005005"/>
+											<item text="偏债混合型"  value="005006"/>
+											<item text="保本型"  value="005007"/>
+											<item text="中短期纯债型"  value="005008"/>
+											<item text="长期纯债型"  value="005009"/>
+											<item text="一级债基"  value="005010"/>
+											<item text="二级债基"  value="005011"/>
+											<item text="债券指数型"  value="005012"/>
+											<item text="基金型"  value="005013"/>
+											<!--<item text="货币型"  value="005014"/>-->
+											<item text="短期理财债券型"  value="005015"/>
+											<item text="贵金属商品"  value="005016"/>
+											<item text="其他商品"  value="005017"/>
+											</combox>
+										</ctrl>
+										<!--<ctrl rowindex="0" index="6" text="基金公司" type="combox" hoffset="5" align="L" width="170" bindparam="company_id" >					
+											<combox cbchange="1" defsel="0" remote="1" >
+											    <remote textfld="CorpName" datafld="CorpID" >
+											    	<extitem text="全部" value=""/>
+														<datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp" body="[{'ReqId': '500013','modname': 'mod_fuan.dll'}]" >
+			    	    						</datasource>	
+													</remote>
+											</combox>
+										</ctrl>-->
+										<ctrl rowindex="0" index="7" text="基金份额" type="combox" hoffset="5" align="L" width="140" bindparam="fund_size" >					
+											<combox cbchange="1" defsel="0" >
+											<item text="全部"  value="0"/>
+											<item text="<=10亿"  value="1"/>
+										  <item text="10-50亿"  value="2"/>
+										  <item text="50-100亿"  value="3"/>
+										  <item text="100-150亿"  value="4"/>
+										  <item text="150-200亿"  value="5"/>
+										  <item text=">200亿"  value="6"/>
+											</combox>
+										</ctrl>
+										<ctrl rowindex="0" index="8" text="成立年限" type="combox" hoffset="5" align="L" width="120" bindparam="fund_setup_time" >					
+											<combox cbchange="1" defsel="0" >
+											<item text="全部"  value="0"/>
+											<item text="近1年"  value="1"/>
+										  <item text="近2年"  value="2"/>
+										  <item text="近3年"  value="3"/>
+										  <item text="近4年"  value="4"/>
+										  <item text="近5年"  value="5"/>
+										  <item text="5年以上"  value="6"/>
+											</combox>
+										</ctrl>
+							    <ctrl rowindex="0" index="9" text="基准指数" type="combox" hoffset="5" align="L" width="170" bindparam="basic_code" >					
+								    <combox cbchange="1" defsel="0" >
+									    <item text="999999上证指数"  value="0"/>
+								    	<item text="000300沪深300"  value="1"/>
+									    <item text="000905中证500"  value="2"/>
+								    </combox>
+						      </ctrl>
+						      <ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="10" width="140" bindparam="start_date" >
+					      		<datectrl change="0"/>
+							      <datevalue datetype="0" datespan="3" spantype="2" maxinterv="0"/>
+							    </ctrl>
+							    <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="end_date" >
+							    	<datectrl change="0"/>
+							      <datevalue datetype="0" datespan="1" spantype="0" />
+						      </ctrl>
+							    <ctrl rowindex="0" index="10" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK"  >
+								    <button  imageno="0" />
+							    </ctrl>
+								 <ctrl rowindex="0" index="0" type="paginate" hoffset="5" align="R" width="320"  >
+									<paginate pagerows="50" pagebegin="0" pageunit="true" >
+											<text w="110" />
+												<!--statnum w="40" format="共%d条" pagenum="false" /-->
+											<upbtn h="20" w="45" text="首页" bmppre="def"/>
+											<upbtn2 h="20" w="45" text="上页" bmppre="def"/>
+											<downbtn h="20" w="45" text="下页" bmppre="def"/>
+									</paginate>
+								</ctrl>
+						    </ctrls>
+				      </condpanel>
+            </table>
+            <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="gridctrl">
+              <gridctrl>
+                <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" defsort="fund_code" ascsort="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="10" showtip="1">
+					  <gridcol  name="fund_code" caption="基金代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+					  <gridcol  name="fund_market" caption="市场" syscol="$SC" visible="false"  align="R" headalign="R" width="40" datatype="S" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+					  <gridcol  name="$ZQJC" caption="基金简称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+					  <gridcol  name="$NOW" caption="最新净值" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" autosize="0" filter="0" ></gridcol>
+					  <gridcol  name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true"  align="R" headalign="R" width="60" datatype="F" digital="2" autosize="0" clrtype="Z" filter="0" ></gridcol>
+					  <gridcol  name="m_return_avg" caption="月收益率%|平均值" visible="true"  align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>	
+					  <gridcol  name="return_max" caption="月收益率%|最大值" visible="true"  align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>	
+					  <gridcol  name="return_min" caption="月收益率%|最小值" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+					  <gridcol  name="loss_avg" caption="平均月损失%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+					  <gridcol  name="return_avg_bull" caption="平均牛市收益%" visible="true" align="R" headalign="R" width="120" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol> 
+					  <gridcol  name="return_avg_bear" caption="平均熊市收益%" visible="true" align="R" headalign="R" width="120" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+					  <gridcol  name="pro_rate" caption="胜率" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+					  <gridcol  name="std_month" caption="波动率%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+					  <gridcol  name="FundSize" caption="最新份额" visible="true" align="R" headalign="R" width="85" fmttype="9" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+			          <gridcol  name="FundEstTime" caption="成立日期" visible="true" align="C" headalign="C" width="85" datatype="S"  autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+					  <gridcol  name="style_type" caption="投资类型" visible="true" align="L" headalign="L" width="80" datatype="S"  autosize="0" fmtinvalid="1" enumid="1" filter="0" ></gridcol>
+        		      <gridcol  name="style_details" caption="投资风格" visible="true" align="L" headalign="L" width="85" datatype="S"  autosize="0" fmtinvalid="1" enumid="2" clrtype="V" filter="0" ></gridcol>
+        	      	  <gridcol  name="ManagerName" caption="基金经理" visible="true" align="L" headalign="L" width="80" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+					  <gridcol  name="FundCopName" caption="基金公司" visible="true" align="L" headalign="L" width="85" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+        	      </gridcols>
+        	   
+				<datasource reqformat="2" cache="0" keeporiginal="true" reqmaxcount="200" name="HQServ.hq_nlp_risk_return" condid="3" body="[{&quot;ReqId&quot;:&quot;500032&quot;,&quot;style_type&quot;:&quot;&quot;,&quot;style_details&quot;:&quot;$$style_details$$&quot;,&quot;company_id&quot;: &quot;&quot;,&quot;fund_size&quot;: &quot;$$fund_size$$&quot;,&quot;fund_setup_time&quot;: &quot;$$fund_setup_time$$&quot;,&quot;basic_code&quot;: &quot;0&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;Sort&quot;:&quot;0&quot;,&quot;Page&quot;:&quot;$$$STARTPOS$ $$&quot;,&quot;PageSize&quot;:&quot;$$$PAGEROWS$ $$&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>	
+        		    
+					<menu>
+	                <item name="$M_EXP" text="导出"/>
+	                <item name="$M_ADDZXG" text="加入自选股"/>
+	                <item name="$M_ADDBLOCK" text="加入板块股"/>
+	                <item name="$M_SEARCH" text="列表中查找"/>
+                </menu>
+                <enums>
+						<enum id="1">
+							<item code="004001" value="股票型"/>
+							<item code="004003" value="混合型"/>
+							<item code="004002" value="债券型"/>
+							<!--<item code="004004" value="货币型"/>-->
+							<item code="004005" value="封闭式"/>
+							<item code="004006" value="基金型"/>
+							<item code="004007" value="贵金属"/>
+							<item code="004008" value="商品型"/>
+						</enum>
+						<enum id="2">
+							<item code="005001" value="普通股票型"/>
+							<item code="005002" value="复制指数型"/>
+							<item code="005003" value="增强指数型"/>
+							<item code="005004" value="平衡混合型"/>
+							<item code="005005" value="偏股混合型"/>
+							<item code="005006" value="偏债混合型"/>
+							<item code="005007" value="保本型"/>
+							<item code="005008" value="中短期纯债型"/>
+							<item code="005009" value="长期纯债型"/>
+							<item code="005010" value="一级债基"/>
+							<item code="005011" value="二级债基"/>
+							<item code="005012" value="债券指数型"/>
+							<item code="005013" value="基金型"/>
+							<item code="005014" value="货币型"/>
+							<item code="005015" value="短期理财债券型"/>
+							<item code="005016" value="贵金属商品"/>
+							<item code="005017" value="其他商品"/>
+						</enum>
+					</enums>
+        	    </gridctrl>		
+            </table>			
+          </branchpanel>
+        </table>
+        
+        
+        <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="tabpanel">
+        	<tabpanel >	
+        		<component caption="月度收益" id="12" name="chartctrl" >	
+					<chartctrl>
+						<properties >
+							<prop index="18" name="return_last" caption="基金月收益率%" style="3"  baseline="0.0" defsel="1" ></prop>		
+							<prop index="19" name="bp_return_last" caption="指数月收益率%" style="3"  baseline="0.0" defsel="1" ></prop>			
+							<xaxis name="month" caption="月份" datadesc="0"></xaxis>
+						</properties>
+					<datasource reqformat="2" cache="0" keeporiginal="true" masterid="4" name="HQServ.hq_nlp_risk_return"  body="[{&quot;ReqId&quot;:&quot;500033&quot;,&quot;company_id&quot;:&quot;$$fund_code$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;basic_code&quot;:&quot;$$basic_code$$&quot;,&quot;rate_freerisk&quot;:&quot;3&quot;,&quot;Desc&quot;:&quot;&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;50&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>	
+        		   	
+					</chartctrl>
+				</component>			
+				<component caption="收益明细" id="10" name="gridctrl" >
+						<gridctrl>
+							<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" defsort="month" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="1">
+								<gridcol  name="fund_code" caption="基金代码" syscol="$ZQDM" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+								<gridcol  name="market_code" caption="市场" syscol="$SC" visible="false"  align="R" headalign="R" width="40" datatype="I"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>		
+								<gridcol  name="fund_name" caption="基金简称"  visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+								  <gridcol  name="month" caption="月份" visible="true"  align="R" headalign="R" width="70" datatype="L" autosize="1" fmtinvalid="0"  filter="0" ></gridcol>		
+								  <gridcol  name="nv_now" caption="单位复权净值" visible="true" align="R" headalign="R" width="100" datatype="F" digital="4" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="nv_start" caption="期初复权净值" visible="false" align="R" headalign="R" width="100" datatype="F" digital="4" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="return_start" caption="净值累计涨幅%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+								  <gridcol  name="nv_last" caption="上月复权净值" visible="false" align="R" headalign="R" width="100" datatype="F" digital="4" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="return_last" caption="净值当月涨幅%" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+								  <gridcol  name="bp_now" caption="当月指数价格" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="bp_start" caption="期初指数价格" visible="false" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="bp_return_start" caption="指数累计涨幅%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+								  <gridcol  name="bp_last" caption="上月指数价格" visible="false" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								  <gridcol  name="bp_return_last" caption="指数当月涨幅%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+								  <gridcol  name="ei_start" caption="超额累计涨幅%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+								  <gridcol  name="ei_last" caption="超额当月涨幅%" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>		
+							</gridcols>
+							<datasource reqformat="2" cache="0" keeporiginal="true"  masterid="4" name="HQServ.hq_nlp_risk_return"  body="[{&quot;ReqId&quot;:&quot;500033&quot;,&quot;company_id&quot;:&quot;$$fund_code$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;basic_code&quot;:&quot;$$basic_code$$&quot;,&quot;rate_freerisk&quot;:&quot;3&quot;,&quot;Desc&quot;:&quot;&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;50&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>														
+					</gridctrl>	
+				</component>
+        	</tabpanel>	
+        </table>	
+      </branchpanel>
+    </table>
+  </table>
+</root>
+
+

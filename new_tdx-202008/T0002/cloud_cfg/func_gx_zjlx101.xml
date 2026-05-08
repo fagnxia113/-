@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="DRZLJLRE">
+							<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="C" align="C" width="70" datatype="S" clrtype="S" />
+							<gridcol name="$SC" caption="市场" syscol="$SC" visible="true" align="C" width="0" datatype="I" clrtype="S"/>
+							<gridcol name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" />
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z"/>
+							<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2"/>
+							<gridcol name="PE_TTM" caption="PE(TTM)" syscol="$PETTM" visible="true" align="R"	headalign="R" width="80" datatype="F" digital="2" filter="0" ></gridcol>
+							
+        			    <gridcol  name="J_LTSZ" caption="A股流通市值" syscol="$J_LTSZ" visible="false" align="R" headalign="R" width="100" datatype="F" autosize="1" filter="0" ></gridcol>
+        			    <gridcol  name="J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true" align="R" headalign="R" width="100" datatype="F" autosize="1" filter="0" ></gridcol>
+        			    <gridcol  name="J_LTGB" caption="A股流通股本" syscol="$J_LTGB" visible="false" align="R" headalign="R" width="100" datatype="F" autosize="1" filter="0" ></gridcol>
+        			    <gridcol  name="J_ZGB" caption="总股本" syscol="$J_ZGB" visible="false" align="R" headalign="R" width="80" datatype="F" autosize="1" filter="0" ></gridcol>							
+							<gridcol name="date" caption="统计日期" visible="true" align="C" width="90" datatype="D"   clrtype="S"  />
+							
+							<gridcol name="rzljlr1" caption="多日净流入|1天" visible="true"  headalign="R" align="R" width="65" datatype="F" digital="-1" fmttype="9" clrtype="Z" fmtinvalid="1" />
+							
+							<gridcol name="rzljlr5" caption="多日净流入|5天" visible="true" headalign="R" align="R" width="65" datatype="F" digital="-1" fmttype="9" clrtype="Z" fmtinvalid="1" />
+							<gridcol name="rzljlr10" caption="多日净流入|10天" visible="true" headalign="R" align="R" width="65" datatype="F" digital="-1" fmttype="9" clrtype="Z" fmtinvalid="1" />
+							<gridcol name="rzljlr20" caption="多日净流入|20天" visible="true" headalign="R" align="R" width="65" datatype="F" digital="-1" fmttype="9" clrtype="Z" fmtinvalid="1" />
+							<gridcol name="rzljlr30" caption="多日净流入|30天" visible="true" headalign="R" align="R" width="65" datatype="F" digital="-1" fmttype="9" clrtype="Z" fmtinvalid="1" />
+						</gridcols>
+						<datasource reqformat="11" name="" body="list/func_gx_zjlx101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+						</datasource>
+					</gridctrl>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

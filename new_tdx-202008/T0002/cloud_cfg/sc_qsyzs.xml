@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel" >
+			<splitpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+					<condpanel>
+						<ctrls rowcount="1">
+							<ctrl rowindex="0" index="0" text="年份" type="spinner" width="90" hide="0"  bindparam="N" bindtype="1">
+								<spinner  minval="1999" maxval="2049" defvalkey=""></spinner>
+								<datevalue datetype="2" datespan="0" spantype="2" />
+							</ctrl>
+							<ctrl rowindex="0" index="1" text="月份" type="spinner" width="70" hide="0"  bindparam="M" bindtype="1">
+								<spinner minval="0" maxval="12" defvalkey=""></spinner>
+								<datevalue datetype="1" datespan="2" spantype="2" monorquarter="1" />
+							</ctrl>	
+						<ctrl rowindex="0" index="3" text="计算"  type="button"  align="L" width="32" bindparam="IDOK" >
+						<button imageno="0" />
+						</ctrl>							
+						<ctrl rowindex="0" index="2" text="说明：月份若为0，表示整年；涨幅差=全收益指数涨幅-基础指数涨幅" type="static" hoffset="5" align="L" width="400" ></ctrl>
+						</ctrls>
+					</condpanel>
+				</table>
+
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="232" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="3"  rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" defsort="zoneZDFGap" expandfull="1" multibreed="2">
+						<gridcol name="startDate" caption="计算区间|开始日期" visible="true" enumid="888" align="C" width="80" datatype="D" fmtinvalid='1'/>
+						<gridcol name="endDate" caption="计算区间|结束日期" visible="true" enumid="888" align="C" width="80" datatype="D" fmtinvalid='1'/>					
+						<gridcol name="basicCode" caption="基础指数|代码" syscol="$ZQDM" refzqdm="0" visible="true" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol name="basicSet" caption="市场" refzqdm="0" syscol="$SC"  visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol  name="basicAbbre" caption="基础指数|名称" visible="true"   align="L" headalign="L" width="80" datatype="S" digital="2"  fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol name="$NOW" caption="基础指数|现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+						<gridcol name="zf2" caption="基础指数|涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="60" datatype="F" autosize="0" clrtype="Z"/>						
+						<gridcol  name="basicPricePreZone" caption="基础指数|区间前收盘价" visible="false"   align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="basicPriceZone" caption="基础指数|区间收盘价" visible="false"   align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="basicZDFZone" caption="基础指数|区间涨幅%" visible="true"   align="R" headalign="R" width="80" datatype="F" digital="2"  fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol name="wholeCode" caption="全收益指数|代码" syscol="$ZQDM" refzqdm="1" visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S"/>
+						<gridcol name="wholeSet" caption="市场" syscol="$SC" refzqdm="1" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol name="$NOW" caption="全收益指数|现价" refzqdm="1" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0"/>
+						<gridcol name="zf1" caption="全收益指数|涨幅%" refzqdm="1" syscol="$ZAF" visible="true" align="R" headalign="R" width="60" datatype="F" autosize="0" clrtype="Z"/>												
+						<gridcol  name="wholeAbbre" caption="全收益指数|名称" visible="true"   align="L" headalign="L" width="90" datatype="S" digital="2"  fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol  name="wholePricePreZone" caption="全收益指数|区间前收盘价" visible="false"   align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="wholePriceZone" caption="全收益指数|区间收盘价" visible="false"   align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="wholeZDFZone" caption="全收益指数|区间涨幅%" visible="true"   align="R" headalign="R" width="80" datatype="F" digital="2"  fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="zoneZDFGap" caption="涨幅差%|区间" visible="true"   align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="dayzoneZDFGap" caption="涨幅差%|当日" visible="true"  formula="zf2-zf1" calccol="zf1,zf2" align="R" headalign="R" width="60" datatype="F" digital="2"  fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>											
+						</gridcols>									
+					<datasource reqformat="2" cache="0" keeporiginal="true" condid="2111" name="HQServ.hq_nlp_copilot"  body="[{'ReqId': '200770','year': '$$N$$','month': '$$M$$','sortType': '0','desc': '1','Page': '-1','PageSize': '10','modname': 'mod_copilot.dll'}]" >
+					</datasource>
+					</gridctrl>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

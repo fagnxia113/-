@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel">
+			<splitpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.2" isleaf="true" hdirection="true" id="5" name="textpanel">
+											<textpanel>
+												<properties>
+													<textcol title="主题描述" fldname="t005" titleclr="245,147,0"/>
+												</properties>
+												<datasource zdgroup="ZDSYS1" reqformat="1" name="tdxyj_gnzt_jbxx" body="8,,$INGCODE$"/>
+											</textpanel>
+										</table>			
+			
+			
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="2" name="tabpanel">
+					<tabpanel >
+						<component caption="主题走势" id="3" name="chartctrl">
+							<chartctrl>
+								<properties>
+									<prop index="1" name="ZTSY" caption="主题收益走势图" style="1" baseline="0.0" defsel="1"/>
+									<prop index="2" name="HSSY" caption="沪深300收益走势图" style="1" baseline="0.0" defsel="1"/>
+									<xaxis name="DATE" caption="日期"/>
+								</properties>
+								<datasource zdgroup="ZDSYS1" reqformat="1" name="tdxyj_gnzt_jbxx" body="3,,$INGCODE$"/>
+							</chartctrl>
+						</component>
+						<component caption="驱动事件" id="4" name="splitpanel">
+							<splitpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="5" name="branchpanel">
+									<branchpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="0.85" isleaf="true" hdirection="true" id="6" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="3" rowchgmsg="true" postslave="true"  cachefile="true" showtip="1" defsort="CJRQ">
+													<gridcol name="SJID" caption="事件ID" visible="false"   syscol="$ZQDM" align="L" width="60" datatype="S" />
+													<gridcol name="CJRQ" caption="创建日期" visible="true"  align="L" headalign="L" width="80" datatype="D" autosize="1"/>
+													<gridcol name="SJMC" caption="事件名称" visible="true"  align="L" headalign="L" width="280" datatype="S" />
+													<gridcol name="GPJH" caption="股票集合" syscol="$S_ZQDM"  visible="false" align="L" width="70" datatype="S" clrtype="S" autosize="1"/>
+													<gridcol name="AVGZF" caption="均涨幅%" syscol="$S_AVGZF"  visible="true" align="R" width="80" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="JQZF" caption="权涨幅%" syscol="$S_JQZF"  visible="true" align="R" width="80" datatype="F" digital="2" autosize="1"/>
+													<gridcol name="LTG" caption="龙头股" syscol="$S_LTG"  visible="true" headalign="L" align="L" width="70" datatype="S"/>
+													<gridcol name="MAXZF" caption="最大涨幅%" syscol="$S_MAXZF"  visible="true" align="R" headalign="L" width="100" digital="2" datatype="F" autosize="1"/>
+													<gridcol name="szbl" caption="上涨比例" syscol="$S_UPRATE"  visible="true" align="R" headalign="L" width="100" digital="2" datatype="F" autosize="1"/>
+													<gridcol name="gpsl" caption="股数" syscol="$S_NUM" visible="true" align="R"  headalign="L" width="45" datatype="I" autosize="1"/>
+													<gridcol name="SJBJ" caption="事件背景" visible="false"  align="L" headalign="L" width="40" datatype="S" autosize="1"/>
+												</gridcols>
+												<datasource zdgroup="ZDSYS1" reqformat="1" name="tdxyj_gnzt_jbxx" body="4,,$INGCODE$"/>
+											</gridctrl>
+										</table>
+										<!--
+										<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="textpanel">
+											<textpanel>
+												<properties>
+													<textcol title="事件背景" fldname="SJBJ" titleclr="245,147,0"/>
+												</properties>
+												<datasource masterid="6" reqformat="12" name="" body=",,"/>
+											</textpanel>
+										</table>-->
+									</branchpanel>
+								</table>
+								<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="8" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="4" rowchgmsg="true" postslave="true" firstswitchzst="true" defsort="ZAF">
+											<gridcol name="Gpdm" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S"/>
+											<gridcol name="gpname" caption="名称" syscol="$ZQJC" visible="true" autosize="1" headalign="L" align="L" width="70" datatype="S"/>
+											<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="55" datatype="F"/>
+											<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="55" datatype="F"/>
+											<gridcol name="ZS" caption="涨速%" syscol="$ZS" visible="true" align="R" width="55" datatype="F"/>
+											<gridcol name="HSL" caption="换手%" syscol="$HSL" visible="true" align="R" width="55" datatype="F"/>
+											<gridcol name="CJL" caption="总成交量" syscol="$CJL" visible="true" align="R" width="100" datatype="I"/>
+											<gridcol name="CJE" caption="总成交额" syscol="$ZCJJE" visible="true" align="R" width="100" datatype="F"/>
+											<gridcol name="ZCJJE" caption="总金额" syscol="$ZCJJE" visible="true" align="R" width="70" datatype="F"/>
+											<gridcol name="J_ZSZ" caption="AB股总市值" syscol="$J_ZSZ" visible="true" align="R" width="100" datatype="F" digital="1"/>
+											<gridcol name="J_LTSZ" caption="A股流通市值" syscol="$J_LTSZ" visible="true" align="R" width="100" datatype="F" digital="1"/>
+											<gridcol name="PE" caption="PE(TTM)" visible="true" align="R" width="80" datatype="F" digital="1"/>
+											<gridcol name="PB" caption="PB(MRQ)" visible="true" align="R" width="80" datatype="F" digital="2"/>
+										</gridcols>
+										<datasource zdgroup="ZDSYS1" masterid="6" reqformat="1" name="tdxyj_gnzt_jbxx" body="5,,$$SJID$$"/>
+									</gridctrl>
+								</table>
+							</splitpanel>
+						</component>
+					</tabpanel>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

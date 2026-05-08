@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel" >
+			<splitpanel hdirection="true" >
+				<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="2" name="tabpanel" >
+					<tabpanel >
+						<component caption="主题指数" id="3" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" ingcode="true"  autosize="1"   >
+									<gridcol  name="ZSCODE" caption="指数代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZSMC" caption="名称"  visible="true" align="L" width="80" datatype="S" clrtype="S" autosize="1"  filter="0" ></gridcol>
+									<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PETTM" caption="PE_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PEBFW" caption="PE百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PBMRQ" caption="PB_MRQ" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PBBFW" caption="PB百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PSTTM" caption="PS_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PSBFW" caption="PS百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GXL" caption="股息率%" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ROE" caption="ROE%" visible="true" align="R" width="60" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="YLSYL" caption="盈利收益率%" visible="true" align="R" width="100" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GZ" caption="估值" visible="true" align="R" width="70" datatype="S"  enumcolorid="102"  clrtype="O"   filter="0" ></gridcol>
+									<gridcol  name="JYZZF" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYYZF" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JSYZF" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYNZF" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="TJQSR" caption="统计起始日" visible="true" align="C" width="90" datatype="S"    filter="0" ></gridcol>
+								</gridcols>
+								<datasource  reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="002,"></datasource>
+								<enumcolors>
+									<enumcolor id="102" clrtype="T">
+										<item val="估值偏低" clrtype="R" />
+										<item val="估值偏高" clrtype="G" />
+										<item val="估值适中" clrtype="T" />
+									</enumcolor>	
+								</enumcolors>
+							</gridctrl>								
+						</component>
+						<component caption="行业指数" id="4" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" ingcode="true"  autosize="1" >
+									<gridcol  name="ZSCODE" caption="指数代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZSMC" caption="名称"  visible="true" align="L" width="70" datatype="S" clrtype="S" autosize="1"  filter="0" ></gridcol>
+									<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>	
+									<gridcol  name="PETTM" caption="PE_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PEBFW" caption="PE百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PBMRQ" caption="PB_MRQ" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PBBFW" caption="PB百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PSTTM" caption="PS_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PSBFW" caption="PS百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GXL" caption="股息率%" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ROE" caption="ROE%" visible="true" align="R" width="60" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="YLSYL" caption="盈利收益率%" visible="true" align="R" width="100" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GZ" caption="估值" visible="true" align="R" width="70" datatype="S"  enumcolorid="103"  clrtype="O"   filter="0" ></gridcol>
+									<gridcol  name="JYZZF" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYYZF" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JSYZF" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYNZF" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="TJQSR" caption="统计起始日" visible="true" align="C" width="90" datatype="S"    filter="0" ></gridcol>
+								</gridcols>
+								<datasource  reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="003,"></datasource>
+								<enumcolors>
+									<enumcolor id="103" clrtype="T">
+										<item val="估值偏低" clrtype="R" />
+										<item val="估值偏高" clrtype="G" />
+										<item val="估值适中" clrtype="T" />
+									</enumcolor>	
+								</enumcolors>
+							</gridctrl>								
+						</component>
+							<component caption="综合指数" id="5" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" ingcode="true"  autosize="1" >
+									<gridcol  name="ZSCODE" caption="指数代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZSMC" caption="名称"  visible="true" align="L" width="70" datatype="S" clrtype="S" autosize="1"  filter="0" ></gridcol>
+									<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PETTM" caption="PE_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PEBFW" caption="PE百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PBMRQ" caption="PB_MRQ" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PBBFW" caption="PB百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PSTTM" caption="PS_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PSBFW" caption="PS百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GXL" caption="股息率%" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ROE" caption="ROE%" visible="true" align="R" width="60" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="YLSYL" caption="盈利收益率%" visible="true" align="R" width="100" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GZ" caption="估值" visible="true" align="R" width="70" datatype="S" enumcolorid="101"  clrtype="O"  filter="0" ></gridcol>
+									<gridcol  name="JYZZF" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYYZF" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JSYZF" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYNZF" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="TJQSR" caption="统计起始日" visible="true" align="C" width="90" datatype="S"    filter="0" ></gridcol>
+								</gridcols>
+								<datasource  reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="001,"></datasource>
+								<enumcolors>
+									<enumcolor id="101" clrtype="T">
+										<item val="估值偏低" clrtype="R" />
+										<item val="估值偏高" clrtype="G" />
+										<item val="估值适中" clrtype="T" />
+									</enumcolor>	
+								</enumcolors>
+							</gridctrl>								
+						</component>
+						<component caption="策略指数" id="6" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" ingcode="true"  autosize="1"  >
+									<gridcol  name="ZSCODE" caption="指数代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZSMC" caption="名称"  visible="true" align="L" width="70" datatype="S" clrtype="S" autosize="1"  filter="0" ></gridcol>
+									<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PETTM" caption="PE_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PEBFW" caption="PE百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PBMRQ" caption="PB_MRQ" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PBBFW" caption="PB百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PSTTM" caption="PS_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PSBFW" caption="PS百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GXL" caption="股息率%" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ROE" caption="ROE%" visible="true" align="R" width="60" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="YLSYL" caption="盈利收益率%" visible="true" align="R" width="100" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GZ" caption="估值" visible="true" align="R" width="70" datatype="S"  enumcolorid="104"  clrtype="O"   filter="0" ></gridcol>
+									<gridcol  name="JYZZF" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYYZF" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JSYZF" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYNZF" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="TJQSR" caption="统计起始日" visible="true" align="C" width="90" datatype="S"    filter="0" ></gridcol>
+								</gridcols>
+								<datasource  reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="004,"></datasource>
+								<enumcolors>
+									<enumcolor id="104" clrtype="T">
+										<item val="估值偏低" clrtype="R" />
+										<item val="估值偏高" clrtype="G" />
+										<item val="估值适中" clrtype="T" />
+									</enumcolor>	
+								</enumcolors>
+							</gridctrl>								
+						</component>
+						<component caption="规模指数" id="7" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" ingcode="true"   autosize="1" >
+									<gridcol  name="ZSCODE" caption="指数代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZSMC" caption="名称"  visible="true" align="L" width="70" datatype="S" clrtype="S" autosize="1"  filter="0" ></gridcol>
+									<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PETTM" caption="PE_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PEBFW" caption="PE百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PBMRQ" caption="PB_MRQ" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PBBFW" caption="PB百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="PSTTM" caption="PS_TTM" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="PSBFW" caption="PS百分位" visible="true" align="R" width="80" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GXL" caption="股息率%" visible="true"  align="R" width="70" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ROE" caption="ROE%" visible="true" align="R" width="60" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="YLSYL" caption="盈利收益率%" visible="true" align="R" width="100" datatype="F" digital="2"   filter="0" ></gridcol>
+									<gridcol  name="GZ" caption="估值" visible="true" align="R" width="70" datatype="S"  enumcolorid="105"  clrtype="O"   filter="0" ></gridcol>
+									<gridcol  name="JYZZF" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYYZF" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JSYZF" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="JYNZF" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="TJQSR" caption="统计起始日" visible="true" align="C" width="90" datatype="S"    filter="0" ></gridcol>
+								</gridcols>
+								<datasource  reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="005,"></datasource>
+								<enumcolors>
+									<enumcolor id="105" clrtype="T">
+										<item val="估值偏低" clrtype="R" />
+										<item val="估值偏高" clrtype="G" />
+										<item val="估值适中" clrtype="T" />
+									</enumcolor>	
+								</enumcolors>
+							</gridctrl>								
+						</component>
+									
+					</tabpanel>	
+				</table>
+				<table X="0" Y="0" width="1" height="-1" isleaf="true" hdirection="false" id="10" name="splitpanel" >
+					<splitpanel hdirection="false">
+						<table X="0" Y="0" width="0.5" height="1" isleaf="true" hdirection="true" id="11" name="tabpanel" >
+							<tabpanel >	
+								<component caption="PE走势" id="12" name="chartctrl" >
+									<chartctrl>
+										<properties >
+										<prop index="1" name="PETTM" caption="PE_TTM(左)" style="1"  baseline="0.0" defsel="1" ></prop>	
+										<prop index="2" name="PEBFW" caption="PE百分位(右)" style="1"  baseline="0.0" defsel="1" rightaxis="1" ></prop>		
+										<xaxis name="JYRQ" caption="交易日期" datadesc="0" ></xaxis>
+										</properties>
+									<datasource  reqformat="0" name="cfg_sc_zsgz" body="006,$INGCODE$"></datasource>
+									</chartctrl>								
+								</component>
+								<component caption="PB走势" id="13" name="chartctrl" >
+									<chartctrl>
+										<properties >
+										<prop index="1" name="PBMRQ" caption="PB_MRQ(左)" style="1"  baseline="0.0" defsel="1" ></prop>	
+										<prop index="2" name="PBBFW" caption="PB百分位(右)" style="1"  baseline="0.0" defsel="1" rightaxis="1" ></prop>		
+										<xaxis name="JYRQ" caption="交易日期" datadesc="0" ></xaxis>
+										</properties>
+									<datasource  reqformat="0" name="cfg_sc_zsgz" body="006,$INGCODE$"></datasource>
+									</chartctrl>								
+								</component>
+								<component caption="ROE走势" id="14" name="chartctrl" >
+									<chartctrl>
+										<properties >
+										<prop index="1" name="ROE" caption="ROE%" style="1"  baseline="0.0" defsel="1" ></prop>		
+										<xaxis name="JYRQ" caption="交易日期" datadesc="0"></xaxis>
+										</properties>
+									<datasource  reqformat="0" name="cfg_sc_zsgz" body="006,$INGCODE$"></datasource>
+									</chartctrl>								
+								</component>
+							</tabpanel>	
+						</table>
+						<table X="0" Y="0" width="-1" height="1" isleaf="true" hdirection="true" id="15" name="tabpanel" >
+							<tabpanel >	
+								<component caption="关联基金" id="16" name="gridctrl" >
+									<gridctrl>
+										<gridcols  firstswitchzst="1"   fixednum="2"   defsort="ZAF" showtip="1" autosize="1" >
+											<gridcol  name="JJDM" caption="基金代码" syscol="$ZQDM" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+											<gridcol  name="JJJC" caption="基金简称"  visible="true" align="L" width="150" datatype="S" clrtype="S"   filter="0" ></gridcol>
+											<gridcol  name="SC" caption="市场" syscol="$SC" visible="false" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+											<gridcol  name="ZAF" caption="涨幅%"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+											<gridcol  name="JJJZ" caption="基金净值"  visible="true" align="R" width="80" datatype="F" digital="4"  filter="0" ></gridcol>
+											<gridcol  name="JYZ" caption="阶段涨幅%|近一周"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+											<gridcol  name="JYY" caption="阶段涨幅%|近一月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+											<gridcol  name="JSY" caption="阶段涨幅%|近三月"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+											<gridcol  name="JYN" caption="阶段涨幅%|近一年"  visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+											<gridcol  name="ZXFE" caption="最新份额(万)" visible="true"  align="R" width="110" datatype="F" digital="2"  filter="0" ></gridcol>
+											<gridcol  name="TZFG" caption="投资风格" visible="true" align="L" width="100" datatype="S"    filter="0" ></gridcol>
+											<gridcol  name="XRJL" caption="现任经理" visible="true" align="L" width="100" datatype="S"    filter="0" ></gridcol>
+											<gridcol  name="SSZT" caption="申赎状态" visible="true" align="L" width="100" datatype="S"    filter="0" ></gridcol>
+											<gridcol  name="JJGS" caption="基金公司" visible="true" align="L" width="100" datatype="S"    filter="0" ></gridcol>
+										</gridcols>
+										<datasource  reqformat="0" name="cfg_sc_zsgz" body="007,$INGCODE$"></datasource>
+									</gridctrl>	
+								</component>
+							</tabpanel>	
+						</table>
+					</splitpanel>	
+				</table>
+				
+			</splitpanel>	
+		</table>
+	</table>
+</root>

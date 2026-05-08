@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root	width="832"	height="226" >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="10" name="gridctrl">																			
+			<gridctrl>
+					<gridcols fixednum="3" rowchgmsg="true" postslave="true" defsort="N002" expandfull="1" ascsort="true" >
+							<gridcol name="N002" caption="指数代码"  visible="true" align="L" headalign="L" width="150" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S"/>
+							<gridcol name="N001" caption="指数名称"  visible="true" align="L" headalign="L" width="150" datatype="S" autosize="1" clrtype="S" fmtinvalid="1"/>
+							<gridcol name="N003" caption="交易日期"  visible="true" align="R"  headalign="R"  width="150" datatype="S"  filter="0" ></gridcol>
+							<gridcol name="N004" caption="昨日点位"  visible="true" align="R"  headalign="R"  width="150" datatype="F" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>
+							<gridcol name="N005" caption="最新点位"  visible="true" align="R"  headalign="R"  width="150" datatype="F" digital="2"  fmtinvalid="1"  filter="0" ></gridcol>	
+							<gridcol name="N009" caption="日涨跌"    visible="true" align="R" headalign="R" width="150" datatype="S" digital="2" autosize="1" formula="N005-N004" calccol="N005,N004" fmtinvalid="1" clrtype="Z"/>
+							<gridcol name="N006" caption="日涨跌幅%"  visible="true" align="R"  headalign="R"  width="150" datatype="F" digital="2"  fmtinvalid="1"  filter="0" clrtype="Z"></gridcol>
+							<gridcol name="N007" caption="周涨跌幅%"  visible="true" align="R"  headalign="R"  width="150" datatype="F" digital="2"  fmtinvalid="1"  filter="0" clrtype="Z"></gridcol>
+							<gridcol name="N008" caption="月涨跌幅%"  visible="true" align="R"  headalign="R"  width="150" datatype="F" digital="2"  fmtinvalid="1"  filter="0" clrtype="Z"></gridcol>
+					</gridcols>
+				<datasource reqformat="1" condid="2" name="tdxyj_qhqqzt_jbzl" body="003,,,"></datasource>
+			</gridctrl>
+		</table>
+	</table>
+</root>
+

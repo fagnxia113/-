@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" multibreed="2" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="ZAF">
+							<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="C" align="C" width="70" datatype="S" clrtype="S" />
+							<gridcol name="$SC" caption="市场" syscol="$SC" visible="true" align="C" width="0" datatype="I" clrtype="S"/>
+							<gridcol name="gpname" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" />
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z"/>
+							<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2"/>
+							<gridcol name="PE" caption="PE(TTM)" syscol="$PETTM" visible="true" align="R" width="90" datatype="F" digital="2" fmtinvalid="1" />
+							<gridcol name="PB" caption="PB(MRQ)" syscol="$PBMRQ" visible="true" align="R" width="90" datatype="F" digital="2" fmtinvalid="1" />
+							<gridcol name="$ZQDM1" caption="行业|代码" syscol="$ZQDM" refzqdm="1" visible="true" align="C" width="70" datatype="S" />
+							<gridcol name="TDXHY" caption="行业|所属行业" syscol="$ZQJC" refzqdm="1" visible="true" headalign="L" align="L" width="110" datatype="S" fmtinvalid="1" />
+							<gridcol name="$SC1" caption="证券市场" syscol="$SC" refzqdm="1" visible="false" align="L" width="70" datatype="I" clrtype="S"/>
+							<gridcol name="$ZAF1" caption="行业|涨幅%" syscol="$ZAF" refzqdm="1" visible="true" align="R" width="70" datatype="F" clrtype="Z"/>
+							<gridcol name="hyPE" caption="行业|PE(TTM)" visible="true" align="R" width="85" datatype="F" digital="2" fmtinvalid="1" />
+							<gridcol name="hyPB" caption="行业|PB(MRQ)" visible="true" align="R" width="90" datatype="F" digital="2" fmtinvalid="1" />
+							<gridcol name="$S_ZQDM" caption="股票集合" syscol="$S_ZQDM" visible="false" align="L" width="70" datatype="B" fmtinvalid="1"/>
+							<gridcol name="$S_LTG" caption="行业|领涨股" syscol="$S_LTG" refzqdm="1" visible="true" headalign="L" align="L" width="80" datatype="S" fmtinvalid="1"/>
+							<gridcol name="$S_MAXZF" caption="行业|涨幅%" syscol="$S_MAXZF" refzqdm="1" visible="true" align="R" width="70" datatype="F" fmtinvalid="1" clrtype="Z" />
+							<gridcol name="sszt" caption="所属主题" visible="true" headalign="L" align="L" width="700" datatype="S" fmtinvalid="1"/>
+						</gridcols>
+						<datasource reqformat="11" name="" body="list/func_gx_hyzt101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+						</datasource>
+					</gridctrl>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

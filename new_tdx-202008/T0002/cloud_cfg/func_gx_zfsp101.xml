@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" defsort="ggdate" forbidmenu="0" ingcode="true">
+							<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="C" align="C" width="70" datatype="S" clrtype="S" />
+							<gridcol name="$SC" caption="市场" syscol="$SC" visible="true" align="C" width="0" datatype="I" clrtype="S"/>
+							<gridcol name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" />
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z"/>
+							<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2"/>
+							<gridcol name="zbgj" caption="高送转潜力|每股公积" visible="true" align="R" width="85" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="wfplr" caption="高送转潜力|未分配" visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="jlr1" caption="高送转潜力|归母净利润" visible="false" align="R" width="105" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="jlr3" caption="高送转潜力|归母净利润%" visible="true" align="R" width="115" clrtype="Z" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="ggdate" caption="分红转增|公告日期" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+							<gridcol name="szbl" caption="分红转增|每十股送转" visible="true" align="R" width="105" datatype="F" digital="0" fmtinvalid="1"/>
+							<gridcol name="xjfh" caption="分红转增|每十股分红" visible="true" align="R" width="105" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="djdate" caption="分红转增|登记日" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+							<gridcol name="qxdate" caption="分红转增|除息日" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+							<gridcol name="fajd" caption="分红转增|方案进度" visible="true" headalign="C" align="C" width="110" datatype="S" fmtinvalid="1"/>
+							<gridcol name="ggrq" caption="配股|公告日期" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+							<gridcol name="dm" caption="配股|配股代码" visible="true" headalign="C" align="C" width="85" datatype="S" clrtype="S" fmtinvalid="1"/>
+							<gridcol name="bl" caption="配股|每十股" visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="qsjkr" caption="配股|缴款起始" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+							<gridcol name="jzjkr" caption="配股|缴款截止" visible="true" headalign="C" align="C" width="85" datatype="S" fmtinvalid="1"/>
+						</gridcols>
+						<datasource reqformat="11" name="" body="list/func_gx_zfsp101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+						</datasource>
+					</gridctrl>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

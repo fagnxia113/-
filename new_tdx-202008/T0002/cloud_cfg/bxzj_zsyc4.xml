@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">	
+		    	            <table X="0" Y="0" width="1" height="2" isleaf="true" hdirection="true" id="4" name="condpanel" >
+			    	            <condpanel>
+				    	            <ctrls rowcount="1" >
+					      	            <ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="" width="140" bindparam="StartDate" >
+							                <datectrl change="1" />											
+							                <datevalue datetype="11" datespan="0" spantype="0" datetime="20170101" maxinterv="0"/>											
+							            </ctrl>
+							            <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="EndDate" >
+							                <datectrl change="1" />											
+							                <datevalue datetype="0" datespan="0" spantype="0" />
+						                </ctrl>										
+				    		            <ctrl rowindex="0" index="0" text="统计北上资金单日净买入不同规模时沪深300指数的后续表现（基于大数据统计,仅供参考）" type="static"  hoffset="5" align="L" width="600" bindparam="CacheId" >			
+							                <edit  change="0" defval="-1" />
+						                </ctrl>				
+						                <ctrl rowindex="0" index="1" text="" type="statnote" hoffset="5" align="R" width="80" ></ctrl>									
+					                </ctrls>
+			    	            </condpanel>
+        		            </table>	
+	
+        		            <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl" >
+        			            <gridctrl>
+	            		            <gridcols  firstswitchzst="1"   fixednum="1" rowchgmsg="true" postslave="true" keycol="1001" defsort="date" ascsort="false" firstorder="false" firstcheck="false" dbclkchg="true" dbcmsg="1006" frameline="15" >
+							            <gridcol  name="date" caption="日期" visible="true"  align="C" headalign="C" width="86" datatype="I" clrtype="O" enumcolorid="0"  fmtinvalid="1" filter="0" ></gridcol>
+	        			                <gridcol  name="valuejlr" caption="单日净流入(亿元)" visible="true"  align="R" headalign="R" width="100" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="valuejmr" caption="单日净买入(亿元)" visible="true"   align="R" headalign="R" width="90" datatype="F" autosize="0" fmtinvalid="0" digital="2" clrtype="Z" filter="0" ></gridcol>		
+	        			                <gridcol  name="close" caption="沪深300指数点位" visible="true"  align="R" headalign="R" width="100" datatype="F" autosize="0" digital="2"  filter="0" ></gridcol>
+	        		    	            <gridcol  name="zdfavg1" caption="次日涨幅%" visible="true"   align="R" headalign="R" width="90" datatype="F" autosize="0" fmtinvalid="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+							            <gridcol  name="zdfavg3" caption="3日后涨幅%" visible="true"  align="R" headalign="R" width="100" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="zdfavg5" caption="5日后涨幅%" visible="true"   align="R" headalign="R" width="90" datatype="F" autosize="0" fmtinvalid="0" digital="2" clrtype="Z" filter="0" ></gridcol>	
+	        	    	            </gridcols>								
+    	    			        
+    	    			        
+								    <datasource reqformat="22" cache="0" keeporiginal="true" reqmaxcount="200" name="HQServ.PBRPC_FUAN" condid="4" 
+								    	body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_fuan.dll;ReqByte={&quot;ReqId&quot;:&quot;500503&quot;,
+								    	&quot;StartDate&quot;:&quot;$$StartDate$$&quot;,
+								    	&quot;EndDate&quot;:&quot;$$EndDate$$&quot;,
+								    	&quot;Page&quot;:&quot;-1&quot;,
+								    	&quot;modname&quot;:&quot;mod_fuan.dll&quot;}"></datasource>										
+							    
+							    
+							    
+							    
+							    
+							    
+							    
+							        <enums>
+								        <enum id="1">
+									        <item code="-200" value="<-200"/>									
+									        <item code="-150" value="-200 ~ -150"/>							
+									        <item code="-100" value="-150 ~ -100"/>
+									        <item code="-80" value="-100 ~ -80"/>							
+									        <item code="-60" value="-80 ~ -60"/>							
+									        <item code="-40" value="-60 ~ -40"/>							
+									        <item code="-20" value="-40 ~ -20"/>							
+									        <item code="-0" value="-20 ~ 0"/>						
+									        <item code="+0" value="0  ~  20"/>
+									        <item code="20" value="20  ~  40"/>
+									        <item code="40" value="40  ~  60"/>
+									        <item code="60" value="60  ~  80"/>
+									        <item code="80" value="80  ~  100"/>
+									        <item code="100" value="100  ~  150"/>
+									        <item code="150" value="150  ~  200"/>
+									        <item code="200" value="＞200"/>																	
+								        </enum>
+							        </enums>									
+				                    <menu>
+	                                    <item name="$M_EXP" text="导出"/>
+                                    </menu>								
+    	    		            </gridctrl>
+        		            </table>						
+            </branchpanel>				
+        </table>	
+    </table>
+</root>

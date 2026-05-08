@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<vars luafile="GN_TOTAL"/>
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="10" name="splitpanel">
+			<splitpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="0.55" isleaf="true" hdirection="false" id="1" name="splitpanel">
+					<splitpanel hdirection="false">
+						<table X="0" Y="0" width="0.618" height="1" isleaf="true" hdirection="true" id="6" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="7" name="switchcond">
+									<switchcond>
+										<switchitems swgroup="1">
+											<switchitem itemid="100" caption="所有类型" topnode="true"/>
+											<switchitem itemid="100101" caption="宽基指数"/>
+											<switchitem itemid="100102" caption="行业指数"/>
+											<switchitem itemid="100103" caption="风格策略"/>
+											<switchitem itemid="100104" caption="主题概念"/>
+											<switchitem itemid="1002" caption="其他类型"/>
+										</switchitems>
+									</switchcond>
+								</table>
+								<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="2" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="4" rowchgmsg="true" postslave="true" showtip="1" defsort="N004" expandfull="1">
+											<gridcol name="N001" caption="ETF主题ID" syscol="$ZQDM" visible="false" align="L" headalign="L" width="90" datatype="S"/>
+											<gridcol name="N002" caption="ETF类型" visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1"/>
+											<gridcol name="N003" caption="ETF成分集合" syscol="$S_ZQDM" visible="false" align="L" headalign="L" width="90" datatype="S" clrtype="S"/>
+											<gridcol name="N004" caption="涨幅%" syscol="$S_AVGZF" visible="true" align="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<!--<gridcol  name="N005" caption="加权涨幅%" syscol="$S_JQZF"   visible="true" align="R"  width="90" datatype="F" digital="2" clrtype="Z"  filter="0" ></gridcol>-->
+											<gridcol name="N006" caption="龙头ETF" syscol="$S_LTG" visible="true" align="L" headalign="L" width="140" datatype="S" />
+											<gridcol name="N007" caption="龙头涨%" syscol="$S_MAXZF" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" clrtype="Z" > </gridcol>
+											<gridcol name="N009" caption="数量" syscol="$S_NUM" visible="true" align="R" headalign="R" width="60" datatype="I" />
+											<gridcol name="N010" caption="总份额(亿份)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" />
+											<gridcol name="YRBD" caption="份额变动(亿份)|近1日" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" formula="(N011*N010)/100/(1+N011/100)" calccol="N011,N010" />
+											<gridcol name="YZBD" caption="份额变动(亿份)|近1周" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" formula="(YZFEBH*N010)/100/(1+YZFEBH/100)" calccol="YZFEBH,N010" />
+											<gridcol name="YYBD" caption="份额变动(亿份)|近1月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" formula="(YYFEBH*N010)/100/(1+YYFEBH/100)" calccol="YYFEBH,N010" />
+											<gridcol name="N011" caption="份额变化率(%)|近1日" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YZFEBH" caption="份额变化率(%)|近1周" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YYFEBH" caption="份额变化率(%)|近1月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="N012" caption="总规模(亿元)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" > </gridcol>
+											<gridcol name="N013" caption="规模变化率(%)|近1日" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YZGMBH" caption="规模变化率(%)|近1周" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YYGMBH" caption="规模变化率(%)|近1月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YZZF" caption="阶段收益率(%)|近1周" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YYZF" caption="阶段收益率(%)|近1月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="YNZF" caption="阶段收益率(%)|近1年" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+										</gridcols>
+										<datasource reqformat="1" switchid="7" name="pcwebcall_jjzt_etfjj_etfzt" body="001,$INBLOCK$"/>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>
+						<table X="-1" Y="0" width="-1" height="1" isleaf="true" hdirection="true" id="3" name="splitpanel">
+							<splitpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="4" name="tabpanel">
+									<tabpanel >
+										<component caption="ETF市场规模" id="5" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="T004" caption="ETF总规模(亿元)-左" style="1" defsel="1"/>
+													<prop index="1" name="T007" caption="ETF净申赎(亿元)-右" style="3" defsel="1" rightaxis="1" baseline="0.0"/>
+													<xaxis name="T001" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" name="pcwebcall_jjzt_etfjj_etfzt" body="004,"/>
+											</chartctrl>
+										</component>
+										<component caption="ETF市场份额" id="8" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="N002" caption="ETF总份额(亿份)" style="1" defsel="1"/>
+													<xaxis name="N001" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" name="pcwebcall_jjzt_etfjj_etfzt" body="005,"/>
+											</chartctrl>
+										</component>
+										<component caption="股票型ETF" id="17" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="N002" caption="股票型ETF规模(亿元)-左" style="1" defsel="1"/>
+													<prop index="1" name="N003" caption="股票型ETF份额(亿份)-左" style="1" defsel="1"/>
+													<prop index="2" name="N004" caption="股票型ETF每日资金净流入(亿元)-右" style="3" defsel="1" rightaxis="1" baseline="0.0"/>
+													<xaxis name="N001" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" name="pcwebcall_jjzt_etfjj_etfzt" body="006,"/>
+											</chartctrl>
+										</component>
+										<component caption="ETF市场成交" id="18" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="N002" caption="ETF成交额(亿元)-左" style="1" defsel="1"/>
+													<prop index="1" name="N003" caption="ETF成交量(亿份)-右" style="3" defsel="1" rightaxis="1" baseline="0.0"/>
+													<xaxis name="N001" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" name="pcwebcall_jjzt_etfjj_etfzt" body="007,"/>
+											</chartctrl>
+										</component>
+									</tabpanel>
+								</table>
+								<table X="-1" Y="0" width="-1" height="1" isleaf="true" hdirection="true" id="8" name="tabpanel">
+									<tabpanel >
+										<component caption="份额变化" id="9" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="N003" caption="总份额(亿份)-左" style="3" defsel="1"/>
+													<prop index="1" name="N004" caption="份额变化率(%)-右" style="1" defsel="0" rightaxis="1" baseline="0.0"/>
+													<xaxis name="N002" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" masterid="2" name="pcwebcall_jjzt_etfjj_etfzt" body="002,$$N001$$"/>
+											</chartctrl>
+										</component>
+										<component caption="规模变化" id="5" name="chartctrl">
+											<chartctrl>
+												<properties hidetoolbar="true">
+													<prop index="0" name="N006" caption="总规模(亿元)-左" style="3" defsel="1"/>
+													<prop index="1" name="N008" caption="规模变化率(%)-右" style="1" defsel="0" rightaxis="1" baseline="0.0"/>
+													<xaxis name="N002" caption="交易日期" datadesc="0"/>
+												</properties>
+												<datasource reqformat="1" masterid="2" name="pcwebcall_jjzt_etfjj_etfzt" body="003,$$N001$$"/>
+											</chartctrl>
+										</component>
+									</tabpanel>
+								</table>
+							</splitpanel>
+						</table>
+					</splitpanel>
+				</table>
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="false" id="11" name="splitpanel">
+					<splitpanel hdirection="false">
+						<table X="0" Y="0" width="0.618" height="1" isleaf="true" hdirection="true" id="12" name="gridctrl">
+							<gridctrl>
+								<gridcols fixednum="3" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" defsort="$ZAF" expandfull="1" multibreed="2">
+									<gridcol name="ZQDM" caption="代码" syscol="$ZQDM" refzqdm="0" visible="true" align="L" headalign="L" width="75" datatype="S" clrtype="S"/>
+									<gridcol name="SC" caption="市场" syscol="$SC" refzqdm="0" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+									<gridcol name="ZQJC" caption="基金名称" syscol="$ZQJC" refzqdm="0" visible="true" align="L" headalign="L" width="140" datatype="S" clrtype="S" />
+									<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" refzqdm="0" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="$NOW2" caption="现价" syscol="$NOW2" refzqdm="0" visible="true" align="R" headalign="R" width="65" datatype="F" digital="3" />
+									<gridcol name="$JJJZ" caption="IOPV" syscol="$JJJZ" refzqdm="0" visible="true" align="R" headalign="R" width="90" datatype="F" digital="4" />
+									<!--<gridcol name="YJL" caption="溢价率%" visible="true" align="R" width="80" datatype="F" headalign="R" digital="2" clrtype="Z" formula="($NOW/$JJJZ-1)*100" calccol="$NOW,$JJJZ" > </gridcol>-->
+									<gridcol name="YJL2" caption="溢价率%" visible="true" align="R" width="80" datatype="F" headalign="R" digital="2" clrtype="Z"> 
+										<lua func="calcYJL">
+											<param name="$NOW2"/>
+											<param name="$JJJZ"/>
+										</lua>
+									</gridcol>
+									<gridcol name="CJE" caption="成交额" syscol="$ZCJJE" refzqdm="0" visible="true" align="R" headalign="R" width="85" datatype="F" digital="2" />
+									<gridcol name="ZQDM1" caption="指数代码" syscol="$ZQDM" refzqdm="1" visible="true" align="L" headalign="L" width="85" datatype="S" clrtype="S" />
+									<gridcol name="SC1" caption="市场" syscol="$SC" refzqdm="1" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+									<gridcol name="ZSJC" caption="指数简称" syscol="$ZQJC" refzqdm="1" visible="true" align="L" headalign="L" width="110" datatype="S" clrtype="S"/>
+									<gridcol name="ZSZF" caption="指数涨幅%" syscol="$ZAF" refzqdm="1" visible="true" align="R" headalign="R" width="95" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="JZRQ" caption="净值日期" visible="true" align="C" headalign="C" width="85" datatype="D" />
+									<gridcol name="DWJZ" caption="单位净值" visible="true" align="R" headalign="R" width="80" datatype="F" digital="4" />
+									<gridcol name="ZXFE" caption="最新份额" visible="true" align="R" headalign="R" width="85" datatype="F" digital="2" fmttype="9" />
+									<gridcol name="jyrfebd" caption="份额变动(万份)|近1日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jyzfebd" caption="份额变动(万份)|近1周" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jyyfebd" caption="份额变动(万份)|近1月" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jyrfebhl" caption="份额变化率(%)|近1日" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jyzfebhl" caption="份额变化率(%)|近1周" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jyyfebhl" caption="份额变化率(%)|近1月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="ZXGM" caption="最新规模" visible="true" align="R" headalign="R" width="85" datatype="F" digital="2" formula="$NOW2*ZXFE" calccol="$NOW2,ZXFE" fmttype="9" > </gridcol>
+									<gridcol name="jyrzjjlr" caption="资金净流入(亿元)|近1日" visible="true" align="R" headalign="R" width="90" datatype="F" digital="4" clrtype="Z" />
+									<gridcol name="jyzzjjlr" caption="资金净流入(亿元)|近1周" visible="true" align="R" headalign="R" width="90" datatype="F" digital="4" clrtype="Z" />
+									<gridcol name="jyyzjjlr" caption="资金净流入(亿元)|近1月" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jsyzjjlr" caption="资金净流入(亿元)|近3月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jlyzjjlr" caption="资金净流入(亿元)|近6月" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="jynzjjlr" caption="资金净流入(亿元)|近1年" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" clrtype="Z" />
+									<gridcol name="ZXJYR" caption="最新交易日" visible="false" align="C" headalign="C" width="90" datatype="D" />
+									<gridcol name="SSRQ" caption="上市日期" visible="true" align="C" headalign="C" width="90" datatype="D" />
+									<gridcol name="JLRZF" caption="2日涨幅" visible="false" align="R" headalign="R" width="90" datatype="F" digital="2"/>
+									<gridcol name="JSRZF" caption="3日涨幅%" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2"  formula="((1+JLRZF/100)*(1+$ZAF/100)-1)*100" calccol="JLRZF,$ZAF" clrtype="Z"/>
+									<gridcol name="JSJRZF" caption="19日涨幅" visible="false" align="R" headalign="R" width="100" datatype="F" digital="2"/>
+									<gridcol name="JESRZF" caption="20日涨幅%" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2"  formula="((1+JSJRZF/100)*(1+$ZAF/100)-1)*100" calccol="JSJRZF,$ZAF" clrtype="Z"/>
+									<gridcol name="JWSJRZF" caption="59日涨幅" visible="false" align="R" headalign="R" width="90" datatype="F" digital="2"/>
+									<gridcol name="JLSRZF" caption="60日涨幅%" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2"  formula="((1+JWSJRZF/100)*(1+$ZAF/100)-1)*100" calccol="JWSJRZF,$ZAF" clrtype="Z"/>
+									<gridcol name="ZXSSDW" caption="最小申赎单位(万份)" visible="true" align="R" headalign="R" width="160" datatype="F" digital="2" />
+								</gridcols>
+								<datasource reqformat="1" masterid="2" name="pcwebcall_jjzt_etfjj_etffl" body="001,$$N001$$,"/>
+							</gridctrl>
+						</table>
+						<table X="-1" Y="0" width="-1" height="1" isleaf="true" hdirection="true" id="13" name="tabpanel">
+							<tabpanel >
+								<component caption="重仓股票" id="14" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="3" showtip="1" forbidmenu="0" defsort="CGSZ" expandfull="1">
+											<gridcol name="ZQDM" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" />
+											<gridcol name="SC" caption="市场" syscol="$SC" visible="false" align="L" width="60" datatype="S" clrtype="S"/>
+											<gridcol name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" autosize="1" />
+											<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="3" />
+											<gridcol name="CGSZ" caption="持股市值(元)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" fmttype="9" />
+											<gridcol name="ZJZB" caption="占净值比(%)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" />
+											<gridcol name="CGSL" caption="持股数量(股)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" fmttype="9" />
+											<gridcol name="JZRQ" caption="截止日期" visible="true" align="C" headalign="C" width="90" datatype="D" />
+										</gridcols>
+										<datasource reqformat="1" masterid="12" name="pcwebcall_jjzt_etfjj_etffl" body="004,,$$ZQDM$$"/>
+									</gridctrl>
+								</component>
+								<component caption="重仓债券" id="15" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="3" showtip="1" forbidmenu="0" defsort="CZSZ" expandfull="1">
+											<gridcol name="ZQDM" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" clrtype="S" />
+											<gridcol name="ZQJC" caption="名称" visible="true" align="L" headalign="L" width="90" datatype="S" clrtype="S" autosize="1" />
+											<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" clrtype="Z" />
+											<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="3" />
+											<gridcol name="CZSZ" caption="持债市值(元)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" fmttype="9" />
+											<gridcol name="ZJZB" caption="占净值比(%)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" />
+											<gridcol name="CZSL" caption="持债数量(张)" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" fmttype="9" />
+											<gridcol name="JZRQ" caption="截止日期" visible="true" align="C" headalign="C" width="90" datatype="D" />
+										</gridcols>
+										<datasource reqformat="1" masterid="12" name="pcwebcall_jjzt_etfjj_etffl" body="005,,$$ZQDM$$"/>
+									</gridctrl>
+								</component>
+								<component caption="场内份额" id="16" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="3" showtip="1" forbidmenu="0" defsort="JYRQ" expandfull="1">
+											<gridcol name="JYRQ" caption="截止日期" visible="true" align="C" headalign="C" width="85" datatype="D" />
+											<gridcol name="ZXFE" caption="最新份额" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" fmttype="9" />
+											<gridcol name="FEBD" caption="份额变动" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" fmttype="9" clrtype="Z" />
+											<gridcol name="FEBDL" caption="份额变化率(%)" visible="true" align="R" headalign="R" width="120" datatype="F" digital="2" clrtype="Z" />
+										</gridcols>
+										<datasource reqformat="1" masterid="12" name="pcwebcall_jjzt_etfjj_etffl" body="003,,$$ZQDM$$"/>
+									</gridctrl>
+								</component>
+							</tabpanel>
+						</table>
+					</splitpanel>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

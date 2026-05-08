@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">	
+		<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="2" name="gridctrl">
+			<gridctrl>
+				<gridcols fixednum="2" firstswitchzst="true" defsort="YDRZF">
+					<gridcol name="Gpdm" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S" filter="0" ></gridcol>
+					<gridcol name="gpname" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="70" datatype="S" filter="0" ></gridcol>
+					<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF"  visible="true" align="R" width="60" datatype="F"  filter="0" ></gridcol>
+					<gridcol name="NOW" caption="现价" syscol="$NOW"  visible="true" align="R" width="60" datatype="F"   filter="0" ></gridcol>	
+					<gridcol name="ZS" caption="涨速%" syscol="$ZS"  visible="true" align="R" width="60" datatype="F"  filter="0" ></gridcol>
+					<gridcol name="HSL" caption="换手%" syscol="$HSL"  visible="true" align="R" width="60" datatype="F" filter="0" ></gridcol>
+					<gridcol name="ZCJJE" caption="总金额" syscol="$ZCJJE"  visible="true" align="R" width="70" datatype="F"  filter="0" ></gridcol>
+					<gridcol name="J_ZSZ" caption="AB股总市值" syscol="$J_ZSZ"  visible="false" align="R" width="100" datatype="F"  filter="0" ></gridcol>	
+					<gridcol name="J_LTSZ" caption="A股流通市值" syscol="$J_LTSZ"  visible="true" align="R" width="100" datatype="F"  filter="0" ></gridcol>
+					<gridcol name="PE" caption="PE(TTM)"  visible="true" align="R" width="70" datatype="F" digital="2" filter="0" ></gridcol>	
+					<gridcol name="PB" caption="PB(MRQ)"  visible="true" align="R" width="72" datatype="F" digital="2" filter="0" ></gridcol>
+					<gridcol name="YDRZF" caption="近一日涨%"  visible="true"  align="R" width="80" datatype="F" digital="2" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+					<gridcol name="YDZZF" caption="近一周涨%"  visible="true"  align="R" width="80" datatype="F" digital="2" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+					<gridcol name="YDYZF" caption="近一月涨%"  visible="true"  align="R" width="80" datatype="F" digital="2" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+				</gridcols>
+				<datasource  zdgroup="ZDSYS1"  condid="4" reqformat="1" name="cfg_bk_bkld_yjhy" body="1,,$EXTPARAM$"></datasource>
+			</gridctrl>
+		</table>
+	</table>
+</root>

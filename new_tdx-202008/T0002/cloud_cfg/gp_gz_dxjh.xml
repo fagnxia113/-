@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	 		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="20" name="tabpanel">
+					<tabpanel  >
+	
+			<component caption="个股机会" id="404" name="splitpanel">
+							<splitpanel hdirection="true">
+			
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="0" text="基于分时级别数据计算，要求安全分大于60。" type="static" hoffset="5" align="L" width="400" ></ctrl>
+                          <ctrl rowindex="0" index="4" text="刷新" type="button" hoffset="10" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+
+
+
+							<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+							<gridctrl>
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="rxsj" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="rxyz" caption="入选策略"  visible="true"  align="L" headalign="L" width="120" datatype="S"  ></gridcol>	
+                                    <gridcol  name="rxsj" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="10rzf" caption="10日涨幅%" syscol="$ZAFPRE10" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="20rzf" caption="20日涨幅%" syscol="$ZAFPRE20" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safety" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200661','flag':'1','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+						<filter fldname="safety" op="5" value="60" level="2"/>
+                </datasource>
+				<gridext tccloudsec="10" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+							</gridctrl>		
+						</table>							
+
+
+								</splitpanel>
+						</component>
+							<component caption="T+0机会" id="405" name="splitpanel">
+							<splitpanel hdirection="true">
+
+								
+								                  <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="0" text="基于分时级别数据计算，筛选标的支持T+0交易。"type="static" hoffset="5" align="L" width="400" ></ctrl>
+                          <ctrl rowindex="0" index="4" text="刷新" type="button" hoffset="10" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+
+
+
+							<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+							<gridctrl>
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="rxsj" ascsort="false"  firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="160" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="rxyz" caption="入选策略"  visible="true"  align="L" headalign="L" width="120" datatype="S"  ></gridcol>	
+                                    <gridcol  name="rxsj" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="10rzf" caption="10日涨幅%" syscol="$ZAFPRE10" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="20rzf" caption="20日涨幅%" syscol="$ZAFPRE20" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200661','flag':'2','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+                </datasource>
+				<gridext tccloudsec="10" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+							</gridctrl>		
+						</table>							
+
+
+								</splitpanel>
+						</component>
+		<component caption="积突信号" id="404" name="splitpanel">
+		
+			<splitpanel hdirection="true">
+			       <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="0" text="积信号：连续数分钟内成交量、均价上扬，现价创新高，振幅和涨速满足—定条件；突信号：在满足积信号的情况下，再次满足上述条件。" type="static" hoffset="5" align="L" width="400" ></ctrl>
+                          <ctrl rowindex="0" index="4" text="刷新" type="button" hoffset="10" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="splitpanel" >
+					<splitpanel hdirection="true">
+							<table X="0" Y="0" width="1" height="0.45" isleaf="true" hdirection="true" id="3" name="gridctrl">
+							<gridctrl>
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"  datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+									
+
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'1','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+					<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+                </datasource>
+				<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+			
+											<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="积" clrtype="R"/>
+												<item val="突" textclr="192,0,192"/>
+											</enumcolor>
+										</enumcolors>
+							</gridctrl>		
+						</table>
+	<table X="0" Y="0" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="splitpanel" >
+					<splitpanel hdirection="true">
+				  <table X="0" Y="0" width="0" height="25" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="2"  rowheights="25">
+                          <ctrl rowindex="0" index="0" text="高：创120日新高；低：创120日新低；上：上穿120日均线；下：跌破120日均线；破：一阴破5、10、20日均线；立：一阳穿5、10、20日均线；" type="static" hoffset="5" align="L" width="400" ></ctrl>
+                         <ctrl rowindex="1" index="1" text="踩：缩量回踩5日线，回踩前有一定涨幅；拉：放量上涨；托:价托由5、10、20日均线扭转向上形成的封闭三角形；压:价托由5、10、20日均线扭转向下形成的封闭三角形。" type="static" hoffset="5" align="L" width="400" ></ctrl>
+					
+						</ctrls>
+                      </condpanel>
+                    </table>
+				<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="1" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="tabpanel">
+									<tabpanel >
+								<component caption="高低" id="3" name="gridctrl">
+											<gridctrl>
+
+					
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"   datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'2','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+				<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+                </datasource>
+					<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+					<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="高" clrtype="R"/>
+												<item val="低" textclr="G"/>
+											</enumcolor>
+										</enumcolors>
+				<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+							</gridctrl>		
+					</component>
+													<component caption="上下" id="3" name="gridctrl">
+											<gridctrl>
+
+					
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"   datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'3','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+				<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+			
+                </datasource>
+					<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+															<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="上" clrtype="R"/>
+												<item val="下" textclr="G"/>
+											</enumcolor>
+										</enumcolors>
+			
+							</gridctrl>		
+					</component>
+													<component caption="破立" id="3" name="gridctrl">
+											<gridctrl>
+
+					
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"   datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'4','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+	<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+                </datasource>
+					<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+															<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="破" clrtype="G"/>
+												<item val="立" textclr="R"/>
+											</enumcolor>
+										</enumcolors>
+	
+							</gridctrl>		
+					</component>
+													<component caption="踩拉" id="3" name="gridctrl">
+											<gridctrl>
+
+					
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"   datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true" syscol="$SAVEVALUE" align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'5','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+				<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+		
+                </datasource>
+					<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+															<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="踩" clrtype="G"/>
+												<item val="拉" textclr="R"/>
+											</enumcolor>
+										</enumcolors>
+			
+							</gridctrl>		
+					</component>
+													<component caption="托压" id="3" name="gridctrl">
+											<gridctrl>
+
+					
+							<gridcols  firstswitchzst="1" fixednum="2"  postslave="false" defsort="time" ascsort="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="100" datatype="S" clrtype="S" filter="0"></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="zs" caption="涨速%" syscol="$ZS" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0"></gridcol>
+                                    <gridcol  name="falg" caption="信号"  visible="true"  align="L" headalign="L" width="80" enumcolorid="56" clrtype="O"   datatype="S"  ></gridcol>	
+                                    <gridcol  name="time" caption="入选时间"  visible="true"  align="C" headalign="C" width="80" datatype="S" filter="0" ></gridcol>	
+									<gridcol  name="value" caption="入选时价格"  visible="false" headalign="R" align="R" width="100" datatype="F" digital="2"  filter="0"></gridcol>
+									<gridcol  name="rxhzf" caption="入选后涨幅%"  visible="true" headalign="R" formula="(price-value)/value*100" calccol="value,price"  align="R" width="120" datatype="F" digital="2" clrtype="Z" filter="0"></gridcol>
+									<gridcol  name="zrzf" caption="昨日涨幅%" syscol="$ZAFPRE1" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+									<gridcol  name="5rzf" caption="3日涨幅%" syscol="$ZAFPRE3" visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"   filter="0" ></gridcol>
+								    <gridcol  name="$J_LTSZ" caption="流通市值" syscol="$J_LTSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+								    <gridcol  name="$J_ZSZ" caption="总市值" syscol="$J_ZSZ" visible="true"  align="R" headalign="R" width="100" datatype="F" fmttype="9" digital="2" clrtype="N"filter="0"></gridcol>
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="100" datatype="S" digital="0" clrtype="N" enumcolorid="56"/>
+									<gridcol  name="safetyvalue" caption="安全分" visible="true"  align="R"  headalign="R" width="60" datatype="F" digital="0"filter="0" clrtype="N"></gridcol>	
+								</gridcols>
+
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"  condid="2111"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200662','flag':'6','sortType': '3','desc': '1','Page': '0','PageSize': '500','modname': 'mod_Factor.dll'}]" >
+				<filter fldname="safetyvalue" op="5" value="60" level="2"/>
+		
+                </datasource>
+					<gridext tccloudsec="30" incupdate="true" keycols="code" updcols="$ALL$"filter="0" />
+															<enumcolors>
+											<enumcolor id="56" clrtype="T">
+												<item val="托" clrtype="R"/>
+												<item val="压" textclr="G"/>
+											</enumcolor>
+										</enumcolors>
+		
+							</gridctrl>		
+					</component>					
+				</tabpanel>
+								</table>
+							</branchpanel>
+						</table>
+									</splitpanel>						
+				</table>
+				</splitpanel>						
+				</table>
+
+								</splitpanel>
+						</component>
+		
+						</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	    <vars luafile="cloud_cfg"/>
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">
+			  <table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="2" name="branchpanel" >
+	        <branchpanel hdirection="true">
+			      <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+				      <condpanel>		
+					      <ctrls rowcount="1">
+					      	<ctrl rowindex="0" index="1" text="?" tooltip="当前估值比处于低分位阶段，则预示该指数相对基准指数为价值低估" 
+												type="static" hoffset="5" align="L" width="10" ></ctrl>	
+									<ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="10" width="140" bindparam="StartDate" >
+					      		<datectrl change="0"/>
+							      <datevalue datetype="0" datespan="2" spantype="2" maxinterv="0"/>
+							    </ctrl>
+							    <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="EndDate" >
+							    	<datectrl change="0"/>
+							      <datevalue datetype="0" datespan="1" spantype="0" />
+						      </ctrl>
+						      <ctrl rowindex="0" index="9" text="指数类型" type="combox" hoffset="5" align="L" width="170" bindparam="IndexType" >					
+								    <combox cbchange="1" defsel="0" >
+									    <item text="主题指数"  value="1"/>
+								    	<item text="行业指数"  value="2"/>
+									    <item text="综合指数"  value="3"/>
+									    <item text="策略指数"  value="4"/>
+									    <item text="规模指数"  value="5"/>
+								    </combox>
+						      </ctrl>
+							    <ctrl rowindex="0" index="9" text="基准指数" type="combox" hoffset="5" align="L" width="170" bindparam="Basics" >					
+								    <combox cbchange="1" defsel="0" >
+									    <item text="999999上证指数"  value="000001"/>
+								    	<item text="000300沪深300"  value="000300"/>
+									    <item text="000016上证50"  value="000016"/>
+									    <item text="000905中证500"  value="000905"/>
+									    <item text="399006创业板指"  value="399006"/>
+								    </combox>
+						      </ctrl>
+						      <ctrl rowindex="0" index="8" text="比较类型" type="combox" hoffset="5" align="L" width="120" bindparam="Methods" >					
+											<combox cbchange="1" defsel="0" >
+											<item text="PETTM"  value="PETTM"/>
+											<item text="PBMRQ"  value="PBMRQ"/>
+										  <item text="PSTTM"  value="PSTTM"/>
+											</combox>
+										</ctrl>
+							    <ctrl rowindex="0" index="11" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK"  >
+								    <button  imageno="0" />
+							    </ctrl>
+							    <!--ctrl rowindex="0" index="0" text="当前估值比处于低分位阶段，则预示该指数相对基准指数为价值低估" type="static"  hoffset="5" align="L" width="600" bindparam="CacheId" >			
+							       <edit  change="0" defval="-1" />
+						      </ctrl-->			
+						    </ctrls>
+				      </condpanel>
+            </table>
+            <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="gridctrl">
+              <gridctrl>
+                <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="return_rate" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="10" showtip="1">
+        		    <gridcol  name="code" caption="指数代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+        		    <gridcol  name="market" caption="指数市场" syscol="$SC" visible="false"  align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>		
+        			<gridcol  name="zqjc" caption="名称" syscol="$ZQJC" visible="false" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+					<gridcol name="mc" caption="名称" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S">
+                        <lua func="getdefmc">
+                            <param name="code"/>
+                            <param name="market"/>
+                            <param name="zqjc"/>
+                        </lua>
+                    </gridcol>
+        			<gridcol  name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true"  align="R" headalign="R" width="60" datatype="F" autosize="1" clrtype="Z" filter="0" ></gridcol>
+        			<gridcol  name="$NOW" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>
+					<gridcol  name="$QRSD" caption="涨跌" syscol="$QRSD" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>
+					<gridcol  name="$ZCJJE" caption="总金额" syscol="$ZCJJE" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>
+					<gridcol  name="$ZS" caption="涨速" syscol="$ZS" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>
+					<gridcol  name="$ZEF" caption="振幅" syscol="$ZEF" visible="false" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" filter="0" ></gridcol>        		      
+        		    <gridcol  name="statRatios" caption="估值比" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>	
+        		    <gridcol  name="statQuantiles" caption="估值比分位数" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>	
+					<gridcol  name="maxRatio" caption="估值比最高" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>	
+        		    <gridcol  name="minRatio" caption="估值比最低" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>
+        	    </gridcols>
+        	    <datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" condid="3" body="[{'ReqId': '200000','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','IndexType': '$$IndexType$$','Basics': '$$Basics$$','Methods': '$$Methods$$','modname': 'mod_tciFetcher64.dll'}]" >
+    	    	</datasource>	
+								<!--datasource reqformat="22" cache="0" keeporiginal="true" reqmaxcount="200" name="HQServ.PBRPC" condid="3" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=module_risk_return.dll;ReqByte={&quot;ReqId&quot;:&quot;500030&quot;,&quot;style_type&quot;:&quot;$$style_type$$&quot;,&quot;style_details&quot;:&quot;$$style_details$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;basic_code&quot;:&quot;$$basic_code$$&quot;,&quot;calc_type&quot;:&quot;0&quot;,&quot;company_id&quot;:&quot;$$company_id$$&quot;,&quot;fund_size&quot;:&quot;$$fund_size$$&quot;,&quot;fund_establish_time&quot;:&quot;$$fund_establish_time$$&quot;,&quot;rate_freerisk&quot;:&quot;$$rate_freerisk$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}"></datasource-->	
+        		    <menu>
+	                <item name="$M_EXP" text="导出"/>
+	                <item name="$M_ADDZXG" text="加入自选股"/>
+	                <item name="$M_ADDBLOCK" text="加入板块股"/>
+	                <item name="$M_SEARCH" text="列表中查找"/>
+                </menu>
+                <enums>
+									<enum id="1">
+										<item code="004001" value="股票型"/>
+										<item code="004002" value="债券型"/>
+										<item code="004003" value="混合型"/>
+										<item code="004004" value="货币型"/>
+										<item code="004005" value="封闭式"/>
+										<item code="004006" value="基金型"/>
+										<item code="004007" value="商品型"/>
+									</enum>
+									<enum id="2">
+										<item code="005001" value="普通股票型"/>
+										<item code="005002" value="复制指数型"/>
+										<item code="005003" value="增强指数型"/>
+										<item code="005004" value="平衡混合型"/>
+										<item code="005005" value="偏股混合型"/>
+										<item code="005006" value="偏债混合型"/>
+										<item code="005007" value="保本型"/>
+										<item code="005008" value="中短期纯债型"/>
+										<item code="005009" value="长期纯债型"/>
+										<item code="005010" value="一级债基"/>
+										<item code="005011" value="二级债基"/>
+										<item code="005012" value="债券指数型"/>
+										<item code="005013" value="基金型"/>
+										<item code="005014" value="货币型"/>
+										<item code="005015" value="短期理财债券型"/>
+										<item code="005016" value="贵金属商品"/>
+										<item code="005017" value="其他商品"/>
+									</enum>
+								</enums>
+        	    </gridctrl>		
+            </table>			
+          </branchpanel>
+        </table>
+        
+        
+        <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="tabpanel">
+        	<tabpanel >	
+        		<component caption="估值比走势" id="6" name="chartctrl" >	
+							<chartctrl>
+								<properties >
+									<prop index="18" name="ratio" caption="估值比" style="1"  baseline="0.0" defsel="1" ></prop>			
+									<xaxis name="date" caption="日期" datadesc="0"></xaxis>
+								</properties>
+								<!--datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp" body="[{'ReqId': '200001','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','Code': '$$Code$$','IndexType': '$$IndexType$$','Basics': '$$Basics$$','Methods': '$$Methods$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	</datasource-->	
+		    	    	<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_tciFetcher64" condid="3" masterid="4" 
+		    	    			body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_tciFetcher64.dll;ReqByte={&quot;ReqId&quot;:&quot;200001&quot;,
+		    	    			&quot;StartDate&quot;:&quot;$$StartDate$$&quot;,
+		    	    			&quot;EndDate&quot;:&quot;$$EndDate$$&quot;,
+		    	    			&quot;Code&quot;:&quot;$$Code$$&quot;,
+		    	    			&quot;IndexType&quot;:&quot;$$IndexType$$&quot;,
+		    	    			&quot;Basics&quot;:&quot;$$Basics$$&quot;,
+		    	    			&quot;Methods&quot;:&quot;$$Methods$$&quot;,
+		    	    			&quot;Page&quot;:&quot;-1&quot;,
+		    	    			&quot;modname&quot;:&quot;mod_tciFetcher64.dll&quot;}">
+		    	    	</datasource>		
+							</chartctrl>
+						</component>			
+						<!--component caption="估值比明细" id="7" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" defsort="date" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="1">
+									 <gridcol  name="date" caption="日期" visible="true"  align="R" headalign="R" width="70" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>		
+									 <gridcol  name="ratio" caption="估值比" visible="true" align="R" headalign="R" width="110" datatype="F" digital="4" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>		
+								</gridcols>
+								<datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp" body="[{'ReqId': '200001','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','Code': '$$Code$$','IndexType': '$$IndexType$$','Basics': '$$Basics$$','Methods': '$$Methods$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	</datasource>	
+		    	      <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC" condid="3" masterid="4" 
+		    	    			body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_tciFetcher64.dll;ReqByte={&quot;ReqId&quot;:&quot;200001&quot;,
+		    	    			&quot;StartDate&quot;:&quot;$$StartDate$$&quot;,
+		    	    			&quot;EndDate&quot;:&quot;$$EndDate$$&quot;,
+		    	    			&quot;Code&quot;:&quot;$$Code$$&quot;,
+		    	    			&quot;IndexType&quot;:&quot;$$IndexType$$&quot;,
+		    	    			&quot;Basics&quot;:&quot;$$Basics$$&quot;,
+		    	    			&quot;Methods&quot;:&quot;$$Methods$$&quot;,
+		    	    			&quot;Page&quot;:&quot;-1&quot;,
+		    	    			&quot;modname&quot;:&quot;mod_tciFetcher64.dll&quot;}">
+		    	    	</datasource>		
+								<menu>
+									<item name="$M_EXP" text="导出"/>
+									<item name="$M_ADDBLOCK" text="加入板块股"/>
+								</menu>
+							</gridctrl>	
+						</component-->
+        	</tabpanel>	
+        </table>	
+      </branchpanel>
+    </table>
+  </table>
+</root>
+
+

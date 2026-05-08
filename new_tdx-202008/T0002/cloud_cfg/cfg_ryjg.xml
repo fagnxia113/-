@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="false" id="3" name="splitpanel" >
+					<splitpanel hdirection="false">
+						<table X="0" Y="0" width="0.7" height="1" isleaf="true" hdirection="true" id="4" name="branchpanel" >
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl" >
+									<gridctrl>
+										<gridcols fixednum="5" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="xcze"  expandfull="1">
+									<gridcol  name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="$SC" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="110" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="ygzs" caption="员工总数|本期"   visible="true" headalign="R" align="R" width="70" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="sqyg" caption="员工总数|上期"  visible="true" headalign="R" align="R" width="70" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ygzjs" caption="员工总数|变动"   formula="ygzs-sqyg" calccol="ygzs,sqyg" visible="true" headalign="R" align="R" width="60" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="ygbdbl" caption="员工总数|比例%"  formula="(ygzs-sqyg)/sqyg*100" calccol="ygzs,sqyg" visible="true" headalign="R" align="R" width="70" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							        <gridcol  name="yfzgxc" caption="职工薪酬"  visible="true" headalign="R" align="R" width="100" fmttype="9" datatype="F" digital="-1"  filter="0" ></gridcol>
+							        <gridcol  name="xcze" caption="高管薪酬|总额"  visible="true" headalign="R" align="R" width="90" fmttype="9" datatype="F" digital="-1"  filter="0" ></gridcol>
+									<gridcol  name="zfzb" caption="高管薪酬|占负债%"   visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="zgxcb" caption="高管薪酬|占薪酬%"   visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							        <gridcol  name="rjxc" caption="人均|薪酬"  visible="true" headalign="R" align="R" width="90" fmttype="9" datatype="F" digital="-1"  filter="0" ></gridcol>
+							        <gridcol  name="rjjlr" caption="人均|净利润"  visible="true" headalign="R" align="R" width="90"  fmttype="9" digital="-1" datatype="F"  clrtype="Z"  filter="0" ></gridcol>
+									<gridcol  name="shjys" caption="学历分布人数|硕士及以上"   visible="true" headalign="R" align="R" width="100" datatype="I"   filter="0" ></gridcol>
+									<gridcol  name="bkjyx" caption="学历分布人数|本科及以下"   visible="true" headalign="R" align="R" width="100" datatype="I"   filter="0" ></gridcol>
+								    <gridcol  name="jlr" caption="净利润"  visible="true" headalign="R" align="R" width="90"  datatype="F" fmttype="9" digital="-1" clrtype="Z" filter="0" ></gridcol>
+							        <gridcol  name="fz" caption="负债"  visible="true" headalign="R" align="R" width="110" fmttype="9" datatype="F" digital="-1"  filter="0" ></gridcol>
+						
+							        <gridcol  name="yffy" caption="研发|费用"  visible="true" headalign="R" align="R" width="90" fmttype="9" datatype="F" digital="-1"  filter="0" ></gridcol>
+									<gridcol  name="yffyzb" caption="研发|占营收%"   visible="true" headalign="R" align="R" width="90" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									
+								    <gridcol  name="HY" caption="行业" syscol="$TDXHY" visible="true" headalign="L" align="L" width="80" datatype="S"    filter="0" ></gridcol>									
+										</gridcols>	
+									<datasource  reqformat="11"  name="" body="func_ygxc101_1.jsn"></datasource>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>			
+						<table X="0" Y="0" width="0.5" height="1" isleaf="true" hdirection="true" id="7" name="gridctrl" >				
+							<gridctrl>
+								<gridcols fixednum="2" rowchgmsg="true" postslave="true" defsort="ndbc"  firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true"  expandfull="1">
+									<gridcol  name="xm" caption="姓名"  visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="xb_nl_xl" caption="性别 年龄 学历"  visible="true" headalign="L" align="L" width="130" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="zw" caption="职务"  visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+							        <gridcol  name="ndbc" caption="年薪(万元)"  visible="true" headalign="R" align="R" width="90"  datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol  name="jzrq" caption="截止日期" visible="true" headalign="R" align="R" width="90" datatype="D"  filter="0" ></gridcol>
+								
+								
+								
+								
+								</gridcols>	
+								<datasource  reqformat="11" masterid="5" name="" body="ggxc/$$$SC$$$$$ZQDM$$.jsn"></datasource>
+							</gridctrl>			
+						</table>
+					</splitpanel>
+				</table>				
+			</branchpanel>	
+		</table>
+	</table>
+</root>

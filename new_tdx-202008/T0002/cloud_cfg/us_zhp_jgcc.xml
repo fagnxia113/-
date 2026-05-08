@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root	width="832"	height="226">
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	
+		<table X="0" Y="0" width="1" height="0.1" isleaf="true" hdirection="true" id="2" name="condpanel" >
+			<condpanel>
+				<ctrls rowcount="1" >
+					<!--
+					<ctrl rowindex="0" index="0" text="类型" type="combox" width="90" hide="0" bindparam="lx" mergeitems="1">	
+						<combox cbchange="true">
+							<item text="新进" value="1" />
+							<item text="增持" value="2" />	
+							<item text="减持" value="3" />
+							<item text="退出" value="4" />
+						</combox>
+					</ctrl>	
+					-->	
+					<ctrl rowindex="0" index="7" text="报告期" type="spinner" width="100"  bindparam="bgq" mergeitems="3">
+						<spinner minval="2000" maxval="2049" defvalkey="gp_nextquarter" ></spinner>
+						<datevalue datetype="2" datespan="0" spantype="2" />
+					</ctrl>
+					<ctrl rowindex="0" index="8" text="" type="combox" width="50"  bindparam="bgq" mergeitems="3">
+						<combox cbname="CV_QuaterEN" defvalkey="gp_nextquarter"></combox>						
+						<datevalue datetype="0" datespan="0" spantype="0" monorquarter="2"/>													
+					</ctrl>
+					<ctrl rowindex="0" index="5" text="查询" type="button" width="70" bindparam="IDOK">
+						<button imageno="0"></button>
+					</ctrl>
+				</ctrls>
+			</condpanel>
+		</table>
+		
+		<table X="0" Y="-1" width="0" height="-1" isleaf="true" hdirection="false" id="6" name="splitpanel">
+			<splitpanel hdirection="false">
+				<table X="0" Y="0" width="0.4" height="1" isleaf="true" hdirection="true" id="3" name="gridctrl" >
+					<gridctrl>
+						<gridcols fixednum="1" rowchgmsg="true" postslave="true" expandfull="1" defsort="N002" ascsort="0" showtip="1" filteremptyline="2">
+							<gridcol name="N000" caption="持有人" visible="false"  align="L"  headalign="L"  width="150" datatype="S" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol name="N001" caption="机构名称" visible="true"   align="L"  headalign="L"  width="200" datatype="S"  fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol name="N002" caption="持股市值" fmttype=9 visible="true"  align="R"  headalign="R"  width="90" datatype="F" digital="2"  fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol name="N003" caption="持股数量" visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="0"  fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol name="N004" caption="持仓股票数" visible="true"  align="R"  headalign="R"  width="80" datatype="F" digital="0"  fmtinvalid="1" filter="0" ></gridcol>
+						</gridcols>
+							<datasource reqformat="1" condid="2" name="tdxyj_mgzt_zhp_jgcc" body="001,$$bgq$$,,,"></datasource>
+					</gridctrl>
+				</table>					
+				<table  X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="5" name="splitpanel">
+					<splitpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="222" name="tabpanel">	
+							<tabpanel >
+								<component caption="持仓行业分布" id="2221" name="piepanel">
+									<piepanel>		
+										<properties top="" othercol="fasle" textcol="N001" datacol="N002" defsel="0"></properties>                                             
+										<datasource masterid="3" reqformat="1" name="tdxyj_mgzt_zhp_jgcc" body="003,$$bgq$$,,,$$N000$$"></datasource>
+									</piepanel>
+								</component>
+							</tabpanel>	
+						</table>
+						<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="tabpanel" >
+						    <tabpanel >
+								<component caption="持仓列表" id="71" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="2" rowchgmsg="true" postslave="true" expandfull="1" defsort="N009" ascsort="0" showtip="1" filteremptyline="2">
+										<gridcol name="N001" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="S" fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N002" caption="名称" visible="true" align="L" headalign="L" width="120" datatype="S" clrtype="S" fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N003" caption="现价" syscol="$NOW" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N004" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="65" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N005" caption="涨跌" syscol="$QRSD" visible="true" align="R" headalign="R" width="60" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N006" caption="持股数量(股)" visible="true"   align="R"  headalign="R"  width="100" datatype="F" digital="0"  fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N007" caption="变动股数(股)" visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="0"  fmtinvalid="1" filter="0" ></gridcol>
+										<gridcol name="N008" caption="变动比例(%)" visible="true"  align="R"  headalign="R"  width="100" datatype="F" digital="3"  fmtinvalid="1" filter="0" ></gridcol>
+										<!--	<gridcol name="N009" caption="市值(美元)" visible="true"  align="R"  headalign="R"  width="120" datatype="F" digital="0"  fmtinvalid="1" filter="0" ></gridcol>	-->
+										<gridcol name="N010" caption="所属行业" visible="true" align="L" headalign="L" width="100" datatype="S" clrtype="S" fmtinvalid="1"/>									
+									</gridcols>
+										<datasource reqformat="1" masterid="3" condid="2" name="tdxyj_mgzt_zhp_jgcc" body="002,$$bgq$$,,,$$N000$$"></datasource>
+									</gridctrl>
+								</component>
+							</tabpanel>	
+						</table>						
+					</splitpanel>
+				</table>									
+			</splitpanel>
+		</table>
+		
+	</table>
+</root>

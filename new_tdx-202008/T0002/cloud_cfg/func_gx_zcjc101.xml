@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">			
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true"  hdirection="true" id="3" name="gridctrl" >
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1"   showtip="1" forbidmenu="0" ingcode="true" defsort="jzczb" expandfull="1">
+							<gridcol  name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="$SC" caption="市场" syscol="$SC" visible="true" align="L" width="0" datatype="I" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="gpname" caption="名称" syscol="$ZQJC" visible="true" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+							<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2"  filter="0" ></gridcol>	
+							<gridcol  name="J_LTGB" caption="A股流通股本" syscol="$J_LTGB" visible="false" align="R" width="100" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>	
+							<gridcol  name="zcsz" caption="持股变动(万股)|增持"  visible="true" align="R" width="90" datatype="F" digital="2" clrtype="Z" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="jcsz" caption="持股变动(万股)|减持"  visible="true" align="R" width="90" datatype="F" digital="2" clrtype="Z" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="jzcsz" caption="持股变动(万股)|净增(减)持"  visible="true" align="R" width="90" datatype="F" digital="2" clrtype="Z" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="jzczb" caption="持股变动(万股)|占流通%" visible="true" align="R" width="80" datatype="F" digital="2" formula="abs(jzcsz*10000/J_LTGB*100)" calccol="jzcsz,J_LTGB" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="price1" caption="增持价|最低"  visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="price2" caption="增持价|最高"  visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="price3" caption="减持价|最低"  visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="price4" caption="减持价|最高"  visible="true" align="R" width="70" datatype="F" digital="2" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="date1" caption="起始日" visible="true" align="R" width="90" datatype="D" digital="0" fmtinvalid="1" filter="0" ></gridcol>
+							<gridcol  name="date2" caption="截止日" visible="true" align="R" width="90" datatype="D" digital="0" fmtinvalid="1" filter="0" ></gridcol>
+						</gridcols>	
+					  <datasource  reqformat="11"  name="" body="list/func_gx_zcjc101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+					  </datasource>
+					</gridctrl>					
+				</table>
+			</branchpanel>	
+		</table>
+	</table>
+</root>

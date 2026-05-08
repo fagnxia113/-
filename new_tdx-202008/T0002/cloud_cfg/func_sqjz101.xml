@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >	
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2" name="cellpanel">
+					<cellpanel>		
+						<rows frameline="">
+							<row height="30">
+								<cell text="基于神奇九转模型电脑自动筛选，据此操作，风险自担" align="L" width="0" frameline="8"/>
+							</row>		
+						</rows>
+						<datasource reqformat="20" name="" body="" />
+					</cellpanel>
+				</table>
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="40" name="tabpanel">
+					<tabpanel >
+						<component caption="下跌九转" id="401" name="gridctrl">
+							<gridctrl>
+								<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="rqSel" expandfull="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="110" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol name="$CJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="100" datatype="F" fmttype="9" autosize="0" clrtype="A"/>	
+									<gridcol  name="$J_LTSZ" caption="A股流通市值" syscol="$J_LTSZ" visible="true" headalign="R" align="R" width="120" datatype="F" digital="2"  filter="0" ></gridcol>
+						            <gridcol  name="beta值" caption="beta值"   visible="true" headalign="R" align="R" width="70" datatype="F"  digital="2"> </gridcol>
+									<gridcol  name="priceGrowth5" caption="近5日%" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							        <gridcol  name="closeSel" caption="入选价格"  visible="true" headalign="R" align="R" width="90" datatype="F" digital="2"  filter="0" ></gridcol>
+						         	<gridcol  name="zdfSel" caption="入选至今%"   visible="true" headalign="R" align="R" width="90" datatype="F"  digital="2" clrtype="Z" formula="(NOW/closeSel-1)*100" calccol="NOW,closeSel"> </gridcol>	
+									<gridcol  name="rqSel" caption="入选日期" visible="true" headalign="C" align="C" width="90" datatype="D"  filter="0" ></gridcol>
+								    <gridcol  name="HY" caption="行业" syscol="$TDXHY" visible="true" headalign="L" align="L" width="80" datatype="S"    filter="0" ></gridcol>
+									<gridcol  name="NTType" caption="九转类型" visible="false" headalign="L" align="L" width="60" datatype="S"    filter="0" ></gridcol>
+								</gridcols>	
+								<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200451&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+									<filter fldname="NTType" op="1" value="0" level="2" />
+								</datasource>
+							</gridctrl>
+						</component>
+						<component caption="上涨九转" id="410" name="gridctrl">
+							<gridctrl>
+								<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="rqSel" expandfull="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="110" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol name="$CJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="100" datatype="F" fmttype="9" autosize="0" clrtype="A"/>	
+									<gridcol  name="$J_LTSZ" caption="A股流通市值" syscol="$J_LTSZ" visible="true" headalign="R" align="R" width="120" datatype="F" digital="2"  filter="0" ></gridcol>
+							        <gridcol  name="beta值" caption="beta值"   visible="true" headalign="R" align="R" width="70" datatype="F"  digital="2"> </gridcol>
+									<gridcol  name="priceGrowth5" caption="近5日%" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+							        <gridcol  name="closeSel" caption="入选价格"  visible="true" headalign="R" align="R" width="90" datatype="F" digital="2"  filter="0" ></gridcol>
+						         	<gridcol  name="zdfSel" caption="入选至今%"   visible="true" headalign="R" align="R" width="90" datatype="F"  digital="2" clrtype="Z" formula="(NOW/closeSel-1)*100" calccol="NOW,closeSel"> </gridcol>	
+									<gridcol  name="rqSel" caption="入选日期" visible="true" headalign="C" align="C" width="90" datatype="D"  filter="0" ></gridcol>
+								    <gridcol  name="HY" caption="行业" syscol="$TDXHY" visible="true" headalign="L" align="L" width="80" datatype="S"    filter="0" ></gridcol>
+									<gridcol  name="NTType" caption="九转类型" visible="false" headalign="L" align="L" width="60" datatype="S"    filter="0" ></gridcol>
+								</gridcols>	
+								<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200451&quot;,&quot;Sort&quot;:&quot;2&quot;,&quot;Desc&quot;:&quot;1&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+									<filter fldname="NTType" op="1" value="1" level="2" />
+								</datasource>
+							</gridctrl>
+						</component>
+					</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

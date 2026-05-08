@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel" >
+			<splitpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+					<condpanel>
+						<ctrls rowcount="1">
+						<ctrl rowindex="0" index="1" text="关于异动停牌暂时无明确的量化规则，此功能中的“预警”是根据最近案例总结得出（近十个交易日内，正向异动达到4次或者近十个交易日因异动停牌过，再次复牌异动停牌风险较大），结果仅供参考，据此操作风险自担" type="static" hoffset="5" align="L" width="1400" ></ctrl>
+						<!--<ctrl rowindex="1" index="2" text="2、股价上涨，是风险聚集的过程，而股价下跌是一个风险释放的过程，股价上涨触发异动的停牌风险远远大于下跌，因此本功能讨论的异动都为正向异动，即股价上涨触发的异动。" type="static" hoffset="5" align="L" width="-1" ></ctrl>-->
+
+						<ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+						<button tooltip="立即刷新"/>
+						</ctrl>
+						</ctrls>
+					</condpanel>
+				</table>
+
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="232" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="3" keycol="N001" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" defsort="$ZAF" expandfull="1" multibreed="2">
+
+						<gridcol name="N001" caption="代码" syscol="$ZQDM" refzqdm="0" visible="true" align="L" headalign="L" width="75" datatype="S" clrtype="S"/>
+						<gridcol name="N002" caption="市场" syscol="$SC" refzqdm="0" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N003" caption="上市板块" visible="false"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0"   clrtype="O" filter="0" ></gridcol>
+						<gridcol name="N004" caption="异动|最新日期" visible="true" align="R" width="90" datatype="D"/>
+						<gridcol  name="N013" caption="异动|近十日" visible="true"   align="R" headalign="R" width="60" datatype="I" digital="0" autosize="1" fmtinvalid="1" enumcolorid="12" clrtype="O" filter="0" ></gridcol>
+
+						<gridcol name="N007" caption="计算日" visible="false" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol name="N008" caption="偏离值|起始日" visible="true" enumid="888" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol name="N009" caption="偏离值|截止日" visible="false" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol  name="N010" caption="偏离值|数值" visible="false"  enumid="777"  align="R" headalign="R" width="60" datatype="F" digital="2" fmttype='2' autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="plzf" caption="偏离值|涨幅%" visible="true"  enumid="777"  formula='N010*100' calccol='N010' align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N011" caption="触发异动|标准%" visible="true"   align="R" headalign="R" width="60" datatype="F" digital="0" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+						<gridcol  name="N012" caption="触发异动|价格" visible="true" enumid="777"  align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="N014" caption="预警" visible="true" enumid="999" 	   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="1" enumcolorid="11" clrtype="O" filter="0" ></gridcol>
+						<gridcol name="N015" caption="指数代码" syscol="$ZQDM" refzqdm="1" visible="true" align="L" headalign="L" width="75" datatype="S" clrtype="S" />
+						<gridcol name="N016" caption="市场" syscol="$SC" refzqdm="1" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol  name="$ZQJC" caption="名称" visible="true"  syscol="$ZQJC" refzqdm="1"  align="L" headalign="L" width="60" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol name="N005" caption="异动|停牌日" visible="true" enumid="888" align="R" fmtinvalid='1' width="90" datatype="D"/>
+						<gridcol name="N006" caption="异动|复盘日" visible="true" enumid="888" align="R" fmtinvalid='1'  width="90" datatype="D"/>
+
+						</gridcols>
+						<enumcolors>
+						<enumcolor id="11" clrtype="T">
+						<item val="可能因为异动再次停牌" clrtype="R"/>
+						<item val="可能因为异动停牌" clrtype="D"  textclr="R"/>
+						<item val="触发异动" clrtype="D"  textclr="192,192,0"/>
+						<item val="未触发异动" clrtype="D"  textclr="G"/>						
+						</enumcolor>
+						<enumcolor id="12" clrtype="T">
+						<item val="1" clrtype="G"/>
+						<item val="2" clrtype="D"  textclr="192,192,0"/>
+						<item val="3" clrtype="D"  textclr="R"/>
+						<item val="4" clrtype="D"  textclr="R"/>						
+						</enumcolor>						
+						</enumcolors>
+						<gridext tccloudsec="10"  incupdate="true" keycols="N001" updcols="$ALL$"/>
+						<enums>
+							<enum id="999">
+							<item code="1" value="可能因为异动再次停牌"/>
+							<item code="2" value="可能因为异动停牌"/>
+							<item code="3" value="触发异动"/>
+							<item code="0" value=""/>
+
+							</enum>
+							<enum id="888">
+							<item code="0" value=""/>
+
+							</enum>
+							<enum id="777">
+							<item code="0.0000" value=""/>
+
+							</enum>
+						</enums>						
+					<datasource reqformat="2" cache="0" keeporiginal="true" condid="2111" name="HQServ.hq_nlp_tcihq"  body="[{'ReqId': '200720','Page': '-1','PageSize': '10','modname': 'mod_tcihq.dll'}]" >
+					</datasource>
+					</gridctrl>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

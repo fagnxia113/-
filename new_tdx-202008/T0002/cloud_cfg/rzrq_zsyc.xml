@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="2" name="tabpanel">
+        	        <tabpanel >			
+						<component caption="融资率" id="21" name="branchpanel" >
+					    <branchpanel hdirection="true">						
+	                    <table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="false">	
+	                        <table X="0" Y="0" width="0.6" height="1" isleaf="true" hdirection="true" id="3" name="branchpanel" >
+    		                <branchpanel hdirection="true" frameline="15">
+		    	            <table X="0" Y="0" width="-1" height="2" isleaf="true" hdirection="true" id="4" name="condpanel" >
+			    	            <condpanel>
+				    	            <ctrls rowcount="1" >
+					      	            <ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="" width="140" bindparam="StartDate" >
+							                <datectrl change="1" />
+							                <datevalue datetype="11" datespan="0" spantype="0" datetime="20170101" maxinterv="0"/>											
+							            </ctrl>
+							            <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="EndDate" >
+							                <datectrl change="1" />											
+							                <datevalue datetype="0" datespan="0" spantype="0" />
+						                </ctrl>
+							            <!--ctrl rowindex="0" index="4" text="查询" type="button" hoffset="10" align="L" width="70" bindparam="IDOK">
+								            <button ntclr="" otclr="R" dnclr="" bmppre="" imageno="0"/>
+							            </ctrl>-->
+				    		            <ctrl rowindex="0" index="0" text="统计单日融资率不同规模时沪深300指数的后续表现（基于大数据统计,仅供参考）" type="static"  hoffset="5" align="L" width="600" bindparam="CacheId" >			
+							                <edit  change="0" defval="-1" />
+						                </ctrl>				
+						                <ctrl rowindex="0" index="1" text="" type="statnote" hoffset="5" align="R" width="80" ></ctrl>									
+					                </ctrls>
+			    	            </condpanel>
+        		            </table>		
+						
+        		            <table X="0" Y="-1" width="1" height="332" isleaf="true" hdirection="true" id="5" name="gridctrl" >
+        			            <gridctrl>
+	            		            <gridcols  firstswitchzst="1"   fixednum="1" rowchgmsg="true" postslave="true" keycol="1001" defsort="1007" ascsort="false" firstorder="false" firstcheck="false" dbclkchg="true" dbcmsg="1006" frameline="15">
+	        	    		            <gridcol  name="rankvalue" caption="单日融资率%" visible="true"  align="C" headalign="C" width="140" datatype="S" clrtype="O" enumid="1" enumcolorid="1"  fmtinvalid="1">
+                                            <cellplugin  celltype="3">
+									            <multitextcell textclr="255,0,0" align="L" padding="5,3,0,0"/>
+                                            </cellplugin>
+							            </gridcol>
+							            <gridcol  name="count" caption="出现次数" visible="true"  align="C" headalign="C" width="86" datatype="I" clrtype="O" enumcolorid="0"  fmtinvalid="1" filter="0" ></gridcol>
+	        			                <gridcol  name="zdfavg1" caption="次日表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="uppercentum1" caption="次日表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>		
+	        			                <gridcol  name="zdfavg3" caption="3日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="uppercentum3" caption="3日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>
+							            <gridcol  name="zdfavg5" caption="5日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="uppercentum5" caption="5日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>
+							            <gridcol  name="zdfavg10" caption="10日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="uppercentum10" caption="10日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>										
+			        		            <gridcol  name="dcts" caption="返回比较列" visible="false"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>
+	        	    	            </gridcols>
+                                    <condopers>
+                                        <condoper rowbkcolor="" multicolname="rankvalue" multitext="★">
+                                             <cond name="dcts" op="1" value="1.00" datatype="F"/>
+                                        </condoper>
+                                    </condopers>								
+    	    			            <datasource reqformat="2" condid="4" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '1','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+    	    			            </datasource>
+							        <enums>
+								        <enum id="1">
+									        <item code="0.0"   value="0 ~ 3.0"/>									
+									        <item code="3.0"   value="3.0 ~ 3.8"/>							
+									        <item code="3.8" value="3.8 ~ 4.0"/>
+									        <item code="4.0" value="4.0 ~ 4.1"/>							
+									        <item code="4.1" value="4.1 ~ 4.2"/>							
+									        <item code="4.2" value="4.2 ~ 4.3"/>							
+									        <item code="4.3" value="4.3 ~ 4.4"/>							
+									        <item code="4.4" value="4.4 ~ 4.5"/>						
+									        <item code="4.5" value="4.5 ~ 4.6"/>
+									        <item code="4.6" value="4.6 ~ 4.8"/>
+									        <item code="4.8" value="＞4.8"/>																
+								        </enum>
+							        </enums>
+        		                    <menu>
+	                                    <item name="$M_EXP" text="导出"/>
+                                    </menu>								
+    	    		            </gridctrl>
+        		            </table>
+							
+                            <table X="1" Y="-1" width="-1" height="-1" isleaf="true" hdirection="true" id="6" name="textpanel">
+					            <textpanel>
+						            <!--rows frameline="">	
+							            <row height="28" autosize="0" align="L" datatype="S"  fontsize="-14" fmtinvalid="1" fmttype="1">												
+								            <cell name="zwts"  width="1400"   />
+							            </row>								
+						            </rows>-->
+
+				                    <properties>
+				    	                <textcol title="" fldname="zwts"  titleclr="245,147,0"/>
+				                    </properties>				
+			    	                <datasource reqformat="2" condid="4" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200010','Type': '1','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]"   ></datasource>
+					            </textpanel>
+		                    </table>			
+		                    </branchpanel>
+    	                    </table>
+											
+	                        <table X="-0.1" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="7"  name="branchpanel">
+    	                    <branchpanel hdirection="true" >				
+		                        <table X="0" Y="0" width="1" height="-1" isleaf="true" hdirection="true" id="8" name="tabpanel" >
+        	                        <tabpanel >
+        		                        <component caption="平均涨幅走势" id="9" name="chartctrl" >
+					                        <chartctrl >
+						                        <properties >
+							                        <prop index="18" name="zdfavg1" caption="次日表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                        <prop index="19" name="zdfavg3" caption="3日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                        <prop index="20" name="zdfavg5" caption="5日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                        <prop index="21" name="zdfavg10" caption="10日后表现" style="1"  baseline="0.0" defsel="1" ></prop>													
+								                        <xaxis name="rankvalue" caption="单日融资率" datadesc="1"></xaxis>
+						                        </properties>
+						                        <datasource reqformat="2" condid="4" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '1','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	                        </datasource>
+					                        </chartctrl>
+				                        </component>
+										
+        		                        <component caption="上涨概率走势" id="10" name="chartctrl" >
+					                        <chartctrl>
+						                        <properties >
+							                        <prop index="18" name="uppercentum1" caption="次日表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                        <prop index="19" name="uppercentum3" caption="3日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                        <prop index="20" name="uppercentum5" caption="5日后表现" style="1"  baseline="0.0" defsel="1" ></prop>	
+							                        <prop index="21" name="uppercentum10" caption="10日后表现" style="1"  baseline="0.0" defsel="1" ></prop>													
+								                        <xaxis name="rankvalue" caption="单日融资率" datadesc="1"></xaxis>
+						                        </properties>
+							                    <datasource reqformat="2" condid="4" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '1','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	                        </datasource>
+					                        </chartctrl>
+				                        </component>										
+        	                        </tabpanel>
+                                </table>								
+      	                    </branchpanel>
+                            </table>
+                        </table>       		
+						</branchpanel>
+						</component>					
+
+												
+						<component caption="融券率" id="31" name="branchpanel" >
+							<branchpanel hdirection="true">
+	                            <table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="false">
+	                                <table X="0" Y="0" width="0.6" height="1" isleaf="true" hdirection="true" id="12" name="branchpanel" >
+    		                            <branchpanel hdirection="true" frameline="15">
+		    	                            <table X="0" Y="0" width="-1" height="2" isleaf="true" hdirection="true" id="13" name="condpanel" >
+			    	                            <condpanel>	
+				    	                            <ctrls rowcount="1" >
+					      	            <ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="" width="140" bindparam="StartDate" >
+							                <datectrl change="1" />
+							                <datevalue datetype="11" datespan="0" spantype="0" datetime="20170101" maxinterv="0"/>											
+							            </ctrl>
+							            <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="EndDate" >
+							                <datectrl change="1" />											
+							                <datevalue datetype="0" datespan="0" spantype="0" />
+						                </ctrl>
+							            <!--ctrl rowindex="0" index="4" text="查询" type="button" hoffset="10" align="L" width="70" bindparam="IDOK">
+								            <button ntclr="" otclr="R" dnclr="" bmppre="" imageno="0"/>
+							            </ctrl>-->											
+				    		                            <ctrl rowindex="0" index="0" text="统计单日融券率不同规模时沪深300指数的后续表现（基于大数据统计,仅供参考）" type="static"  hoffset="5" align="L" width="600" bindparam="CacheId" >			
+							                                <edit  change="0" defval="-1" />
+						                                </ctrl>
+						                                <ctrl rowindex="0" index="1" text="" type="statnote" hoffset="5" align="R" width="80" ></ctrl>									
+					                                </ctrls>	
+			    	                            </condpanel>
+        		                            </table>
+						
+        		                            <table X="0" Y="-1" width="1" height="332" isleaf="true" hdirection="true" id="14" name="gridctrl" >
+        			                            <gridctrl>
+	            		                            <gridcols  firstswitchzst="1"   fixednum="1" rowchgmsg="true" postslave="true" keycol="1001" defsort="1007" ascsort="false" firstorder="false" firstcheck="false" dbclkchg="true" dbcmsg="1006" frameline="15" >
+	        	    		                            <gridcol  name="rankvalue" caption="单日融券率%" visible="true"  align="C" headalign="C" width="140" datatype="S" clrtype="O" enumid="1" enumcolorid="1"  fmtinvalid="1">
+                                                            <cellplugin  celltype="3">
+									                            <multitextcell textclr="255,0,0" align="L" padding="5,3,0,0"/>
+                                                            </cellplugin>
+							                            </gridcol>
+							                            <gridcol  name="count" caption="出现次数" visible="true"  align="C" headalign="C" width="86" datatype="I" clrtype="O" enumcolorid="0"  fmtinvalid="1" filter="0" ></gridcol>
+	        			                                <gridcol  name="zdfavg1" caption="次日表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	                            <gridcol  name="uppercentum1" caption="次日表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>		
+	        			                                <gridcol  name="zdfavg3" caption="3日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	                            <gridcol  name="uppercentum3" caption="3日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>
+							                            <gridcol  name="zdfavg5" caption="5日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	                            <gridcol  name="uppercentum5" caption="5日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>	
+							                            <gridcol  name="zdfavg10" caption="10日后表现|平均涨幅%" visible="true"  align="C" headalign="C" width="110" datatype="F" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	                            <gridcol  name="uppercentum10" caption="10日后表现|上涨概率%" visible="true"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>				        		                            
+														<gridcol  name="dcts" caption="返回比较列" visible="false"   align="C"  width="110" datatype="F" autosize="0" fmtinvalid="0" digital="2" filter="0" ></gridcol>	
+	        	    	                            </gridcols>
+                                                    <condopers>
+                                                        <condoper rowbkcolor="" multicolname="rankvalue" multitext="★">
+                                                            <cond name="dcts" op="1" value="1.00" datatype="F"/> 
+                                                        </condoper>
+                                                    </condopers>																	
+    	    			                            <datasource reqformat="2" condid="13" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '2','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+    	    			                            </datasource>
+							                        <enums>
+								                        <enum id="1">
+									                        <item code="0.0" value="0 ~ 0.01"/>									
+									                        <item code="0.01" value="0.01 ~ 0.03"/>	
+									                        <item code="0.03" value="0.03 ~ 0.04"/>	
+									                        <item code="0.04" value="0.04 ~ 0.06"/>	
+									                        <item code="0.06" value="0.06 ~ 0.08"/>	
+									                        <item code="0.08" value="0.08 ~ 0.12"/>	
+									                        <item code="0.12" value="0.12 ~ 0.28"/>	
+									                        <item code="0.28" value="0.28 ~ 0.40"/>	
+									                        <item code="0.4"  value="0.40 ~ 0.43"/>
+									                        <item code="0.43" value="0.43 ~ 0.45"/>
+									                        <item code="0.45" value="＞0.45"/>															
+									
+								                        </enum>
+							                        </enums>
+        		                                    <menu>
+	                                                    <item name="$M_EXP" text="导出"/>
+                                                    </menu>						
+    	    		                            </gridctrl>
+        		                            </table>
+											
+                                            <table X="0" Y="-1" width="-1" height="-1" isleaf="true" hdirection="true" id="15" name="textpanel" >
+					                            <textpanel>
+				                                    <properties>
+				    	                                <textcol title="" fldname="zwts"  titleclr="245,147,0"/>
+				                                    </properties>			
+			    	                                <datasource reqformat="2" condid="13" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200010','Type': '2','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]"></datasource>
+					                            </textpanel>
+		                                    </table>
+											
+		                                </branchpanel>	
+    	                            </table>
+											
+	                                <table X="-0.1" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="16" name="branchpanel" >
+    	                                <branchpanel hdirection="true">						
+		                                <table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="17" name="tabpanel">
+        	                                <tabpanel >
+        		                                <component caption="平均涨幅走势" id="18" name="chartctrl" >
+					                                <chartctrl>
+						                                <properties >
+							                                <prop index="18" name="zdfavg1" caption="次日表现" style="1"  baseline="0.0" defsel="1" ></prop>	
+							                                <prop index="19" name="zdfavg3" caption="3日后表现" style="1"  baseline="0.0" defsel="1" ></prop>	
+							                                <prop index="20" name="zdfavg5" caption="5日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                                <prop index="21" name="zdfavg10" caption="10日后表现" style="1"  baseline="0.0" defsel="1" ></prop>																
+								                                <xaxis name="rankvalue" caption="单日融券率" datadesc="1"></xaxis>
+						                                </properties>
+						                                <datasource reqformat="2" condid="13" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '2','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	                                </datasource>
+					                                </chartctrl>
+				                                </component>
+				
+        		                                <component caption="上涨概率走势" id="19" name="chartctrl" >
+					                                <chartctrl>
+						                                <properties >
+							                                <prop index="18" name="uppercentum1" caption="次日表现" style="1"  baseline="0.0" defsel="1" ></prop>	
+							                                <prop index="19" name="uppercentum3" caption="3日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                                <prop index="20" name="uppercentum5" caption="5日后表现" style="1"  baseline="0.0" defsel="1" ></prop>
+							                                <prop index="21" name="uppercentum10" caption="10日后表现" style="1"  baseline="0.0" defsel="1" ></prop>															
+								                                <xaxis name="rankvalue" caption="单日融券率" datadesc="1"></xaxis>
+						                                </properties>
+							                            <datasource reqformat="2" condid="13" keeporiginal="true" name="HQServ.hq_nlp_tciFetcher64" body="[{'ReqId': '200009','Type': '2','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" >
+		    	    	                                </datasource>
+					                                </chartctrl>
+				                                </component>						
+        	                                </tabpanel>
+                                        </table>									
+      	                                </branchpanel>
+                                    </table>
+                                </table>
+					        </branchpanel>
+						</component>																
+        	        </tabpanel>
+									
+					
+                </table>	
+            </branchpanel>
+        </table>
+    </table>
+</root>
+
+

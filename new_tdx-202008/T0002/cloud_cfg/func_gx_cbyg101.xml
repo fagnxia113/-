@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="2" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="ygdate">
+							<gridcol name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="C" align="C" width="70" datatype="S" clrtype="S" />
+							<gridcol name="$SC" caption="市场" syscol="$SC" visible="true" align="C" width="0" datatype="I" clrtype="S"/>
+							<gridcol name="ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" />
+							<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" width="60" datatype="F" digital="2" clrtype="Z"/>
+							<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" align="R" width="60" datatype="F" digital="2"/>
+							<gridcol name="ygdate" caption="预告日期" visible="true" headalign="C" align="C" width="90" datatype="S" fmtinvalid="1"/>
+							<gridcol name="bgq" caption="报告期" visible="true" headalign="C" align="C" width="90" datatype="S" fmtinvalid="1"/>
+							<gridcol name="type" caption="预警类型" visible="true" align="L" headalign="L" width="135" autosize="1" datatype="S" fmtinvalid="1"/>
+							<gridcol name="jlr1" caption="净利润|本期下限" visible="true" align="R" width="85" datatype="F" digital="2" fmttype="9" fmtinvalid="1"/>
+							<gridcol name="jlr2" caption="净利润|本期上限" visible="true" align="R" width="85" datatype="F" digital="2" fmttype="9" fmtinvalid="1"/>
+							<gridcol name="jlr3" caption="净利润|上年同期" visible="true" align="R" width="85" datatype="F" digital="2" fmttype="9" fmtinvalid="1"/>
+							<gridcol name="zj1" caption="本期净利润同比增减*100|下限" visible="false" align="R" width="75" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="zj2" caption="本期净利润同比增减*100|上限" visible="false" align="R" width="75" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="zj3" caption="净利润同比%|本期下限" visible="true" align="R" width="85" datatype="F" digital="2" clrtype="Z" fmttype="2" fmtinvalid="1"/>
+							<gridcol name="zj4" caption="净利润同比%|本期上限" visible="true" align="R" width="85" datatype="F" digital="2" clrtype="Z" fmttype="2" fmtinvalid="1"/>
+							<gridcol name="eps" caption="每股收益" visible="true" align="R" width="85" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="pe" caption="PE(动)" visible="false" align="R" width="70" datatype="F" digital="2" formula="NOW/eps" calccol="NOW,eps" fmtinvalid="1"/>
+							<gridcol name="PE" caption="PE(TTM)" syscol="$PETTM" visible="true" align="R" width="85" datatype="F" digital="2" fmtinvalid="1" />
+							<gridcol name="x" caption="除数1" visible="false" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="y" caption="除数2" visible="false" align="R" width="70" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="zgb" caption="总股本(万)" visible="true" align="R" width="95" datatype="F" digital="2" fmtinvalid="1"/>
+							<gridcol name="syl1" caption="预计PE(动)|下限" visible="true" align="R" width="70" datatype="F" formula="NOW*zgb*10000/y" calccol="NOW,zgb,y" digital="2" fmtinvalid="1"/>
+							<gridcol name="syl2" caption="预计PE(动)|上限" visible="true" align="R" width="70" datatype="F" formula="NOW*zgb*10000/x" calccol="NOW,zgb,x" digital="2" fmtinvalid="1"/>
+						</gridcols>
+						<datasource reqformat="11" name="" body="list/func_gx_cbyg101_1.jsn">
+							<filter fldname="$ZQDM" scname="$SC" secutype="20" level="2" addsc="true"/>
+						</datasource>
+					</gridctrl>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

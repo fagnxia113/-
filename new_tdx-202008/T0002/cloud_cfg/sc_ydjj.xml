@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="splitpanel" >
+			<splitpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+					<condpanel>
+						<ctrls rowcount="1">
+						<ctrl rowindex="0" index="1" text="选取了近段时间有过异常波动的个股，结果仅供参考，据此操作风险自担" type="static" hoffset="5" align="L" width="400" ></ctrl>
+						<!--<ctrl rowindex="1" index="2" text="2、股价上涨，是风险聚集的过程，而股价下跌是一个风险释放的过程，股价上涨触发异动的停牌风险远远大于下跌，因此本功能讨论的异动都为正向异动，即股价上涨触发的异动。" type="static" hoffset="5" align="L" width="-1" ></ctrl>-->
+									<ctrl rowindex="0" index="2" type="paginate" hoffset="5" align="L" width="320"  >
+										<paginate pagerows="40" pagebegin="0" pageunit="true">
+												<text w="110" />
+												<!--statnum w="40" format="共%d条" pagenum="false" /-->
+												<upbtn h="20" w="45" text="首页" bmppre="def"/>
+												<upbtn2 h="20" w="45" text="上页" bmppre="def"/>
+												<downbtn h="20" w="45" text="下页" bmppre="def"/>
+										</paginate>
+									</ctrl>		
+						<ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+						<button tooltip="立即刷新"/>
+						</ctrl>
+			
+						</ctrls>
+					</condpanel>
+				</table>
+
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="232" name="gridctrl">
+					<gridctrl>
+						<gridcols fixednum="3" keycol="N001" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" defsort="N018" expandfull="1" multibreed="2">
+						<gridcol name="N001" caption="代码" syscol="$ZQDM" refzqdm="0" visible="true" align="L" headalign="L" width="75" datatype="S" clrtype="S"/>
+						<gridcol name="N002" caption="市场" syscol="$SC" refzqdm="0" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="95" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N003" caption="上市板块" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0"   clrtype="O" filter="0" ></gridcol>
+						<gridcol  name="N004" caption="3日偏离值|偏离值%" visible="true"  enumid="777"  align="R" headalign="R" width="75" datatype="F" digital="2"  autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol name="N005" caption="3日偏离值|起始日" visible="true" enumid="888" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol  name="N006" caption="3日偏离值|周期数" visible="true"   align="R" headalign="R" width="75" datatype="I" digital="0" autosize="1" fmtinvalid="1" enumcolorid="12" clrtype="O" filter="0" ></gridcol>
+						<gridcol  name="N007" caption="10日偏离值|偏离值%" visible="true"  enumid="777"  align="R" headalign="R" width="75" datatype="F" digital="2"  autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol name="N008" caption="10日偏离值|起始日" visible="true" enumid="888" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol  name="N009" caption="10日偏离值|周期数" visible="true"   align="R" headalign="R" width="75" datatype="I" digital="0" autosize="1" fmtinvalid="1" enumcolorid="12" clrtype="O" filter="0" ></gridcol>
+						<gridcol  name="N010" caption="10日偏离值|涨异动次数" visible="true"   align="R" headalign="R" width="100" datatype="I" digital="0" autosize="1" fmtinvalid="1" enumcolorid="12" clrtype="O" filter="0" ></gridcol>
+						<gridcol  name="N011" caption="30日偏离值|偏离值%" visible="true"  enumid="777"  align="R" headalign="R" width="75" datatype="F" digital="2"  autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol name="N012" caption="30日偏离值|起始日" visible="true" enumid="888" align="R" width="90" datatype="D" fmtinvalid='1'/>
+						<gridcol  name="N013" caption="30日偏离值|周期数" visible="true"   align="R" headalign="R" width="75" datatype="I" digital="0" autosize="1" fmtinvalid="1" enumcolorid="12" clrtype="O" filter="0" ></gridcol>
+						<gridcol name="N014" caption="分类指数|代码"  refzqdm="1" syscol="$ZQDM" visible="true" align="L" headalign="L" width="75" datatype="S" clrtype="S"/>
+						<gridcol name="N015" caption="分类指数|市场"  refzqdm="1" syscol="$SC" visible="false" align="L" headalign="L" width="60" datatype="S" clrtype="S"/>
+						<gridcol  name="N016" caption="分类指数|名称" visible="true"   align="L" headalign="L" width="80" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+						<gridcol  name="N024" caption="分类指数|现价" visible="true" refzqdm="1"   syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+						<gridcol  name="N025" caption="分类指数|涨幅%" visible="true" refzqdm="1"   syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>						
+						<gridcol  name="N017" caption="个股|3日涨幅%" visible="true"  align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N018" caption="个股|10日涨幅%" visible="true"   align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N019" caption="个股|30日涨幅%" visible="true"   align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N020" caption="分类指数|3日涨幅%" visible="true"   align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N021" caption="分类指数|10日涨幅%" visible="true"   align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N022" caption="分类指数|30日涨幅%" visible="true"  align="R" headalign="R" width="75" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+						<gridcol  name="N023" caption="当日偏离%" visible="true"  formula="$ZAF-N025" calccol="$ZAF,N025" align="R" headalign="R" width="100" datatype="F" digital="2"  fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>											
+						
+						
+						</gridcols>
+						
+						
+							
+					<datasource reqformat="2" cache="0" keeporiginal="true" condid="2111" name="HQServ.hq_nlp_abnormal_gold"  body="[{'ReqId': '2044','sortTpye': '18','sort': '0','page': '$$$STARTPOS$ $$','pageSize': '$$$PAGEROWS$ $$','modname': 'mod_abnormal_gold64.dll'}]" >
+					</datasource>
+					</gridctrl>
+				</table>
+			</splitpanel>
+		</table>
+	</table>
+</root>

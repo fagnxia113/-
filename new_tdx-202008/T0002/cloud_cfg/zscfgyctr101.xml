@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2" name="cellpanel">
+			<cellpanel>
+				<rows frameline="0">
+					<row height="30" autosize="1">
+						<cell text="注：此功能基于指数选样方法，由后台自动筛选，据此操作，风险自担" align="L"   width="500" frameline="0"/>
+					</row>
+				</rows>
+				<datasource reqformat="20" name="" body="">	</datasource>
+			</cellpanel>
+		</table>
+		<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="1" name="gridctrl">
+			<gridctrl>
+				<gridcols firstswitchzst="1" fixednum="2" defsort="ZAF" autosize="1">
+					<gridcol name="GPDM" caption="股票代码" syscol="$ZQDM" visible="true" align="L"  headalign="L"   width="70" datatype="S" clrtype="S"/>
+					<gridcol name="GPMC" caption="名称" syscol="$ZQJC" visible="true" align="L"  headalign="L"   width="110" datatype="S" clrtype="S"/>
+					<gridcol name="SC" caption="市场" syscol="$SC" visible="fasle"  align="R"  headalign="R"   width="60" datatype="I"/>
+					<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true"  align="R"  headalign="R"   width="60" datatype="F" digital="2" clrtype="Z"/>
+					<gridcol name="$NOW" caption="现价" syscol="$NOW" visible="true"  align="R"  headalign="R"   width="70" datatype="F" digital="2"/>
+					<gridcol name="LTSZ" caption="A股流通市值" syscol="$J_LTSZ" visible="true"  align="R"  headalign="R"   width="100" datatype="F" digital="2" fmttype="9"/>
+					<gridcol name="ZSZ" caption="AB总市值" syscol="$J_ZSZ" visible="true"  align="R"  headalign="R"   width="100" datatype="F" digital="2" fmttype="9"/>
+					<gridcol name="SSHY" caption="行业" syscol="$TDXHY" visible="true" align="L"  headalign="L"   width="80" datatype="S"/>
+					<gridcol name="YCRQ" caption="预测日期" visible="true"  align="R"  headalign="R"   width="80" datatype="D"/>
+					<gridcol name="TZFX" caption="方向" visible="true"  align="L"  headalign="L"   width="50" datatype="S" enumcolorid="102" clrtype="O"/>
+					<gridcol name="QFQSPJ" caption="预测日复权收盘价" visible="false"  align="R"  headalign="R"   width="60" datatype="F" digital="2"/>
+					<gridcol name="ZJZF" caption="预测至今涨%" visible="true"  align="R"  headalign="R"   width="100" formula="($NOW/QFQSPJ-1)*100" calccol="$NOW,QFQSPJ" datatype="F" digital="2" clrtype="Z"/>
+					<gridcol name="RJCJE" caption="近一年|日均成交额" visible="true"  align="R"  headalign="R"   width="100" datatype="F" digital="2" fmttype="9"/>
+					<gridcol name="RJSZ" caption="近一年|日均市值" visible="true"  align="R"  headalign="R"   width="80" datatype="F" digital="2" fmttype="9"/>
+					<gridcol name="BGQ" caption="最新报告期" visible="true"  align="R"  headalign="R"   width="90" datatype="D"/>
+					<gridcol name="YYSR" caption="营业收入" visible="true"  align="R"  headalign="R"   width="80" datatype="F" digital="2" fmttype="9" clrtype="Z"/>
+					<gridcol name="JLR" caption="净利润" visible="true"  align="R"  headalign="R"   width="80" datatype="F" digital="2" fmttype="9" clrtype="Z"/>
+					<gridcol name="ZSDM" caption="指数代码" visible="false" align="L"  headalign="L"   width="70" datatype="S"/>
+					<gridcol name="ZSMC" caption="指数名称" visible="true" align="L"  headalign="L"   width="70" datatype="S" clrtype="S"/>
+				</gridcols>
+				<datasource reqformat="1" cache="1" cachetime="3600" name="cfg_sc_zsgz" body="013,">
+					<filter fldname="TZFX" op="1" value="调入" level="2"/>
+				</datasource>
+				<enumcolors>
+					<enumcolor id="102" clrtype="T">
+						<item val="调入" clrtype="R"/>
+						<item val="调出" clrtype="G"/>
+					</enumcolor>
+				</enumcolors>
+			</gridctrl>
+		</table>
+	</table>
+</root>

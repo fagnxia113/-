@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="3" name="splitpanel">
+					<splitpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="0.7" isleaf="true" hdirection="true" id="4" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols fixednum="5" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="0" ingcode="true" defsort="start_date" expandfull="1">
+											<gridcol name="stock_code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="70" datatype="S" clrtype="S"  />
+											<gridcol name="stock_market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S"  />
+											<gridcol name="stock_name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S"  />
+											<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2" clrtype="Z"  />
+											<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="60" datatype="F" digital="2"  />
+											<gridcol name="stock_plates" caption="上市板块" visible="true" headalign="L" enumid="999" align="L" width="80" datatype="S"  />
+											<gridcol name="liststatus" caption="上市状态" visible="false" headalign="L" enumid="888" align="L" width="80" datatype="S"  />
+											<gridcol name="start_date" caption="开始日期" visible="true" headalign="C" align="C" width="90" datatype="D"/>
+											<gridcol name="start_time" caption="时间|开始" visible="true" headalign="C" align="C" width="60" datatype="S"/>
+											<gridcol name="end_time" caption="时间|结束" visible="true" headalign="C" align="C" width="60" datatype="S"/>
+											<gridcol name="url" caption="详情" visible="true" headalign="C" align="C" width="50" datatype="M" openurl="0"/>
+											<gridcol name="roadshow_type" caption="路演类型" visible="true" headalign="L" align="L" width="90" datatype="S"  />
+											<gridcol name="summary" caption="标题" visible="false" headalign="L" align="L" width="18" datatype="S"  />
+											<gridcol name="title" caption="标题" visible="true" headalign="L" align="L" width="200" datatype="S"  />
+											<gridcol name="HY" caption="通达信行业" syscol="$TDXHY" visible="true" headalign="L" align="L" width="90" datatype="S"  />
+										</gridcols>
+										<enums>
+											<enum id="999">
+												<item code="012001" value="上证主板"/>
+												<item code="012029" value="科创板"/>
+												<item code="012046" value="北交所"/>
+												<item code="012002" value="深证主板"/>
+												<item code="012015" value="创业板"/>
+											</enum>
+										</enums>
+										<datasource reqformat="2" name="CWSearch.tzx_rcache" keeporiginal="true" body="{&quot;action&quot;:&quot;get&quot;,&quot;key&quot;:&quot;ly:1_zxly&quot;}">
+											<filter fldname="liststatus" op="6" value="013002" level="2"/>
+											<filter fldname="liststatus" op="6" value="013003" level="2"/>
+											<filter fldname="stock_market" op="6" value="44" level="2"/>
+											<filter fldname="stock_code" op="11" value="T" level="2"/>
+										</datasource>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>
+						<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="7" name="gridctrl">
+							<gridctrl>
+								<gridcols fixednum="4" rowchgmsg="true" postslave="true" firstswitchzst="1" showtip="1" forbidmenu="1" ingcode="true" defsort="start_date" expandfull="1">
+									<gridcol name="start_date" caption="开始日期" visible="true" headalign="C" align="C" width="90" datatype="D"/>
+									<gridcol name="start_time" caption="时间|开始" visible="true" headalign="C" align="C" width="60" datatype="S"/>
+									<gridcol name="end_time" caption="时间|结束" visible="true" headalign="C" align="C" width="60" datatype="S"/>
+									<gridcol name="url" caption="详情" visible="true" headalign="L" align="L" width="50" datatype="M" openurl="2"/>
+									<gridcol name="roadshow_type" caption="路演类型" visible="true" headalign="L" align="L" width="100" datatype="S"  />
+									<gridcol name="title" caption="标题" visible="true" headalign="L" align="L" width="420" datatype="S"  />
+								</gridcols>
+								<datasource reqformat="2" masterid="5" name="CWSearch.tzx_rcache" keeporiginal="true" body="{&quot;action&quot;:&quot;get&quot;,&quot;key&quot;:&quot;ly:$$stock_market$$_$$stock_code$$&quot;}"/>
+							</gridctrl>
+						</table>
+					</splitpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

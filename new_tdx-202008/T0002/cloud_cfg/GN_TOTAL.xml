@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	  <vars luafile="GN_TOTAL"/>
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="3" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="false" id="33" name="splitpanel">
+					<splitpanel hdirection="false">
+						<table X="0" Y="0" width="180" height="1" isleaf="true" hdirection="true" id="11" name="branchpanel">
+							<branchpanel hdirection="true">
+								<table X="0" Y="-1" width="1" height="-1" isleaf="true" hdirection="true" id="300" name="treepanel">
+									<treepanel>
+										<prop xmlpath="hy_tree1_total.xml" treetype="1" postslave="true"/>
+										<datasource reqformat="20" name="" body=""/>
+									</treepanel>
+								</table>
+							</branchpanel>
+						</table>
+						<table X="-1" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="33" name="splitpanel">
+							<splitpanel hdirection="true">
+								<table X="0" Y="0" width="1" height="0.7" isleaf="true" hdirection="true" id="30" name="branchpanel">
+									<branchpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="4" name="gridctrl">
+											<gridctrl>
+												<gridcols fixednum="3" rowchgmsg="true" postslave="true"  dbclkswitchzst="false" ingcode="true" defsort="AVGZF">
+													<gridcol name="GNID" caption="概念ID" visible="false"  syscol="$ZQDM" align="L" width="60" datatype="S"/>
+													<gridcol name="GNDM" caption="概念代码" visible="false"   align="L" width="60" datatype="S"/>
+													<gridcol name="ZTMC" caption="概念名称" visible="true"  align="L" headalign="L" width="80" datatype="S"  autosize="1"/>
+													<gridcol name="GPJH" caption="股票集合" syscol="$S_ZQDM"  visible="false" align="L" width="70" datatype="S" clrtype="S" autosize="1"/>
+													<gridcol name="AVGZF" caption="均涨幅%" syscol="$S_AVGZF"  visible="true" align="R" width="80" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="JQZF" caption="权涨幅%" syscol="$S_JQZF"  visible="true" align="R" width="80" datatype="F" digital="2" autosize="1"/>
+													<gridcol name="LTG" caption="领涨股" syscol="$S_LTG"  visible="true" headalign="L" align="L" width="70" datatype="S" autosize="1"/>
+													<gridcol name="MAXZF" caption="最大涨幅%" syscol="$S_MAXZF"  visible="true" align="R" headalign="L" width="100" digital="2" datatype="F" autosize="1"/>
+													<gridcol name="SZBL" caption="上涨比例%" syscol="$S_UPRATE"   visible="false" align="R" headalign="L" width="100"  cfadatatype="6" fmtinvalid="1"  digital="2" datatype="F" autosize="1"/>
+													<gridcol name="zdbp" caption="上涨比例%" syscol="$S_UPRATE"  copysetpos="5" copysetcheck="true" sortname="SZBL"  cfadatatype="6" fmtinvalid="1"  clrtype='f'  visible="true" align="R" headalign="L" width="100" digital="2" datatype="F" autosize="1">
+													                    
+                                                                 <lua func="chgbpColor">
+                                             <param name="$THIS$"/>
+                                             <param name="$ROW$"/>
+                                             <param value="zdbp"/>
+                                             <param name="SZBL"/>
+                    </lua>  </gridcol>
+													<gridcol name="GPSL" caption="股数" syscol="$S_NUM"  visible="true" align="R" headalign="L" width="60" datatype="I" autosize="1"/>
+													<gridcol name="zts" caption="涨停数"   clrtype="R" visible="true" align="R" headalign="L" width="80" datatype="I" autosize="1"/>
+													<gridcol name="dts" caption="跌停数"   clrtype="G" visible="true" align="R" headalign="L" width="80" datatype="I" autosize="1"/>
+													<gridcol name="zbs" caption="炸板数"   clrtype="G" visible="true" align="R" headalign="L" width="80" datatype="I" autosize="1"/>
+													<gridcol name="CJRQ" caption="创建日期" visible="true"  align="L" headalign="L" width="75" datatype="D" autosize="1"/>
+													<gridcol name="5rzf" caption="涨幅%|5日" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="1yzf" caption="涨幅%|近1月"  visible="true" align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="6yzf" caption="涨幅%|近6月"  visible="true" align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="1nzf" caption="涨幅%|近1年" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="jnyl" caption="涨幅%|今年以来" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="ZJZF" caption="涨幅%|创建至今" visible="true"  align="R" width="100" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="LX" caption="类型" visible="false" align="L"  headalign="L" width="50" datatype="S"   autosize="1"/>
+													<gridcol name="MS" caption="描述" visible="false" align="L"  headalign="L" width="50" datatype="S" autosize="1"/>
+													<gridcol name="BKLX" caption="板块类型" visible="true" align="L"  headalign="L" width="80" filter='1' datatype="S" autosize="1"/>
+													
+												</gridcols>
+<menu>
+	<item name="$M_SEARCH" text="列表中查找"/>
+	<item name="$M_EXP" text="导出"/>
+
+
+</menu>												
+												<datasource zdgroup="ZDSYS1" reqformat="1" treeid="300" name="tdxyj_gnzt_jbxx" body="1,$INBLOCK$,">
+
+												</datasource>
+											</gridctrl>
+										</table>
+										<!--<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="5" name="textpanel">
+											<textpanel>
+												<properties>
+													<textcol title="主题描述" fldname="MS" titleclr="245,147,0"/>
+												</properties>
+												<datasource masterid="4" reqformat="12" name="" body=",,"/>
+											</textpanel>
+										</table>-->
+									</branchpanel>
+								</table>
+								<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="7" name="branchpanel">
+									<branchpanel hdirection="true">
+										<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="8" name="branchpanel">
+											<branchpanel hdirection="true">
+												<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="9" name="gridctrl">
+													<gridctrl>
+														<gridcols fixednum="3" rowchgmsg="true" postslave="true" firstswitchzst="true" defsort="ZAF" showtip="1">
+															<gridcol name="GPDM" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S"/>
+															<gridcol name="GPMC" caption="名称" syscol="$ZQJC" visible="true" autosize="1" headalign="L" align="L" width="70" datatype="S"/>
+															<gridcol name="ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="60" datatype="F"/>
+															<gridcol name="NOW" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="60" datatype="F"/>
+													<gridcol name="tjrq" caption="统计日期" visible="true"  align="L" headalign="L" width="80" datatype="D" autosize="1"/>		
+													<gridcol name="zdf_5d" caption="涨幅%|5日" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="zdf_10d" caption="涨幅%|10日"  visible="true" align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="zdf_20d" caption="涨幅%|20日"  visible="true" align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="zdf_60d" caption="涨幅%|60日" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>
+													<gridcol name="zdf_1y" caption="涨幅%|近1年" visible="true"  align="R" width="75" datatype="F" digital="2" clrtype="Z" autosize="1"/>															
+															<gridcol name="GLCD" caption="关联程度" visible="true" headalign="L" align="L" width="65" datatype="S"/>															
+															<gridcol name="LZCS" caption="领涨次" visible="true" headalign="L" align="L" width="55" datatype="N"/>
+															<gridcol name="LMNR" caption="栏目内容" visible="true" align="L" headalign="L" width="450" datatype="S"/>
+															<gridcol name="XXMS" caption="详情" visible="true" align="L" headalign="L" width="60" datatype="M"/>
+														</gridcols>
+<menu>
+	<item name="$M_ADDZXG" text="加入到自选股"/>
+	<item name="$M_ADDBLOCK" text="加入到板块股"/>	
+	<item name="$M_ADDALLBLOCK" text="所有品种加入到板块"/>	
+	<item name="$M_SEARCH" text="列表中查找"/>	
+	<item name="$M_EXP" text="导出"/>
+
+
+</menu>															
+														<datasource zdgroup="ZDSYS1" masterid="4" reqformat="1" name="tdxyj_gnzt_jbxx" body="2,,$INGCODE$"/>
+													</gridctrl>
+												</table>
+												<!--<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="10" name="textpanel">
+													<textpanel>
+														<properties>
+															<textcol title="详细描述" fldname="XXMS" titleclr="245,147,0"/>
+														</properties>
+														<datasource masterid="9" reqformat="12" name="" body=",,"/>
+													</textpanel>
+												</table>-->
+											</branchpanel>
+										</table>
+									</branchpanel>
+								</table>
+							</splitpanel>
+						</table>
+					</splitpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>

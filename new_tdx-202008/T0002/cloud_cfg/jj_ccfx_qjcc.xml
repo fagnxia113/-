@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">
+				 <table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="2" name="branchpanel" >
+				 		<branchpanel hdirection="true">
+						  <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+							  <condpanel>		
+								  <ctrls rowcount="1">
+								    <ctrl rowindex="0" index="1" text="?" tooltip="<b>平均换手率%：</b>AVERAGE（区间内当期换手率）
+<b>平均集中度-个股%：</b>AVERAGE（区间内当期个股集中度）
+<b>平均集中度-行业%：</b>AVERAGE（区间内当期行业集中度）
+<b>平均稳定性-换手率：</b>STDEV（区间内当期换手率）/AVERAGE(区间内当期换手率）
+<b>平均稳定性-个股集中度：</b>STDEV（区间内当期个股集中度）/AVERAGE(区间内当期个股集中度）
+<b>平均稳定性-行业集中度：</b>STDEV（区间内当期行业集中度）/AVERAGE(区间内当期行业集中度）
+<b>平均稳定性-股票仓位：</b>STDEV（区间内当期股票仓位）/AVERAGE(区间内当期股票仓位）" 
+												type="static" hoffset="5" align="L" width="10" ></ctrl>	
+								    
+									  <ctrl rowindex="0" index="4" text="投资风格" type="combox" hoffset="5" align="L" width="150" bindparam="style_details" >					
+											<combox cbchange="1" defsel="1" >
+											<item text="全部"  value="0"/>
+											<item text="普通股票型"  value="005001"/>
+										  <item text="偏股混合型"  value="005005"/>
+											</combox>
+										</ctrl>
+										<!--<ctrl rowindex="0" index="5" text="基金公司" type="combox" hoffset="5" align="L" width="170" bindparam="company_id" >					
+											<combox cbchange="1" defsel="0" remote="1" >
+											    <remote textfld="CorpName" datafld="CorpID" >
+											    	<extitem text="全部" value="0"/>
+														<datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp" body="[{'ReqId': '500013','modname': 'mod_fuan.dll'}]" >
+			    	    						</datasource>	
+													</remote>
+											</combox>
+										</ctrl> -->
+										<ctrl rowindex="0" index="6" text="基金份额" type="combox" hoffset="5" align="L" width="150" bindparam="fund_size" >					
+											<combox cbchange="1" defsel="0" >
+											<item text="全部"  value="0"/>
+											<item text="<=10亿"  value="1"/>
+										  <item text="10-50亿"  value="2"/>
+										  <item text="50-100亿"  value="3"/>
+										  <item text="100-150亿"  value="4"/>
+										  <item text="150-200亿"  value="5"/>
+										  <item text=">200亿"  value="6"/>
+											</combox>
+										</ctrl>
+										<ctrl rowindex="0" index="7" text="成立日期" type="combox" hoffset="5" align="L" width="150" bindparam="fund_setup_time" >					
+											<combox cbchange="1" defsel="0" >
+											<item text="全部"  value="0"/>
+											<item text="近1年"  value="1"/>
+										  <item text="近2年"  value="2"/>
+										  <item text="近3年"  value="3"/>
+										  <item text="近4年"  value="4"/>
+										  <item text="近5年"  value="5"/>
+										  <item text="5年以上"  value="6"/>
+											</combox>
+										</ctrl>
+										<ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="10" width="140" bindparam="start_date" >
+										   <datectrl change="0"/>
+										   <datevalue datetype="8" datespan="30" spantype="1" maxinterv="0"/>
+										</ctrl>
+										<ctrl rowindex="0" index="3" text="截止日期" type="date" hoffset="10" width="140" bindparam="end_date" >
+										   <datectrl change="0"/>
+										   <datevalue datetype="8" datespan="6" spantype="1" maxinterv="0"/>
+										</ctrl>
+										<ctrl rowindex="0" index="8" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK"  >
+											<button  imageno="0" />
+										</ctrl>
+										<ctrl rowindex="0" index="0" type="paginate" hoffset="5" align="R" width="320" >
+											<paginate pagerows="50" pagebegin="0" pageunit="true" >
+													<text w="110"/>
+														<!--statnum w="40" format="共%d条" pagenum="false" /-->
+													<upbtn h="20" w="45" text="首页" bmppre="def"/>
+													<upbtn2 h="20" w="45" text="上页" bmppre="def"/>
+													<downbtn h="20" w="45" text="下页" bmppre="def"/>
+											</paginate>
+										</ctrl>
+									  </ctrls>
+							    </condpanel>
+			        </table>
+			        <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="false" id="4" name="branchpanel" >
+				        <branchpanel hdirection="false">
+							<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+							  <gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="fund_code" ascsort="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="10" showtip="1">							
+									<gridcol  name="fund_code" caption="基金代码" syscol="$ZQDM" visible="true"  align="L" headalign="L" width="80" datatype="S" digital="2" autosize="0" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>		
+									<gridcol  name="fund_name" caption="基金简称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="80" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="fund_market" caption="市场代码" syscol="$SC" visible="flase"  align="L" headalign="L" width="40" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="netValue" caption="最新净值" syscol="$NOW" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" filter="0" ></gridcol>
+									<gridcol  name="changeRate" caption="涨幅%" syscol="$ZAF" visible="true"  align="R" headalign="R" width="60" datatype="F" digital="4" autosize="0" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="turnoverRateAvg" caption="平均换手率" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="0" fmttype="2" fmtinvalid="1"  filter="0" ></gridcol>	
+									<gridcol  name="stockConcentrationAvg" caption="平均集中度|个股%" visible="true"  align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>	
+									<gridcol  name="IndustryConcentrationAvg" caption="平均集中度|行业%" visible="true"  align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1" filter="0" ></gridcol>	
+									<gridcol  name="turnoverRateStability" caption="平均稳定性|换手率" visible="true" align="R" headalign="R" width="70" datatype="F" digital="2" autosize="0" fmtinvalid="1" filter="0" ></gridcol>
+									<gridcol  name="stockConcentStability" caption="平均稳定性|个股集中度" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="IndustryConcentStability" caption="平均稳定性|行业集中度" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="stockPositionStability" caption="平均稳定性|股票仓位" visible="true" align="R" headalign="R" width="90" datatype="F" digital="2" autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="FundSize" caption="最新份额" visible="true" align="R" headalign="R" width="85" fmttype="9" datatype="F" digital="2" autosize="0" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+									<gridcol  name="FundEstTime" caption="成立日期" visible="true" align="C" headalign="C" width="85" datatype="S"  autosize="0" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="style_details" caption="投资风格" visible="true" align="L" headalign="L" width="85" datatype="S"  autosize="0" fmtinvalid="1" enumid="1" clrtype="V" filter="0" ></gridcol>	
+									<gridcol  name="ManagerName" caption="基金经理" visible="true" align="L" headalign="L" width="85" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="FundCopName" caption="基金公司" visible="true" align="L" headalign="L" width="85" datatype="S"  autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+								</gridcols>
+								<datasource reqformat="2" cache="0" keeporiginal="true" reqmaxcount="200" name="HQServ.hq_nlp_risk_return" condid="3" body="[{&quot;ReqId&quot;:&quot;500055&quot;,&quot;style_type&quot;:&quot;&quot;,&quot;style_details&quot;:&quot;$$style_details$$&quot;,&quot;company_id&quot;: &quot;&quot;,&quot;fund_size&quot;: &quot;$$fund_size$$&quot;,&quot;fund_setup_time&quot;: &quot;$$fund_setup_time$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;Sort&quot;:&quot;0&quot;,&quot;Page&quot;:&quot;$$$STARTPOS$ $$&quot;,&quot;PageSize&quot;:&quot;$$$PAGEROWS$ $$&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>	
+					  
+								
+									<enums>
+										<enum id="1">
+											<item code="005001" value="普通股票型"/>
+											<item code="005002" value="复制指数型"/>
+											<item code="005003" value="增强指数型"/>
+											<item code="005004" value="平衡混合型"/>
+											<item code="005005" value="偏股混合型"/>
+											<item code="005006" value="偏债混合型"/>
+											<item code="005007" value="保本型"/>
+											<item code="005008" value="中短期纯债型"/>
+											<item code="005009" value="长期纯债型"/>
+											<item code="005010" value="一级债基"/>
+											<item code="005011" value="二级债基"/>
+											<item code="005012" value="债券指数型"/>
+											<item code="005013" value="基金型"/>
+											<item code="005014" value="货币型"/>
+											<item code="005015" value="短期理财债券型"/>
+											<item code="005016" value="贵金属商品"/>
+											<item code="005017" value="其他商品"/>
+										</enum>
+									</enums>
+								</gridctrl>		
+							</table>				
+			          </branchpanel>
+			        </table>
+        	  </branchpanel> 
+       	 </table>        
+        
+         <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="false" id="6" name="branchpanel" >
+			<branchpanel hdirection="false">
+				<table X="0" Y="-1" width="0.4" height="1" isleaf="true" hdirection="true" id="7" name="tabpanel">
+					<tabpanel >	    		
+						<component caption="行业明细" id="8" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="InduatryAvgValue" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="4">
+									<gridcol  name="InduatryName" caption="行业名称" visible="true" align="L" headalign="L" width="60" datatype="S" autosize="1" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="InduatryAvgValue" caption="行业平均市值" visible="true" fmttype="9" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>	
+									<gridcol  name="IndustryAvgRatio" caption="平均市值占比%" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>	
+								</gridcols>
+								<datasource reqformat="2" cache="0"  masterid="5" keeporiginal="true" reqmaxcount="200" name="HQServ.hq_nlp_risk_return"  body="[{&quot;ReqId&quot;:&quot;500056&quot;,&quot;company_id&quot;: &quot;$$fund_code$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;Sort&quot;:&quot;0&quot;,&quot;Page&quot;:&quot;0&quot;,&quot;PageSize&quot;:&quot;50&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>					  
+							</gridctrl>	
+						</component>
+        	</tabpanel>	
+        </table>		
+        <table X="-1" Y="-1"  height="1" isleaf="true" hdirection="true" id="9" name="tabpanel">
+        	<tabpanel >			
+						<component caption="当期明细" id="10" name="gridctrl" >
+							<gridctrl>
+								<gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="reportDate" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="0">
+									<gridcol  name="reportDate" caption="报告日期" visible="true"  align="C" headalign="C" width="80" datatype="L" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>	
+									<gridcol  name="turnoverRate" caption="换手率" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" fmttype="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>	
+								    <gridcol  name="stockConcentration" caption="个股集中度%" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>	
+									<gridcol  name="IndustryConcentration" caption="行业集中度%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" filter="0" ></gridcol>
+									<gridcol  name="SharesValue" caption="股票市值" visible="true" fmttype="9" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+									<gridcol  name="SharesRatio" caption="股票市值占比%" visible="true" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+								</gridcols>
+							<datasource reqformat="2" cache="0"  masterid="5" keeporiginal="true" reqmaxcount="200" name="HQServ.hq_nlp_risk_return" body="[{&quot;ReqId&quot;:&quot;500057&quot;,&quot;company_id&quot;: &quot;$$fund_code$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;Sort&quot;:&quot;0&quot;,&quot;Page&quot;:&quot;0&quot;,&quot;PageSize&quot;:&quot;20&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>					  						
+							</gridctrl>	
+						</component>
+        	</tabpanel>	
+        </table>		
+        
+        </branchpanel>		
+         </table>	
+		
+      </branchpanel>						
+    </table>	
+  </table>
+</root>
+
+

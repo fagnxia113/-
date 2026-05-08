@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+  <!--showcheck:是否显示复选框; showsearch:是否显示搜索框; showdblclkopt:是否显示双击设置框; caption:显示名称; visible:是否显示,不配置则不显示; check:是否默认选中,不配置则不选中; expand:是否默认展开,不配置则不展开; blockid为板块代码,作为参数传给对应的gridctrl;source为数据来源,1:主框架接口,2:tdxhy.cfg文件,3:tdxhy2.cfg文件,其中1、2默认全部展示-->
+  <tree showcheck="false" showsearch="1"  showdblclkopt="true"  url="$HOMEPATH$/webs/xmlweb/tree/page_tree.html?color=##tdxbk##">
+      <node caption="国防军工" visible="true" blockid="Z01" defsel="true" source="1"  >
+</node>		  
+      <node caption="健康中国" visible="true" blockid="Z03" defsel="true" source="2"  />	
+      <node caption="美丽中国" visible="true" blockid="Z04" defsel="true" source="2"  />	
+      <node caption="交通强国" visible="true" blockid="Z10" defsel="true" source="2"  />		  
+      <node caption="工业4.0" visible="true" blockid="Z05" defsel="true" source="2"  />	
+      <node caption="汽车产业" visible="true" blockid="Z06" defsel="true" source="2"  />		  
+      <node caption="人工智能" visible="true" blockid="Z07" defsel="true" source="2"  />	
+      <node caption="5G6G" visible="true" blockid="Z08" defsel="true" source="2"  />		  
+      <node caption="新基建" visible="true" blockid="Z09" defsel="true" source="2"  />	
+      <node caption="大金融" visible="true" blockid="Z11" defsel="true" source="2"  />	
+      <node caption="非接触经济" visible="true" blockid="Z12" defsel="true" source="2"  />	
+      <node caption="半导体" visible="true" blockid="Z13" defsel="true" source="2"  />	
+      <node caption="碳中和" visible="true" blockid="Z14" defsel="true" source="2"  />
+      <node caption="数字经济" visible="true" blockid="Z16" defsel="true" source="2"  />		  
+      <node caption="算力产业" visible="true" blockid="Z17" defsel="true" source="2"  />	
+      <node caption="机器人" visible="true" blockid="Z18" defsel="true" source="2"  />		  
+      <node caption="大消费" visible="true" blockid="Z19" defsel="true" source="2"  />	
+      <node caption="风光锂储" visible="true" blockid="Z20" defsel="true" source="2"  />		  		  
+      <node caption="新材料" visible="true" blockid="Z23" defsel="true" source="2"  />	
+      <node caption="新型电力" visible="true" blockid="Z24" defsel="true" source="2"  />	
+      <node caption="国产软件" visible="true" blockid="Z25" defsel="true" source="2"  />
+      <node caption="大周期" visible="true" blockid="Z27" defsel="true" source="2"  />		  		  
+      <node caption="农业安全" visible="true" blockid="Z30" defsel="true" source="2"  />	
+      <node caption="地产链" visible="true" blockid="Z31" defsel="true" source="2"  />		  	  
+  </tree>
+</root>

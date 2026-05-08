@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+			<branchpanel hdirection="true">	
+		       	            <table X="0" Y="-1" width="1" height="2" isleaf="true" hdirection="true" id="23" name="condpanel" >
+			    	            <condpanel>
+				    	            <ctrls rowcount="1">									
+					      	            <ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="0" width="140" bindparam="StartDate" >
+							                <datectrl change="1" />
+							                <datevalue datetype="11" datespan="0" spantype="0" datetime="20171115" maxinterv="0"/>
+							            </ctrl>
+							            <ctrl rowindex="0" index="3" text="截止日期" type="date" width="140" bindparam="EndDate" >
+							                <datectrl change="1" />												
+							                <datevalue datetype="0" datespan="1" spantype="3" />
+						                </ctrl>
+							            <!--ctrl rowindex="0" index="4" text="查询" type="button" hoffset="10" align="L" width="70" bindparam="IDOK">
+								            <button ntclr="" otclr="R" dnclr="" bmppre="" imageno="0"/>
+							            </ctrl>-->									
+				    		            <ctrl rowindex="0" index="0" text="最近一个交易日的数据可能因公布时间不同步导致只揭示了部分市场的信息（基于大数据统计,仅供参考）" type="static"  hoffset="15" align="L" width="640" bindparam="CacheId" >			
+							                <edit  change="0" defval="-1" />
+						                </ctrl>		
+						                <ctrl rowindex="0" index="1" text="" type="statnote" hoffset="5" align="R" width="80" ></ctrl>					
+					                </ctrls>
+			    	            </condpanel>
+        		            </table>	
+	
+        		            <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="24" name="gridctrl" >
+        			            <gridctrl>
+	            		            <gridcols  firstswitchzst="1"   fixednum="1" rowchgmsg="true" postslave="true" keycol="1001" defsort="date" ascsort="false" firstorder="false" firstcheck="false" dbclkchg="true" dbcmsg="1006" frameline="15">
+							            <gridcol  name="date" caption="日期" visible="true"  align="C" headalign="C" width="86" datatype="I" clrtype="O" enumcolorid="0"  fmtinvalid="1" filter="0" ></gridcol>
+	        		    	            <gridcol  name="valuerzyq" caption="融资余额(亿元)" visible="true"   align="C" width="90" datatype="F" autosize="0" fmtinvalid="1" digital="2"  filter="0" ></gridcol>									
+	        			                <gridcol  name="valuerqye" caption="融券余额(亿元)" visible="true"  align="C" headalign="C" width="100" datatype="F" autosize="0" digital="2"  filter="0" ></gridcol>	
+	        			                <gridcol  name="close1" caption="活筹市值(百亿)" visible="true"  align="C" headalign="C" width="100" datatype="F" autosize="0" digital="2"  filter="0" ></gridcol>								
+	        		    	            <gridcol  name="rankvaluerzl" caption="融资率%" visible="true"   align="C" width="90" datatype="F" autosize="0" fmtinvalid="1" digital="2" clrtype="R" filter="0" ></gridcol>									
+	        			                <gridcol  name="rankvaluerql" caption="融券率%" visible="true"  align="C" headalign="C" width="100" datatype="F" autosize="0" digital="2" clrtype="G" filter="0" ></gridcol>																			
+	        			                <gridcol  name="close" caption="沪深300指数点位" visible="true"  align="C" headalign="C" width="100" datatype="F" autosize="0" digital="2"  filter="0" ></gridcol>									
+	        		    	            <gridcol  name="zdfavg1" caption="次日涨幅%" visible="true"   align="C" width="90" datatype="F" autosize="0" fmtinvalid="1" digital="2" clrtype="Z" filter="0" ></gridcol>
+							            <gridcol  name="zdfavg3" caption="3日后涨幅%" visible="true"  align="C" headalign="C" width="100" datatype="F" fmtinvalid="1" autosize="0" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="zdfavg5" caption="5日后涨幅%" visible="true"   align="C" width="90" datatype="F" autosize="0" fmtinvalid="1" digital="2" clrtype="Z" filter="0" ></gridcol>
+	        		    	            <gridcol  name="zdfavg10" caption="10日后涨幅%" visible="true"   align="C" width="90" datatype="F" autosize="0" fmtinvalid="1" digital="2" clrtype="Z" filter="0" ></gridcol>								
+	        	    	            </gridcols>								
+    	    			            <!--datasource reqformat="2" condid="4" keeporiginal="true" name="HQServ.hq_nlp" body="[{'ReqId': '1005','StartDate': '$$StartDate$$','EndDate': '$$EndDate$$','modname': 'mod_tciFetcher64.dll'}]" ></datasource>-->
+								    <datasource reqformat="22" cache="0" keeporiginal="true" reqmaxcount="200" name="HQServ.PBRPC_tciFetcher64" condid="23" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_tciFetcher64.dll;ReqByte={&quot;ReqId&quot;:&quot;200011&quot;,&quot;StartDate&quot;:&quot;$$StartDate$$&quot;,&quot;EndDate&quot;:&quot;$$EndDate$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;mod_tciFetcher64.dll&quot;}"></datasource>																			
+				                    <menu>
+	                                    <item name="$M_EXP" text="导出"/>
+                                    </menu>							
+    	    		            </gridctrl>
+        		            </table>						
+            </branchpanel>				
+        </table>	
+    </table>
+</root>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="gbk"?>
+<root>
+<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="false" id="1" name="gridctrl">
+			<gridctrl>
+				<gridcols    firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="1" glincode="true" firstorder="false"  dbclkchg="2" dbclkswitchzst="false" autosize="1" defsort="$ZAF" ascsort="false" setcodetojy="true">
+					 <gridcol  name="$ZQDM" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+					 <gridcol  name="$SC" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+					 <gridcol  name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="70" datatype="S" clrtype="S" filter="0" ></gridcol>
+					 <gridcol  name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R"  align="R" width="60" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+					 <gridcol  name="$NOW" caption="现价" syscol="$NOW" visible="true" headalign="R"  align="R" width="60" datatype="F" digital="3"  filter="0" ></gridcol>	
+					 <gridcol name="$MAX" caption="最高" syscol="$MAX"  visible="true" headalign="R" align="R" datatype="F"  width="60" digital="3" filter="0" ></gridcol>	
+					<gridcol name="$MIN" caption="最低"  syscol="$MIN"  visible="true" datatype="F" headalign="R" align="R" width="60" digital="3" filter="0" ></gridcol>	
+					<gridcol name="$ZCJJE" caption="成交额"  syscol="$ZCJJE"  visible="true" datatype="F"  headalign="R" align="R" width="60" clrtype="V" filter="0" ></gridcol>	
+					<gridcol name="TS" caption="天数"  datatype="I" visible="false"  headalign="R" align="R" width="60" filter="0" ></gridcol>	
+					<gridcol name="YL" caption="每10万收益" visible="true" datatype="F" headalign="R" align="R"  formula="1000*$NOW*SJTS/365" calccol="$NOW,SJTS" width="85" digital="2" filter="0" ></gridcol>	
+					<gridcol name="SXF" caption="每十万元|手续费"  datatype="F"  visible="false" headalign="R" align="R" width="60" filter="0" ></gridcol>		
+					<gridcol name="ZJKY" caption="资金可用日"  visible="true" datatype="D" headalign="R" align="R" width="85" filter="0" ></gridcol>	
+					<gridcol name="SCZJJS" caption="首次资金交收"  datatype="D" visible="false" headalign="R" align="R" width="60" filter="0" ></gridcol>	
+					<gridcol name="ZJKQ" caption="资金可取日"  visible="true" datatype="D" headalign="R" align="R" width="85" filter="0" ></gridcol>	
+					<gridcol name="SJTS" caption="计息天数"  visible="true" datatype="I"  headalign="R" align="R" width="70"  filter="0" ></gridcol>	
+				 </gridcols>	
+				 <datasource  reqformat="11"  name="" body="list/func_gznhg100_1.jsn"></datasource>
+			</gridctrl>		
+		</table>
+</table>
+	
+</root>

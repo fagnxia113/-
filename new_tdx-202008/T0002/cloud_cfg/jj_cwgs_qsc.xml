@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+			  <table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="2" name="branchpanel" >
+				<branchpanel hdirection="true">
+					  <table X="0" Y="0" width="1" height="0" isleaf="true" hdirection="true" id="3" name="condpanel">
+						  <condpanel>		
+							  <ctrls rowcount="1">					
+								   <ctrl rowindex="0" index="2" text="起始日期" type="date" hide="true" hoffset="10" width="140" bindparam="start_date" >
+									  <datectrl change="1"/>
+									  <datevalue datetype="0" datespan="1" spantype="2" />
+									</ctrl>
+									<ctrl rowindex="0" index="3" text="截止日期" type="date" hide="true" width="140" bindparam="end_date" >
+										<datectrl change="1"/>
+									  <datevalue datetype="0" datespan="1" spantype="3" />
+								  </ctrl>
+								</ctrls>
+						  </condpanel>
+				</table>
+				<table X="0" Y="1" width="1" height="1" isleaf="true" hdirection="true" id="4" name="chartctrl">
+					
+					<chartctrl>
+						<properties >
+							<prop index="4" name="MarketEstPos" caption="市场整体预估仓位%" style="1"  baseline="0.0" defsel="1" ></prop>		
+							<prop index="5" name="StockEstPos" caption="普通股票型预估仓位%" style="1"  baseline="0.0" defsel="1" ></prop>			
+							<prop index="6" name="MixedEstPos" caption="偏股混合型预估仓位%" style="1"  baseline="0.0" defsel="1" ></prop>		
+							<xaxis name="estimateDate" caption="日期" datadesc="0"></xaxis>
+						</properties>
+					   <datasource reqformat="2" cache="0" condid="3" keeporiginal="true" reqmaxcount="200"  name="HQServ.hq_nlp_risk_return" body="[{&quot;ReqId&quot;:&quot;500062&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;PageSize&quot;:&quot;100&quot;,&quot;modname&quot;:&quot;module_risk_return.dll&quot;}]"></datasource>						
+					</chartctrl>					
+				</table>			
+			  </branchpanel>
+			</table>
+
+  </table>
+</root>
+
+

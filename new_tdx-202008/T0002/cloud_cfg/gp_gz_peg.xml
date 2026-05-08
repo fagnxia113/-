@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root>
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+		<table X="0" Y="0" width="0" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="0" width="1" height="0.6" isleaf="true" hdirection="true" id="2" name="branchpanel">
+					<branchpanel hdirection="true">
+						<table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="3" name="condpanel">
+							<condpanel>
+								<ctrls rowcount="1">
+									<ctrl rowindex="0" index="1" text="?" tooltip="<b>PE（TTM）：</b>滚动市盈率：总市值/总收益（剔除财务分析上的季节性变化）
+<b>PE（年报）：</b>静态市盈率：总市值/总收益					      	
+<b>PE最大值：</b>Max（选定时间区间内最大PE倍数）
+<b>PE最小值：</b>Min（选定时间区间内最小PE倍数）
+<b>T年算得的股价：</b>[T年一致预期收益/（1+要求年回报率）^（（12-当前月份）/12）]*个股市盈率
+<b>T年股价判断：</b>当前收盘价＞T年一致预期算得的股价，则为高估；当前收盘价＜T年一致预期算得的股价，则为低估	
+<b>T年估值判断：</b>T年预测算得PE＞区间内PE最大值，则为高估；T年预测算得PE＜区间内PE最小值，则为低估	
+<b>T+1年算得的股价：</b>[T+1年一致预期收益/（1+要求年回报率）^（（12-当前月份）/12+1）]*个股市盈率（TTM）
+<b>T+1年股价判断：</b>当前收盘价＞T+1年一致预期算得的股价，则为高估；当前收盘价＜T+1年一致预期算得的股价，则为低估
+<b>T+1年估值判断：</b>T+1年预测算得PE＞区间内PE最大值，则为高估；T+1年预测算得PE＜区间内PE最小值，则为低估	
+" type="static" hoffset="5" align="L" width="10"/>
+									<ctrl rowindex="0" index="2" text="起始日期" type="date" hoffset="10" width="140" bindparam="start_date">
+										<datectrl/>
+										<datevalue datetype="0" datespan="36" spantype="1" maxinterv="0"/>
+									</ctrl>
+									<ctrl rowindex="1" index="3" text="截止日期" type="date" width="140" bindparam="end_date">
+										<datectrl change="1"/>
+										<datevalue datetype="0" datespan="1" spantype="0"/>
+									</ctrl>
+									<ctrl rowindex="0" index="10" text="要求年回报率%" type="edit" hoffset="5" align="L" width="120" bindparam="required_return_rate">
+										<edit change="0" defval="3"/>
+									</ctrl>
+									<ctrl rowindex="0" index="4" text="PE类型" type="combox" hoffset="5" align="L" width="120" bindparam="PE_type">
+										<combox defsel="1">
+											<item text="PE(年报)" value="0"/>
+											<item text="PE(TTM)" value="1"/>
+										</combox>
+									</ctrl>
+									<ctrl rowindex="0" index="11" text="计算" type="button" hoffset="10" align="L" width="40" bindparam="IDOK">
+										<button imageno="0"/>
+									</ctrl>
+									<ctrl rowindex="0" index="0" text="股价判断比较预期算得股价与当前价格，估值判断比较预期算得PE与区间PE最大/最小值,判断结果以估值判断为主，股价判断为辅。" type="static" hoffset="5" align="L" width="800" bindparam="CacheId">
+										<edit change="0" defval="-1"/>
+									</ctrl>
+								</ctrls>
+							</condpanel>
+						</table>
+						<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="false" id="4" name="branchpanel">
+							<branchpanel hdirection="false">
+								<table X="0" Y="0" width="0.35" height="1" isleaf="true" hdirection="true" id="5" name="gridctrl">
+									<gridctrl>
+										<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="return_rate" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="14" showtip="1">
+											<gridcol name="code_hy" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="market_hy" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="100" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="$ZQJC" caption="行业名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$NOW" caption="行业指数" syscol="$NOW" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="1"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="100" datatype="F" autosize="1" clrtype="Z"/>
+											<gridcol name="PE_TTM_industry" caption="行业PE" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z"/>
+										</gridcols>
+										<!--datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp" condid="3" body="[{'ReqId': '200302',"PE_type": "0",'modname': 'mod_peg.dll'}]" >
+    	    			</datasource-->
+										<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200302&quot;,&quot;PE_type&quot;:&quot;$$PE_type$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}"/>
+										<menu>
+											<item name="$M_EXP" text="导出"/>
+											<item name="$M_ADDZXG" text="加入自选股"/>
+											<item name="$M_ADDBLOCK" text="加入板块股"/>
+											<item name="$M_SEARCH" text="列表中查找"/>
+										</menu>
+									</gridctrl>
+								</table>
+								<table X="-1" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="6" name="gridctrl">
+									<gridctrl>
+										<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" keycol="fund_code" defsort="return_rate" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="10" showtip="1">
+											<gridcol name="stock_code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="0" clrtype="S"/>
+											<gridcol name="stock_market" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+											<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+											<gridcol name="$NOW" caption="最新股价" syscol="$NOW" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0"/>
+											<gridcol name="$ZAF" caption="涨幅%" syscol="$ZAF" visible="true" align="R" headalign="R" width="60" datatype="F" autosize="0" clrtype="Z"/>
+											<gridcol name="PE_TTM_stock" caption="最新PE" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="PE_stock_max" caption="PE最大值" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="PE_stock_min" caption="PE最小值" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="T_forecast" caption="T年一致预期|每股收益" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="price_T_forecast" caption="T年一致预期|算得的股价" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="gjpd_T" caption="T年一致预期|股价判断" visible="true" align="R" headalign="R" width="100" datatype="S" digital="0" autosize="0" fmtinvalid="1" enumid="1" clrtype='O' enumcolorid="1"/>
+											<gridcol name="pe_T_forecast" caption="T年一致预期|算得的PE" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="gzpd_T" caption="T年一致预期|估值判断" visible="true" align="R" headalign="R" width="100" datatype="S" digital="0" autosize="0" fmtinvalid="1" enumid="1" clrtype='O' enumcolorid="1"/>
+											<gridcol name="T1_forecast" caption="T+1年一致预期|每股收益" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="price_T1_forecast" caption="T+1年一致预期|算得的股价" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="gjpd_T1" caption="T+1年一致预期|股价判断" visible="true" align="R" headalign="R" width="100" datatype="S" digital="0" autosize="0" fmtinvalid="1" enumid="1" clrtype='O' enumcolorid="1"/>
+											<gridcol name="pe_T1_forecast" caption="T+1年一致预期|算得的PE" visible="true" align="R" headalign="R" width="100" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+											<gridcol name="gzpd_T1" caption="T+1年一致预期|估值判断" visible="true" align="R" headalign="R" width="100" datatype="S" digital="0" autosize="0" fmtinvalid="1" enumid="1" clrtype='O' enumcolorid="1"/>
+										</gridcols>
+										<!--datasource reqformat="2" cache="0" keeporiginal="true" name="HQServ.hq_nlp" condid="3" body="[{'ReqId': '500030','style_type': '$$style_type$$','start_date': '$$start_date$$','end_date': '$$end_date$$','basic_code': '$$basic_code$$','calc_type': '0','rate_freerisk': '$$rate_freerisk$$','Page': '$$$STARTPOS$ $$','PageSize': '$$$PAGEROWS$ $$','modname': 'module_risk_return.dll'}]" >
+    	    			</datasource-->
+										<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" masterid="5" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200301&quot;,&quot;PE_type&quot;:&quot;$$PE_type$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;code_hy&quot;:&quot;$$code_hy$$&quot;,&quot;code_market&quot;:&quot;$$market_hy$$&quot;,&quot;required_return_rate&quot;:&quot;$$required_return_rate$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+		    	    	</datasource>
+										<menu>
+											<item name="$M_EXP" text="导出"/>
+											<item name="$M_ADDZXG" text="加入自选股"/>
+											<item name="$M_ADDBLOCK" text="加入板块股"/>
+											<item name="$M_SEARCH" text="列表中查找"/>
+										</menu>
+										<enums>
+											<enum id="1">
+												<item code="1" value="高估"/>
+												<item code="2" value="低估"/>
+												<item code="3" value="合理"/>
+											</enum>
+										</enums>
+										<enumcolors>
+											<enumcolor id="1" clrtype="T">
+												<item val="高估" clrtype="R"/>
+												<item val="低估" clrtype="G"/>
+											</enumcolor>
+										</enumcolors>
+									</gridctrl>
+								</table>
+							</branchpanel>
+						</table>
+					</branchpanel>
+				</table>
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="7" name="tabpanel">
+					<tabpanel >
+						<component caption="市盈率走势" id="6" name="chartctrl">
+							<chartctrl>
+								<properties>
+									<prop index="18" name="PE_TTM_stock" caption="PE" style="2" baseline="0.0" defsel="1"/>
+									<prop index="19" name="PE_max" caption="PE最大值" style="1" baseline="0.0" defsel="1"/>
+									<prop index="20" name="PE_min" caption="PE最小值" style="1" baseline="0.0" defsel="1"/>
+									<prop index="21" name="PE_25" caption="PE25分位数" style="1" baseline="0.0" defsel="1"/>
+									<prop index="22" name="PE_75" caption="PE75分位数" style="1" baseline="0.0" defsel="1"/>
+									<prop index="23" name="PE_median" caption="PE中位数" style="1" baseline="0.0" defsel="1"/>
+									<xaxis name="Date" caption="日期" datadesc="0"/>
+								</properties>
+								<!--datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp" body="[{'ReqId': '210000','start_date': '$$start_date$$','end_date': '$$end_date$$','stock_code': '$$stock_code$$','stock_market': '$$stock_market$$','required_return_rate': '$$required_return_rate$$','modname': 'PEG_3.dll'}]" >
+		    	    	</datasource-->
+								<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" masterid="6" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200300&quot;,&quot;PE_type&quot;:&quot;$$PE_type$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;stock_code&quot;:&quot;$$stock_code$$&quot;,&quot;stock_market&quot;:&quot;$$stock_market$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+		    	    	</datasource>
+							</chartctrl>
+						</component>
+						<component caption="市盈率明细" id="8" name="gridctrl">
+							<gridctrl>
+								<gridcols firstswitchzst="1" fixednum="2" rowchgmsg="true" postslave="true" defsort="date" ascsort="false" firstorder="true" firstcheck="false" dbclkchg="2" frameline="1">
+									<gridcol name="stock_code" caption="代码" syscol="$ZQDM" visible="true" align="L" headalign="L" width="40" datatype="S" autosize="1" clrtype="S"/>
+									<gridcol name="stock_market" caption="市场" syscol="$SC" visible="false" align="R" headalign="R" width="40" datatype="S" digital="2" autosize="1" fmtinvalid="1"/>
+									<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="true" align="L" headalign="L" width="100" datatype="S" autosize="1" clrtype="S"/>
+									<gridcol name="$ZQJC" caption="名称" syscol="$ZQJC" visible="false" align="L" headalign="L" width="40" datatype="S" autosize="1" clrtype="S"/>
+									<gridcol name="Date" caption="日期" visible="true" align="R" headalign="R" width="70" datatype="S" autosize="1" fmtinvalid="1"/>
+									<gridcol name="Stockprice" caption="收盘价" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_TTM_stock" caption="PE" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_max" caption="PE最大值" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_min" caption="PE最小值" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_25" caption="PE25分位数" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_median" caption="PE中位数" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+									<gridcol name="PE_75" caption="PE75分位数" visible="true" align="R" headalign="R" width="110" datatype="F" digital="2" autosize="0" fmtinvalid="1"/>
+								</gridcols>
+								<!--datasource reqformat="2" cache="0" keeporiginal="true" condid="3" masterid="4" name="HQServ.hq_nlp" body="[{'ReqId': '210000','start_date': '$$start_date$$','end_date': '$$end_date$$','stock_code': '$$stock_code$$','stock_market': '$$stock_market$$','required_return_rate': '$$required_return_rate$$','modname': 'PEG_3.dll'}]" >
+		    	    	</datasource-->
+								<datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_PEG" condid="3" masterid="6" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_peg.dll;ReqByte={&quot;ReqId&quot;:&quot;200300&quot;,&quot;PE_type&quot;:&quot;$$PE_type$$&quot;,&quot;start_date&quot;:&quot;$$start_date$$&quot;,&quot;end_date&quot;:&quot;$$end_date$$&quot;,&quot;stock_code&quot;:&quot;$$stock_code$$&quot;,&quot;stock_market&quot;:&quot;$$stock_market$$&quot;,&quot;Page&quot;:&quot;-1&quot;,&quot;modname&quot;:&quot;mod_peg.dll&quot;}">
+		    	    	</datasource>
+								<menu>
+									<item name="$M_EXP" text="导出"/>
+									<item name="$M_ADDBLOCK" text="加入板块股"/>
+								</menu>
+							</gridctrl>
+						</component>
+					</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">	
+		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="chartctrl">
+			<chartctrl>
+				<properties >
+					<prop index="1" name="BKZF" caption="板块指数走势图" style="1"  baseline="0.0" defsel="1" fgclr="255,50,50"></prop>	
+					<prop index="2" name="ZSZF" caption="上证指数走势图" style="1"  baseline="0.0" defsel="1" fgclr="84,255,255"></prop>	
+					<xaxis name="DATE" caption="日期"></xaxis>
+				</properties>
+				<datasource  zdgroup="ZDSYS1"  reqformat="1" name="cfg_bk_bkld_yjhy" body="4,,$EXTPARAM$"></datasource>
+			</chartctrl>
+		</table>	
+	</table>
+</root>

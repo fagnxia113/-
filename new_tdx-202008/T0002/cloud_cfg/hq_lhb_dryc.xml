@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+  <table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+    <table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel" >
+      <branchpanel hdirection="true">
+        <table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="2" name="tabpanel">
+          <tabpanel >
+            <component caption="全市场" id="21" name="branchpanel" >
+              <branchpanel hdirection="true">
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="211" name="branchpanel">
+                  <branchpanel hdirection="true" >
+										<table X="860" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2112" name="cellpanel" >
+                      <cellpanel>
+                        <rows>
+                          <row autosize="1" height="30" align="R" datatype="S">
+                            <cell name="PercentInfo"  width="100"  />
+                          </row>
+                        </rows>
+                        <datasource reqformat="2" keeporiginal="true" condid="2111" masterid="212" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2111.result$$','MarketType': '0','modname': 'mod_mdsi.dll'}]"></datasource>
+                      </cellpanel>
+                    </table>
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2111" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L"  width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="450">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="3日换手率累计较高"  value="123"/>
+                              <item text="出现异常波动停牌1"  value="141"/>
+                              <item text="出现异常波动停牌2"  value="142"/>
+                              <item text="出现异常波动停牌3"  value="143"/>
+                              <item text="退市整理的证券"  value="181"/>
+                              <item text="实施特别停牌的证券"  value="191"/>
+                              <item text="10日内3次出现同正向异常波动"  value="131"/>
+                              <item text="10日内3次出现同负向异常波动"  value="132"/>
+                              <item text="10日涨幅偏离值达100%"  value="133"/>
+                              <item text="10日跌幅偏离值达50%"  value="134"/>
+                              <item text="30日涨幅偏离值达200%"  value="135"/>
+                              <item text="30日跌幅偏离值达70%"  value="136"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800" ></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="立即刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="212" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A"  fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="50" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+										<condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2111" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$result$$&quot;,&quot;MarketType&quot;:&quot;0&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                      <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                    <enumcolors>
+                      <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="×" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="213" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="212" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2111.result$$','MarketType': '0','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+            <component caption="沪市主板" id="22" name="branchpanel" >
+              <branchpanel hdirection="true"> 
+              	             	              	              
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="221" name="branchpanel">
+                  <branchpanel hdirection="true">
+                  	<table X="860" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2212" name="cellpanel" >
+                  		<cellpanel>
+                    		<rows >
+                      		<row autosize="1" height="30" align="R" datatype="S">
+                        		<cell name="PercentInfo"  width="100"  />
+                      		</row>
+                    		</rows>
+                    		<datasource reqformat="2" keeporiginal="true" condid="2211" masterid="222" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2211.result$$','MarketType': '3','modname': 'mod_mdsi.dll'}]"></datasource>
+                  		</cellpanel>
+                		</table>
+                  	
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2211" name="condpanel">
+                      <condpanel>
+                        <ctrls rowcount="1" >
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L" fontsize="14" width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="450">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="3日换手率累计较高"  value="123"/>
+                              <item text="出现异常波动停牌1"  value="141"/>
+                              <item text="出现异常波动停牌2"  value="142"/>
+                              <item text="出现异常波动停牌3"  value="143"/>
+                              <item text="退市整理的证券"  value="181"/>
+                              <item text="实施特别停牌的证券"  value="191"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800"></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="立即刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>                       
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="222" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="80" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+                    <condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2211" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$#2211.result$$&quot;,&quot;MarketType&quot;:&quot;3&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                      <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                    <enumcolors>
+                       <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="×" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="223" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="222" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2211.result$$','MarketType': '3','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"   ></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+            <component caption="科创板" id="23" name="branchpanel" >
+              <branchpanel hdirection="true">    
+              	           
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="231" name="branchpanel">
+                  <branchpanel hdirection="true">
+                  	
+                  	 <table X="860" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2312" name="cellpanel" >
+                      <cellpanel>
+                        <rows >
+                          <row autosize="1" height="30" align="R" datatype="S">
+                            <cell name="PercentInfo"  width="100"  />
+                          </row>
+                        </rows>
+                        <datasource reqformat="2" keeporiginal="true" condid="2311" masterid="232" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2311.result$$','MarketType': '4','modname': 'mod_mdsi.dll'}]"></datasource>
+                      </cellpanel>
+                    </table>
+                  	
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2311" name="condpanel">
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L" fontsize="14" width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="450">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="10日内3次出现同正向异常波动"  value="131"/>
+                              <item text="10日内3次出现同负向异常波动"  value="132"/>
+                              <item text="10日涨幅偏离值达100%"  value="133"/>
+                              <item text="10日跌幅偏离值达50%"  value="134"/>
+                              <item text="30日涨幅偏离值达200%"  value="135"/>
+                              <item text="30日跌幅偏离值达70%"  value="136"/>
+                              <item text="实施特别停牌的证券"  value="191"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800"></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="刷新"/>
+                          </ctrl>
+                        </ctrls>
+                         
+                      </condpanel>
+                    </table>                                 
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="232" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="50" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+                    <condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2311" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$#2311.result$$&quot;,&quot;MarketType&quot;:&quot;4&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                       <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                     <enumcolors>
+                      <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="×" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="233" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="232" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2311.result$$','MarketType': '4','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"   ></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+            <component caption="深市主板" id="24" name="branchpanel" >
+              <branchpanel hdirection="true">             
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="241" name="branchpanel">
+                  <branchpanel hdirection="true">
+                  	
+                  	<table X="865" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2412" name="cellpanel" >
+                      <cellpanel>
+                        <rows>
+                          <row autosize="1" height="30" align="R" datatype="S">
+                            <cell name="PercentInfo"  width="100"  />
+                          </row>
+                        </rows>
+                        <datasource reqformat="2" keeporiginal="true" condid="2411" masterid="242" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2411.result$$','MarketType': '1','modname': 'mod_mdsi.dll'}]"></datasource>
+                      </cellpanel>
+                    </table>
+                  	
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2411" name="condpanel">
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L" fontsize="14" width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="450">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="3日换手率累计较高"  value="123"/>
+                              <item text="出现异常波动停牌1"  value="141"/>
+                              <item text="出现异常波动停牌2"  value="142"/>
+                              <item text="出现异常波动停牌3"  value="143"/>
+                              <item text="实施特别停牌的证券"  value="191"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800"></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="立即刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+                                 
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="242" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="50" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+                    <condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2411" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$#2411.result$$&quot;,&quot;MarketType&quot;:&quot;1&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                      <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                    <enumcolors>
+                       <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="x" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="243" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="242" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2411.result$$','MarketType': '1','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"   ></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+            <component caption="创业板" id="26" name="branchpanel" >
+              <branchpanel hdirection="true">              
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="261" name="branchpanel">
+                  <branchpanel hdirection="true">
+                  	
+                  	 <table X="860" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2612" name="cellpanel" >
+                      <cellpanel>
+                        <rows>
+                          <row autosize="1" height="30" align="R" datatype="S">
+                            <cell name="PercentInfo"  width="100"  />
+                          </row>
+                        </rows>
+                        <datasource reqformat="2" keeporiginal="true" condid="2611" masterid="262" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2611.result$$','MarketType': '2','modname': 'mod_mdsi.dll'}]"></datasource>
+                      </cellpanel>
+                    </table>
+                  	
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2611" name="condpanel">
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L" fontsize="14" width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="400">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="10日内3次出现同正向异常波动"  value="131"/>
+                              <item text="10日内3次出现同负向异常波动"  value="132"/>
+                              <item text="10日涨幅偏离值达100%"  value="133"/>
+                              <item text="10日跌幅偏离值达50%"  value="134"/>
+                              <item text="30日涨幅偏离值达200%"  value="135"/>
+                              <item text="30日跌幅偏离值达70%"  value="136"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800"></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                          	<button tooltip="立即刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+                   
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="262" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="50" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+                    <condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2611" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$#2611.result$$&quot;,&quot;MarketType&quot;:&quot;2&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                      <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                     <enumcolors>
+                       <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="×" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="263" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="262" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2611.result$$','MarketType': '2','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"   ></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+
+            <component caption="北交所" id="27" name="branchpanel" >
+              <branchpanel hdirection="true">
+                <table X="0" Y="-1" width="1" height="30" isleaf="true" hdirection="true" id="271" name="branchpanel">
+                  <branchpanel hdirection="true" >
+										<table X="860" Y="0" width="-25" height="30" isleaf="true" hdirection="true" id="2712" name="cellpanel" >
+                      <cellpanel>
+                        <rows>
+                          <row autosize="1" height="30" align="R" datatype="S">
+                            <cell name="PercentInfo"  width="100"  />
+                          </row>
+                        </rows>
+                        <datasource reqformat="2" keeporiginal="true" condid="2711" masterid="272" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500109','DataDate': '0','Type': '$$#2711.result$$','MarketType': '5','modname': 'mod_mdsi.dll'}]"></datasource>
+                      </cellpanel>
+                    </table>
+                    <table X="0" Y="0" width="1" height="30" isleaf="true" hdirection="true" id="2711" name="condpanel" >
+                      <condpanel>
+                        <ctrls rowcount="1">
+                          <ctrl rowindex="0" index="1" text="上榜类型" type="combox" hoffset="5" align="L" fontsize="14" width="240" bindparam="result">
+                            <combox cbchange="1" defsel="0" itemheight="450">
+                              <item text="全部"  value="0" op="6"/>
+                              <item text="涨幅偏离较高"  value="101"/>
+                              <item text="跌幅偏离较高"  value="102"/>
+                              <item text="日振幅较高"  value="103"/>
+                              <item text="日换手率较高"  value="104"/>
+                              <item text="无价格涨跌幅限制的证券"  value="105"/>
+                              <item text="3日涨幅偏离值累计较高"  value="121"/>
+                              <item text="3日跌幅偏离值累计较高"  value="122"/>
+                              <item text="3日换手率累计较高"  value="123"/>
+                              <item text="出现异常波动停牌1"  value="141"/>
+                              <item text="出现异常波动停牌2"  value="142"/>
+                              <item text="出现异常波动停牌3"  value="143"/>
+                              <item text="退市整理的证券"  value="181"/>
+                              <item text="实施特别停牌的证券"  value="191"/>
+                              <item text="10日内3次出现同正向异常波动"  value="131"/>
+                              <item text="10日内3次出现同负向异常波动"  value="132"/>
+                              <item text="10日涨幅偏离值达100%"  value="133"/>
+                              <item text="10日跌幅偏离值达50%"  value="134"/>
+                              <item text="30日涨幅偏离值达200%"  value="135"/>
+                              <item text="30日跌幅偏离值达70%"  value="136"/>
+                            </combox>
+                          </ctrl>
+                          <ctrl rowindex="0" index="2" text="交易所龙虎榜是分批披露，会有预测准确判断不及时情况。交易日14:00开始预测，预测仅供参考，以最终结果为准" type="static" hoffset="5" align="L" width="800" ></ctrl>
+                          <ctrl rowindex="0" index="3" text="刷新" type="button" hoffset="0" align="R" width="20" bindparam="IDOK" >
+                            <button tooltip="立即刷新"/>
+                          </ctrl>
+                        </ctrls>
+                      </condpanel>
+                    </table>
+                  </branchpanel>
+                </table>
+                <table X="0" Y="-1" width="1" height="0.87" isleaf="true" hdirection="true" id="272" name="gridctrl">
+                  <gridctrl>
+                    <gridcols  firstswitchzst="1"   fixednum="2" rowchgmsg="true" postslave="true" firstorder="true" firstcheck="false" dbclkchg="2"  frameline="15">
+                      <gridcol  name="Code" caption="代码" visible="true" syscol="$ZQDM" align="L" headalign="L" width="70" datatype="S" autosize="0" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="SetCode" caption="市场" visible="false" syscol="$SC" align="L" headalign="L" width="40" datatype="S" autosize="1" filter="0" ></gridcol>
+                      <gridcol  name="Name" caption="名称" visible="true" syscol="$ZQJC"  align="L" headalign="L" width="110" datatype="S" digital="2" autosize="1" fmtinvalid="1" clrtype="S" filter="0" ></gridcol>
+                      <gridcol  name="$NOW" caption="现价" visible="true"  syscol="$NOW" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="C" filter="0" ></gridcol>
+                      <gridcol  name="$ZAF" caption="涨幅%" visible="true"  syscol="$ZAF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="Z" filter="0" ></gridcol>
+                      <gridcol  name="$FCAMO" caption="封单额" visible="true"  syscol="$FCAMO" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A"  fmttype="9" filter="0" ></gridcol>
+                      <gridcol  name="$ZCJJE" caption="总金额" visible="true"  syscol="$ZCJJE" align="R" headalign="R" width="80" datatype="F" digital="2" autosize="1" fmtinvalid="1" clrtype="A" filter="0" ></gridcol>
+                      <gridcol  name="$HSL" caption="换手%" visible="true"  syscol="$HSL" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZEF" caption="振幅%" visible="true"  syscol="$ZEF" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="$ZAFPRE3" caption="3日涨幅%" visible="true"  syscol="$ZAFPRE3" align="R" headalign="R" width="60" datatype="F" digital="2" autosize="1" fmtinvalid="1"  filter="0" ></gridcol>
+                      <gridcol  name="ResultRight" caption="准确" visible="true"   align="C" headalign="C" width="50" datatype="S" autosize="1" fmtinvalid="0" enumid="2" enumcolorid="2" clrtype="O" filter="0" ></gridcol>
+                      <gridcol  name="Type" caption="上榜类型" visible="true"   align="L" headalign="L" width="70" datatype="S" autosize="1" fmtinvalid="0" enumid="1" enumcolorid="1" clrtype="O" filter="0" ></gridcol>
+                    </gridcols>
+										<condopers>
+											<condoper colname="Type" colcolor="97,99,125">
+							 					<cond name="ResultRight" op="1" value="×" datatype="S"/>
+											</condoper>
+										</condopers>
+                    <datasource reqformat="22" cache="0" keeporiginal="true" name="HQServ.PBRPC_MDSI" condid="2711" body="pb_rpc_req:Head.CharSet=1;Head.Target=0;RpcID=0;StartPos=0;Moduledll=mod_mdsi.dll;ReqByte={&quot;ReqId&quot;:&quot;500107&quot;,&quot;DataDate&quot;:&quot;0&quot;,&quot;Type&quot;:&quot;$$result$$&quot;,&quot;MarketType&quot;:&quot;5&quot;,&quot;modname&quot;:&quot;mod_mdsi.dll&quot;}">
+                    </datasource>
+                    <enums>
+                      <enum id="1">
+                        <item code="101" value="涨幅偏离较高"/>
+                        <item code="102" value="跌幅偏离较高"/>
+                        <item code="103" value="日振幅较高"/>
+                        <item code="104" value="日换手率较高"/>
+                        <item code="105" value="无价格涨跌幅限制的证券"/>
+                        <item code="121" value="(可能停牌核查)3日涨幅偏离值累计较高"/>
+                        <item code="122" value="(可能停牌核查)3日跌幅偏离值累计较高"/>
+                        <item code="123" value="3日换手率累计较高"/>
+                        <item code="131" value="(可能停牌核查)10日内3次出现同正向异常波动"/>
+                        <item code="132" value="(可能停牌核查)10日内3次出现同负向异常波动"/>
+                        <item code="133" value="(可能停牌核查)10日涨幅偏离值达100%"/>
+                        <item code="134" value="(可能停牌核查)10日跌幅偏离值达50%"/>
+                        <item code="135" value="(可能停牌核查)30日涨幅偏离值达200%"/>
+                        <item code="136" value="(可能停牌核查)30日跌幅偏离值达70%"/>
+                        <item code="141" value="出现异常波动停牌1"/>
+                        <item code="142" value="出现异常波动停牌2"/>
+                        <item code="143" value="出现异常波动停牌3"/>
+                        <item code="181" value="退市整理的证券"/>
+                        <item code="191" value="实施特别停牌的证券"/>
+                      </enum>
+                      <enum id="2">
+                        <item code="1" value="√"/>
+                        <item code="0" value="×"/>
+                        <item code="-1" value="-"/>
+                      </enum>
+                    </enums>
+                    <enumcolors>
+                      <enumcolor id="1" clrtype="T">
+                        <item val="涨幅偏离较高" clrtype="R"/>
+                        <item val="跌幅偏离较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="日振幅较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="日换手率较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)3日涨幅偏离值累计较高" clrtype="R"/>
+                        <item val="(可能停牌核查)3日跌幅偏离值累计较高" clrtype="D"  textclr="0,230,0"/>
+                        <item val="3日换手率累计较高" clrtype="D"  textclr="192,192,0"/>
+                        <item val="(可能停牌核查)10日内3次出现同正向异常波动" clrtype="R"/>
+                        <item val="(可能停牌核查)10日内3次出现同负向异常波动" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)10日涨幅偏离值达100%" clrtype="R"/>
+                        <item val="(可能停牌核查)10日跌幅偏离值达50%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="(可能停牌核查)30日涨幅偏离值达200%" clrtype="R"/>
+                        <item val="(可能停牌核查)30日跌幅偏离值达70%" clrtype="D"  textclr="0,230,0"/>
+                        <item val="出现异常波动停牌1" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌2" clrtype="D"  textclr="192,192,0"/>
+                        <item val="出现异常波动停牌3" clrtype="D"  textclr="192,192,0"/>
+                      </enumcolor>
+                      <enumcolor id="2" clrtype="T">
+                        <item val="√" clrtype="R"/>
+                        <item val="×" clrtype="D"  textclr="0,230,0"/>
+                      </enumcolor>
+                    </enumcolors>
+                    <gridext  incupdate="true" keycols="fund_code" updcols="$ALL$"/>
+                  </gridctrl>
+                </table>
+                <table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="273" name="textpanel" >
+                  <textpanel frameline="15">
+                    <properties >
+                      <textcol title="" fldname="Detail" titleclr="245,147,0"/>
+                    </properties>
+                    <datasource reqformat="2" keeporiginal="true" masterid="272" name="HQServ.hq_nlp_mdsi" body="[{'ReqId': '500108','DataDate': '0','Type': '$$#2711.result$$','MarketType': '5','Code': '$$Code$$','SetCode': '$$SetCode$$','modname': 'mod_mdsi.dll'}]"></datasource>
+                  </textpanel>
+                </table>
+              </branchpanel>
+            </component>
+
+          </tabpanel>
+        </table>
+      </branchpanel>
+    </table>
+  </table>
+</root>

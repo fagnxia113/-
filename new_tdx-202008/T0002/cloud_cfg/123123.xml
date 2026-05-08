@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="gbk" ?>
+<root >
+	<table X="0" Y="0" width="1" height="1" isleaf="false" hdirection="true">
+	 		<table X="0" Y="0" width="1" height="1" isleaf="true" hdirection="true" id="1" name="branchpanel">
+			<branchpanel hdirection="true">
+				<table X="0" Y="-1" width="1" height="1" isleaf="true" hdirection="true" id="20" name="tabpanel">
+					<tabpanel style="2">
+								<component caption="因子列表" id="401" name="splitpanel">
+							<splitpanel hdirection="true">
+
+
+
+
+						<table X="0" Y="0" width="1" height="0.5" isleaf="true" hdirection="true" id="2" name="gridctrl">
+							<gridctrl>
+								<gridcols  firstswitchzst="1" rowchgmsg="true"  fixednum="2"  postslave="true" defsort="near2dayZDF" ascsort="false"  firstorder="true" firstcheck="false" dbclkchg="2" ingcode="true"  showtip="1">
+								<gridcol  name="ID" caption="因子Id"    visible="false" align="L" headalign="L"    width="80" datatype="S"   filter="0" ></gridcol>	
+								<gridcol  name="name" caption="因子名称"  visible="true" align="L" headalign="L" width="100"   datatype="S"  filter="0" ></gridcol>						
+								<gridcol  name="type" caption="因子类型" visible="true" align="L" headalign="L" width="80" datatype="S"   digital="0"   filter="0" ></gridcol>		
+								<gridcol  name="BullBear" caption="类型" visible="true" align="L"  headalign="L" width="50" datatype="S"  enumid="4"   filter="0" ></gridcol>		
+								<gridcol  name="description" caption="因子描述"  visible="true"  align="L" headalign="L" width="270" datatype="S"  digital="0"  filter="0" ></gridcol>				
+                                <gridcol  name="formulaName" caption="因子族"  visible="true" align="L" headalign="L" width="80" datatype="S" digital="2"  filter="0" ></gridcol>
+								<gridcol  name="pos" caption="公式输出位置"  visible="false"  align="R" headalign="R" width="80" datatype="F"   filter="0" ></gridcol>
+								<gridcol  name="near2dayZDF" caption="今日收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"  filter="0" ></gridcol>
+								<gridcol  name="near5dayZDF" caption="近5日收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2"  clrtype="Z" filter="0" ></gridcol>
+								<gridcol  name="A1dZdf" caption="回测（120日）|次日收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2" clrtype="Z"  filter="0" ></gridcol>
+								<gridcol  name="A3dZdf" caption="回测（120日）|3日后收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2"  clrtype="Z" filter="0" ></gridcol>
+								<gridcol  name="A5dZdf" caption="回测（120日）|5日后收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F"  digital="2" clrtype="Z" filter="0" ></gridcol>
+								<gridcol  name="A10dZdf" caption="回测（120日）|10日后收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F"  digital="2" clrtype="Z" filter="0" ></gridcol>		
+								<gridcol  name="A20dZdf" caption="回测（120日）|20日后收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F"  digital="2" clrtype="Z" filter="0" ></gridcol>	
+								<gridcol  name="A60dZdf" caption="回测（120日）|60日后收益%"  visible="true"  align="R" headalign="R" width="100" datatype="F"  digital="2" clrtype="Z" filter="0" ></gridcol>	
+								<gridcol  name="maxRetracement" caption="最大回撤%"  visible="true"  align="R" headalign="R" width="100" datatype="F"  digital="2" clrtype="Z" filter="0" ></gridcol>	
+								<gridcol  name="sharpRatio" caption="夏普比值"  visible="true"  align="R" headalign="R" width="100" datatype="F" digital="2"  filter="0" ></gridcol>									
+								</gridcols>
+								<enums>
+									<enum id="4">
+											<item code="0" value="多"/>
+		                                    <item code="1" value="空"/>
+										</enum>
+                                </enums>
+                <datasource reqformat="2" cache="0" keeporiginal="true"  name="HQServ.hq_nlp_factor" body="[{'ReqId': '200626','Page': '0','PageSize': '100','modname': 'mod_Factor.dll'}]" >
+                </datasource>	
+							</gridctrl>		
+						</table>	
+							<table X="0" Y="-1" width="1" height="-1"  isleaf="true" hdirection="true" id="3" name="gridctrl">
+							<gridctrl>
+							<gridcols  firstswitchzst="1"   fixednum="2"  defsort="zdf%" ascsort="false" postslave="false"   firstorder="true" firstcheck="false" dbclkchg="2"   showtip="1">
+									<gridcol  name="code" caption="代码" syscol="$ZQDM" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="market" caption="市场" syscol="$SC" visible="false" headalign="L" align="L" width="60" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="name" caption="名称" syscol="$ZQJC" visible="true" headalign="L" align="L" width="80" datatype="S" clrtype="S" filter="0" ></gridcol>
+									<gridcol  name="zdf%" caption="涨幅%" syscol="$ZAF" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2" clrtype="Z" filter="0" ></gridcol>
+									<gridcol  name="price" caption="现价" syscol="$NOW" visible="true" headalign="R" align="R" width="80" datatype="F" digital="2"  filter="0" ></gridcol>
+									<gridcol name="$CJL" caption="成交量" syscol="$CJL" visible="true" align="R" headalign="R" width="80" datatype="I" autosize="0" clrtype="V"/>
+									<gridcol name="$CJE" caption="成交额" syscol="$ZCJJE" visible="true" align="R" headalign="R" width="80" datatype="F" fmttype="9" autosize="0" clrtype="A"/>
+									<gridcol  name="10rzf" caption="10日涨幅%" syscol="$ZAFPRE10" visible="true"  align="R" headalign="R" width="80" datatype="F" digital="2" clrtype="Z"  filter="0" ></gridcol>
+									<gridcol name="市盈率" caption="PE(TTM)" syscol="$PETTM" visible="true"align="R" headalign="R" width="80" datatype="F" digital="2" fmtinvalid="1" />
+									<gridcol name="$J_LTGB" caption="A股流通股本" syscol="$J_LTGB" visible="true" align="R" headalign="R" width="110" datatype="F" fmttype="9" digital="2" clrtype="N"/>
+									<gridcol name="$J_ZGB" caption="总股本" syscol="$J_ZGB" visible="true" align="R" headalign="R" width="110" datatype="F" fmttype="9" digital="2" clrtype="N"/>
+									
+									<gridcol name="HY" caption="行业" syscol="$TDXHY" visible="true" align="L" headalign="L" width="110" datatype="S" digital="0" clrtype="N"/>
+								</gridcols>
+
+                <datasource reqformat="2" cache="0" keeporiginal="true"   masterid="2" name="HQServ.hq_nlp_factor" body="[{'ReqId': '200636','Id': '1','Page': '0','PageSize': '200','modname': 'mod_Factor.dll'}]" >
+                </datasource>	
+							</gridctrl>		
+						</table>							
+
+
+								</splitpanel>
+						</component>
+
+						</tabpanel>
+				</table>
+			</branchpanel>
+		</table>
+	</table>
+</root>
+
+
