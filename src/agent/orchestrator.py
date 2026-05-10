@@ -89,6 +89,7 @@ class AgentOrchestrator:
         mode: str = "standard",
         skill_manager=None,
         config=None,
+        event_bus=None,
     ):
         self.tool_registry = tool_registry
         self.llm_adapter = llm_adapter
@@ -99,6 +100,7 @@ class AgentOrchestrator:
         self.mode = normalized_mode if normalized_mode in VALID_MODES else "standard"
         self.skill_manager = skill_manager
         self.config = config
+        self.event_bus = event_bus
 
     def _get_timeout_seconds(self) -> int:
         """Return the pipeline timeout in seconds.
@@ -373,6 +375,15 @@ class AgentOrchestrator:
         specialist_agents_inserted = False
         index = 0
 
+        if self.event_bus:
+            agent_names = [a.agent_name for a in agents]
+            self.event_bus.emit_pipeline_start(
+                stock_code=ctx.stock_code,
+                stock_name=ctx.stock_name or "",
+                mode=self.mode,
+                agents=agent_names,
+            )
+
         # Minimum seconds required for a stage to do useful work.  Starting
         # a stage with less budget virtually guarantees a timeout that wastes
         # an LLM billing cycle.  Only enforced after at least one stage has
@@ -467,6 +478,22 @@ class AgentOrchestrator:
                     "message": f"Starting {agent.agent_name} analysis...",
                 })
 
+            if self.event_bus:
+                display_names = {
+                    "technical": "技术面分析", "intel": "情报分析", "risk": "风险评估",
+                    "industry": "行业分析", "capital_flow": "资金流向分析",
+                    "devils_advocate": "魔鬼代言人审计", "debate": "深度论证",
+                    "scenario_analysis": "情景分析", "factor_scoring": "因子评分",
+                    "decision": "决策综合", "fundamental": "基本面分析",
+                    "sentiment": "市场情绪分析",
+                }
+                self.event_bus.emit_agent_start(
+                    agent_name=agent.agent_name,
+                    display_name=display_names.get(agent.agent_name, agent.agent_name),
+                    step=index + 1,
+                    total=len(agents),
+                )
+
             remaining_timeout_s = (
                 max(0.0, timeout_s - elapsed_s)
                 if timeout_s
@@ -512,6 +539,47 @@ class AgentOrchestrator:
                     "duration": result.duration_s,
                 })
 
+            if self.event_bus and result.success:
+                last_opinion = None
+                for op in reversed(ctx.opinions):
+                    if op.agent_name == agent.agent_name:
+                        last_opinion = op
+                        break
+                if last_opinion:
+                    self.event_bus.emit_opinion(
+                        agent_name=last_opinion.agent_name,
+                        signal=last_opinion.signal,
+                        confidence=last_opinion.confidence,
+                        reasoning=last_opinion.reasoning,
+                    )
+                if agent.agent_name == "devils_advocate":
+                    audit = ctx.get_data("devils_advocate_audit")
+                    if audit and isinstance(audit, dict):
+                        self.event_bus.emit_challenge(
+                            agent_name="devils_advocate",
+                            challenges=audit.get("challenges", []),
+                            weakest_links=audit.get("weakest_links", []),
+                            overall_assessment=audit.get("overall_assessment", ""),
+                        )
+                if agent.agent_name == "debate":
+                    debate_data = ctx.get_data("debate_opinion")
+                    if debate_data and isinstance(debate_data, dict):
+                        ds = debate_data.get("debate_summary", {})
+                        self.event_bus.emit_debate_round(
+                            round_num=1,
+                            consensus_points=ds.get("consensus_points", []),
+                            divergence_points=ds.get("divergence_points", []),
+                            swing_argument=ds.get("swing_argument", ""),
+                        )
+                if agent.agent_name == "scenario_analysis":
+                    sa = ctx.get_data("scenario_analysis")
+                    if sa and isinstance(sa, dict):
+                        self.event_bus.emit_scenario(
+                            scenarios=sa.get("scenarios", {}),
+                            expected_value=sa.get("expected_value", {}),
+                            swing_factors=sa.get("swing_factors", []),
+                        )
+
             if ctx.meta.get("response_mode") == "chat" and agent.agent_name == "decision":
                 final_text = result.meta.get("raw_text")
                 if isinstance(final_text, str) and final_text.strip():
@@ -526,7 +594,7 @@ class AgentOrchestrator:
             #   - skill agents (specialist evaluation, optional)
             if result.status == StageStatus.FAILED:
                 non_critical = (
-                    agent.agent_name in ("intel", "risk", "industry", "capital_flow", "debate", "factor_scoring", "sentiment", "fundamental")
+                    agent.agent_name in ("intel", "risk", "industry", "capital_flow", "debate", "factor_scoring", "sentiment", "fundamental", "devils_advocate", "scenario_analysis")
                     or agent.agent_name in getattr(self, "_skill_agent_names", set())
                 )
                 if not non_critical:
@@ -549,6 +617,24 @@ class AgentOrchestrator:
         stats.models_used = list(dict.fromkeys(models_used))
 
         dashboard, content = self._resolve_final_output(ctx, parse_dashboard=parse_dashboard)
+
+        if self.event_bus:
+            final_signal = "hold"
+            final_confidence = 0.5
+            if dashboard and isinstance(dashboard, dict):
+                final_signal = dashboard.get("decision_type", dashboard.get("signal", "hold"))
+                final_confidence = dashboard.get("confidence_level", dashboard.get("confidence", 0.5))
+                if isinstance(final_confidence, str):
+                    try:
+                        final_confidence = float(final_confidence)
+                    except (ValueError, TypeError):
+                        final_confidence = 0.5
+            self.event_bus.emit_pipeline_complete(
+                stock_code=ctx.stock_code,
+                signal=final_signal,
+                confidence=final_confidence,
+                duration=total_duration,
+            )
 
         model_str = ", ".join(dict.fromkeys(m for m in models_used if m))
         provider = stats.models_used[0] if stats.models_used else ""
@@ -622,6 +708,22 @@ class AgentOrchestrator:
         if trading_plan and isinstance(trading_plan, dict) and trading_plan:
             result["trading_plan"] = trading_plan
 
+        scenario_analysis = ctx.get_data("scenario_analysis")
+        if scenario_analysis and isinstance(scenario_analysis, dict):
+            result["scenario_analysis"] = scenario_analysis
+
+        devils_advocate_audit = ctx.get_data("devils_advocate_audit")
+        if devils_advocate_audit and isinstance(devils_advocate_audit, dict):
+            result["devils_advocate_audit"] = devils_advocate_audit
+
+        evidence_map = ctx.get_data("evidence_map")
+        if evidence_map and isinstance(evidence_map, dict):
+            result["evidence_map"] = evidence_map
+
+        thesis_breakers = ctx.get_data("thesis_breakers")
+        if thesis_breakers and isinstance(thesis_breakers, list):
+            result["thesis_breakers"] = thesis_breakers
+
         return result
 
     def _build_agent_chain(self, ctx: AgentContext) -> list:
@@ -636,6 +738,8 @@ class AgentOrchestrator:
         from src.agent.agents.factor_scoring_agent import FactorScoringAgent
         from src.agent.agents.sentiment_agent import SentimentAgent
         from src.agent.agents.fundamental_agent import FundamentalAgent
+        from src.agent.agents.devils_advocate_agent import DevilsAdvocateAgent
+        from src.agent.agents.scenario_analysis_agent import ScenarioAnalysisAgent
 
         self._skill_agent_names = set()
 
@@ -656,6 +760,13 @@ class AgentOrchestrator:
         factor_scoring = self._prepare_agent(FactorScoringAgent(**common_kwargs))
         sentiment = self._prepare_agent(SentimentAgent(**common_kwargs))
         fundamental = self._prepare_agent(FundamentalAgent(**common_kwargs))
+        devils_advocate = self._prepare_agent(DevilsAdvocateAgent(**common_kwargs))
+        scenario_analysis = self._prepare_agent(ScenarioAnalysisAgent(**common_kwargs))
+
+        from src.agent.tools.sequential_thinking import register_sequential_thinking
+        from src.agent.tools.web_tools import register_web_tools
+        register_sequential_thinking(self.tool_registry, event_bus=self.event_bus, agent_name="orchestrator")
+        register_web_tools(self.tool_registry)
 
         if self.mode == "quick":
             return [technical, decision]
@@ -668,9 +779,9 @@ class AgentOrchestrator:
         elif self.mode == "specialist":
             return [technical, intel, risk, decision]
         elif self.mode == "debate":
-            return [technical, intel, risk, industry, capital_flow, debate, factor_scoring, decision]
+            return [technical, intel, risk, industry, capital_flow, devils_advocate, debate, scenario_analysis, factor_scoring, decision]
         elif self.mode == "full_debate":
-            return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, debate, factor_scoring, decision]
+            return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, devils_advocate, debate, scenario_analysis, factor_scoring, decision]
         else:
             return [technical, intel, decision]
 

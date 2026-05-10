@@ -12,7 +12,7 @@
 """
 
 import logging
-from typing import Optional
+from typing import List, Optional
 
 from fastapi import APIRouter, File, HTTPException, Query, Request, UploadFile
 
@@ -26,6 +26,18 @@ from api.v1.schemas.stocks import (
     OrderBookLevel,
     TradeTick,
     TradeTicksResponse,
+    IndexQuote,
+    IndexBarsResponse,
+    FinanceInfoResponse,
+    XdxrItem,
+    XdxrResponse,
+    RpsResponse,
+    DivergenceSignal,
+    DivergenceResponse,
+    ResonanceSignal,
+    ResonanceResponse,
+    BacktestSummaryItem,
+    BacktestSummaryResponse,
 )
 from api.v1.schemas.common import ErrorResponse
 from src.services.image_stock_extractor import (
@@ -244,6 +256,22 @@ async def parse_import(request: Request) -> ExtractFromImageResponse:
 
 
 @router.get(
+    "/indices/quotes",
+    response_model=List[IndexQuote],
+    summary="获取大盘指数行情",
+    description="获取主要大盘指数的实时行情数据"
+)
+def get_index_quotes():
+    try:
+        service = StockService()
+        results = service.get_index_quotes()
+        return [IndexQuote(**r) for r in results]
+    except Exception as e:
+        logger.error(f"获取指数行情失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取指数行情失败: {str(e)}"})
+
+
+@router.get(
     "/{stock_code}/quote",
     response_model=StockQuote,
     responses={
@@ -296,6 +324,15 @@ def get_stock_quote(stock_code: str) -> StockQuote:
             prev_close=result.get("prev_close"),
             volume=result.get("volume"),
             amount=result.get("amount"),
+            volume_ratio=result.get("volume_ratio"),
+            turnover_rate=result.get("turnover_rate"),
+            amplitude=result.get("amplitude"),
+            pe_ratio=result.get("pe_ratio"),
+            pb_ratio=result.get("pb_ratio"),
+            total_mv=result.get("total_mv"),
+            circ_mv=result.get("circ_mv"),
+            high_52w=result.get("high_52w"),
+            low_52w=result.get("low_52w"),
             update_time=result.get("update_time")
         )
         
@@ -326,7 +363,7 @@ def get_stock_quote(stock_code: str) -> StockQuote:
 def get_stock_history(
     stock_code: str,
     period: str = Query("daily", description="K 线周期", pattern="^(daily|weekly|monthly|1min|5min|15min|30min|60min)$"),
-    days: int = Query(30, ge=1, le=365, description="获取天数")
+    days: int = Query(30, ge=1, le=10000, description="获取天数")
 ) -> StockHistoryResponse:
     """
     获取股票历史行情
@@ -446,3 +483,126 @@ def get_trade_ticks(stock_code: str, count: int = Query(50, ge=1, le=200, descri
     except Exception as e:
         logger.error(f"获取成交明细失败: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取成交明细失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/finance",
+    response_model=FinanceInfoResponse,
+    summary="获取财务信息",
+    description="获取指定股票的财务数据（通达信直连，近实时）"
+)
+def get_finance_info(stock_code: str):
+    try:
+        service = StockService()
+        result = service.get_finance_info(stock_code)
+        if result is None:
+            raise HTTPException(status_code=404, detail={"error": "not_found", "message": f"未找到 {stock_code} 的财务数据"})
+        return FinanceInfoResponse(
+            code=result.get('code', stock_code),
+            source=result.get('source', ''),
+            updated_date=result.get('updated_date', ''),
+            total_shares=result.get('total_shares'),
+            float_shares=result.get('float_shares'),
+            bps=result.get('bps'),
+            main_revenue=result.get('main_revenue'),
+            net_profit=result.get('net_profit'),
+            net_assets=result.get('net_assets'),
+            total_assets=result.get('total_assets'),
+            operating_cash_flow=result.get('operating_cash_flow'),
+            shareholder_count=result.get('shareholder_count'),
+            pe_dynamic=result.get('pe_dynamic'),
+            pb_ratio=result.get('pb_ratio'),
+            roe=result.get('roe'),
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"获取财务信息失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取财务信息失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/xdxr",
+    response_model=XdxrResponse,
+    summary="获取除权除息",
+    description="获取指定股票的除权除息历史记录"
+)
+def get_xdxr_info(stock_code: str):
+    try:
+        service = StockService()
+        result = service.get_xdxr_info(stock_code)
+        if result is None:
+            return XdxrResponse(code=stock_code, records=[])
+        records = [XdxrItem(**item) for item in result]
+        return XdxrResponse(code=stock_code, records=records)
+    except Exception as e:
+        logger.error(f"获取除权除息失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取除权除息失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/rps",
+    response_model=RpsResponse,
+    summary="获取RPS相对强度",
+    description="获取指定股票的RPS(相对价格强度)指标，基于全市场涨幅排名"
+)
+def get_rps(stock_code: str, period: int = Query(60, ge=10, le=250, description="统计区间(天)")):
+    try:
+        from src.services.signal_service import SignalService
+        svc = SignalService()
+        result = svc.compute_rps(stock_code, period=period)
+        return RpsResponse(**result)
+    except Exception as e:
+        logger.error(f"获取RPS失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取RPS失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/divergence",
+    response_model=DivergenceResponse,
+    summary="获取量价背离信号",
+    description="检测顶背离、底背离、放量突破、缩量上涨等量价背离信号"
+)
+def get_divergence(stock_code: str):
+    try:
+        from src.services.signal_service import SignalService
+        svc = SignalService()
+        result = svc.detect_divergence(stock_code)
+        return DivergenceResponse(**result)
+    except Exception as e:
+        logger.error(f"获取背离信号失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取背离信号失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/resonance",
+    response_model=ResonanceResponse,
+    summary="获取多指标共振信号",
+    description="综合均线、MACD、量价等多维度信号，计算共振评分(-100~100)"
+)
+def get_resonance(stock_code: str):
+    try:
+        from src.services.signal_service import SignalService
+        svc = SignalService()
+        result = svc.compute_resonance(stock_code)
+        return ResonanceResponse(**result)
+    except Exception as e:
+        logger.error(f"获取共振信号失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取共振信号失败: {str(e)}"})
+
+
+@router.get(
+    "/{stock_code}/backtest-summary",
+    response_model=BacktestSummaryResponse,
+    summary="获取回测结果摘要",
+    description="获取指定股票的历史分析回测结果，包括方向准确率和近期评估记录"
+)
+def get_backtest_summary(stock_code: str):
+    try:
+        from src.services.signal_service import SignalService
+        svc = SignalService()
+        result = svc.get_backtest_summary(stock_code)
+        return BacktestSummaryResponse(**result)
+    except Exception as e:
+        logger.error(f"获取回测摘要失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail={"error": "internal_error", "message": f"获取回测摘要失败: {str(e)}"})

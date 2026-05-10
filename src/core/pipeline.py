@@ -78,6 +78,7 @@ class StockAnalysisPipeline:
         query_source: Optional[str] = None,
         save_context_snapshot: Optional[bool] = None,
         progress_callback: Optional[Callable[[int, str], None]] = None,
+        event_bus=None,
     ):
         """
         初始化调度器
@@ -85,6 +86,7 @@ class StockAnalysisPipeline:
         Args:
             config: 配置对象（可选，默认使用全局配置）
             max_workers: 最大并发线程数（可选，默认从配置读取）
+            event_bus: Optional AnalysisEventBus for streaming agent events via SSE
         """
         self.config = config or get_config()
         self.max_workers = max_workers or self.config.max_workers
@@ -95,6 +97,7 @@ class StockAnalysisPipeline:
             self.config.save_context_snapshot if save_context_snapshot is None else save_context_snapshot
         )
         self.progress_callback = progress_callback
+        self.event_bus = event_bus
         
         # 初始化各模块
         self.db = get_db()
@@ -496,6 +499,11 @@ class StockAnalysisPipeline:
             if result:
                 fill_price_position_if_needed(result, trend_result, realtime_quote)
 
+            # Step 7.8: price validation against realtime quote
+            if result:
+                from src.analyzer import validate_price_against_realtime
+                validate_price_against_realtime(result, realtime_quote)
+
             # Step 8: 保存分析历史记录
             if result and result.success:
                 try:
@@ -780,7 +788,7 @@ class StockAnalysisPipeline:
             report_language = normalize_report_language(getattr(self.config, "report_language", "zh"))
 
             # Build executor from shared factory (ToolRegistry and SkillManager prototype are cached)
-            executor = build_agent_executor(self.config, getattr(self.config, 'agent_skills', None) or None)
+            executor = build_agent_executor(self.config, getattr(self.config, 'agent_skills', None) or None, event_bus=self.event_bus)
 
             # Build initial context to avoid redundant tool calls
             initial_context = {
@@ -853,6 +861,11 @@ class StockAnalysisPipeline:
             # price_position fallback (same as non-agent path Step 7.7)
             if result:
                 fill_price_position_if_needed(result, trend_result, realtime_quote)
+
+            # price validation against realtime quote (prevent LLM price hallucination)
+            if result:
+                from src.analyzer import validate_price_against_realtime
+                validate_price_against_realtime(result, realtime_quote)
 
             resolved_stock_name = result.name if result and result.name else stock_name
 

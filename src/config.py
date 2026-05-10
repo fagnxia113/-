@@ -683,8 +683,8 @@ class Config:
     agent_skills: List[str] = field(default_factory=list)
     agent_skill_dir: Optional[str] = None
     agent_nl_routing: bool = False  # Enable natural language routing in bot dispatcher
-    agent_arch: str = "single"     # Agent architecture: 'single' (legacy) or 'multi' (orchestrator)
-    agent_orchestrator_mode: str = "full"  # Orchestrator mode: quick/standard/full/enhanced/specialist/debate/full_debate
+    agent_arch: str = "multi"     # Agent architecture: 'single' (legacy) or 'multi' (orchestrator)
+    agent_orchestrator_mode: str = "debate"  # Orchestrator mode: quick/standard/full/enhanced/specialist/debate/full_debate
     agent_orchestrator_timeout_s: int = 600  # Cooperative timeout budget for the whole multi-agent pipeline
     agent_risk_override: bool = True  # Allow risk agent to veto buy signals
     agent_deep_research_budget: int = 30000  # Max token budget for deep research
@@ -1386,8 +1386,8 @@ class Config:
             agent_skills=[s.strip() for s in os.getenv('AGENT_SKILLS', '').split(',') if s.strip()],
             agent_skill_dir=os.getenv('AGENT_SKILL_DIR') or os.getenv('AGENT_STRATEGY_DIR'),
             agent_nl_routing=os.getenv('AGENT_NL_ROUTING', 'false').lower() == 'true',
-            agent_arch=os.getenv('AGENT_ARCH', 'single').lower(),
-            agent_orchestrator_mode=os.getenv('AGENT_ORCHESTRATOR_MODE', 'full').lower(),
+            agent_arch=os.getenv('AGENT_ARCH', 'multi').lower(),
+            agent_orchestrator_mode=os.getenv('AGENT_ORCHESTRATOR_MODE', 'debate').lower(),
             agent_orchestrator_timeout_s=parse_env_int(
                 os.getenv('AGENT_ORCHESTRATOR_TIMEOUT_S'),
                 600,
@@ -2099,7 +2099,7 @@ class Config:
         so that the paid data source is utilized for realtime quotes as well.
         """
         explicit = os.getenv('REALTIME_SOURCE_PRIORITY')
-        default_priority = 'tencent,akshare_sina,efinance,akshare_em'
+        default_priority = 'pytdx,tencent,akshare_sina,efinance,akshare_em'
 
         if explicit:
             # User explicitly set priority, respect it

@@ -26,11 +26,17 @@ EXEMPT_PATHS = frozenset({
     "/openapi.json",
 })
 
+EXEMPT_PREFIXES = (
+    "/api/v1/analysis/stream/",
+)
+
 
 def _path_exempt(path: str) -> bool:
     """Check if path is exempt from auth."""
     normalized = path.rstrip("/") or "/"
-    return normalized in EXEMPT_PATHS
+    if normalized in EXEMPT_PATHS:
+        return True
+    return any(normalized.startswith(prefix) for prefix in EXEMPT_PREFIXES)
 
 
 class AuthMiddleware(BaseHTTPMiddleware):

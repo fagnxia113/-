@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { BarChart3, BriefcaseBusiness, CandlestickChart, Home, LogOut, MessageSquareQuote, Settings2 } from 'lucide-react';
+import { BarChart3, BriefcaseBusiness, CandlestickChart, Home, LogOut, MessageSquareQuote, PanelLeftClose, PanelLeftOpen, Settings2 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useAgentChatStore } from '../../stores/agentChatStore';
 import { cn } from '../../utils/cn';
 import { ConfirmDialog } from '../common/ConfirmDialog';
-import { StatusDot } from '../common/StatusDot';
-import { ThemeToggle } from '../theme/ThemeToggle';
 
 type SidebarNavProps = {
   collapsed?: boolean;
   onNavigate?: () => void;
+  onToggleCollapse?: () => void;
 };
 
 type NavItem = {
@@ -21,38 +19,40 @@ type NavItem = {
   icon: React.ComponentType<{ className?: string }>;
   exact?: boolean;
   badge?: 'completion';
+  shortcut?: string;
 };
 
-const NAV_ITEMS: NavItem[] = [
-  { key: 'home', label: '首页', to: '/', icon: Home, exact: true },
-  { key: 'market', label: '行情', to: '/market', icon: CandlestickChart },
-  { key: 'chat', label: '问股', to: '/chat', icon: MessageSquareQuote, badge: 'completion' },
-  { key: 'portfolio', label: '持仓', to: '/portfolio', icon: BriefcaseBusiness },
-  { key: 'backtest', label: '回测', to: '/backtest', icon: BarChart3 },
-  { key: 'settings', label: '设置', to: '/settings', icon: Settings2 },
+const MAIN_NAV: NavItem[] = [
+  { key: 'home', label: '首页', to: '/', icon: Home, exact: true, shortcut: '⌘1' },
+  { key: 'market', label: '行情', to: '/market', icon: CandlestickChart, shortcut: '⌘2' },
+  { key: 'chat', label: '深度研究', to: '/chat', icon: MessageSquareQuote, badge: 'completion', shortcut: '⌘3' },
+  { key: 'portfolio', label: '持仓', to: '/portfolio', icon: BriefcaseBusiness, shortcut: '⌘4' },
+  { key: 'backtest', label: '回测', to: '/backtest', icon: BarChart3, shortcut: '⌘5' },
 ];
 
-export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNavigate }) => {
+const BOTTOM_NAV: NavItem[] = [
+  { key: 'settings', label: '设置', to: '/settings', icon: Settings2, shortcut: '⌘,' },
+];
+
+export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNavigate, onToggleCollapse }) => {
   const { authEnabled, currentUser, logout } = useAuth();
   const completionBadge = useAgentChatStore((state) => state.completionBadge);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
-    <div className="flex h-full flex-col">
-      <div className={cn('mb-5 flex items-center gap-2.5 px-1', collapsed ? 'justify-center' : '')}>
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-gradient text-[hsl(var(--primary-foreground))] shadow-[0_4px_12px_var(--nav-brand-shadow)]">
-          <CandlestickChart className="h-4.5 w-4.5" />
-        </div>
-        {!collapsed ? (
-          <div className="min-w-0">
-            <p className="truncate text-sm font-bold tracking-tight text-foreground">DSA</p>
-            <p className="truncate text-[10px] text-muted-text">智能行情分析</p>
-          </div>
-        ) : null}
+    <div className="flex h-full flex-col py-2">
+      <div className={cn('flex items-center h-8 shrink-0', collapsed ? 'justify-center' : 'px-3')}>
+        {collapsed ? (
+          <span className="text-[11px] font-bold tracking-wider text-foreground font-mono">牛气</span>
+        ) : (
+          <span className="text-[11px] font-bold tracking-wider text-foreground font-mono">
+            牛气 <span className="text-muted-text font-normal">终端</span>
+          </span>
+        )}
       </div>
 
-      <nav className="flex flex-1 flex-col gap-0.5" aria-label="主导航">
-        {NAV_ITEMS.map(({ key, label, to, icon: Icon, exact, badge }) => (
+      <nav className="flex flex-1 flex-col gap-px px-1.5 mt-1" aria-label="主导航">
+        {MAIN_NAV.map(({ key, label, to, icon: Icon, exact, badge, shortcut }) => (
           <NavLink
             key={key}
             to={to}
@@ -61,9 +61,9 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
             aria-label={label}
             className={({ isActive }) =>
               cn(
-                'group relative flex items-center gap-2.5 text-[13px] transition-all',
+                'group relative flex items-center gap-2 text-[13px] transition-colors rounded-sm',
                 'h-9',
-                collapsed ? 'justify-center px-0' : 'px-2.5',
+                collapsed ? 'justify-center' : 'px-2',
                 isActive
                   ? 'bg-[var(--nav-active-bg)] text-[hsl(var(--primary))] font-medium'
                   : 'text-secondary-text hover:bg-[var(--nav-hover-bg)] hover:text-foreground'
@@ -72,51 +72,95 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ collapsed = false, onNav
           >
             {({ isActive }) => (
               <>
-                {isActive && (
-                  <motion.div 
-                    layoutId="activeIndicator"
-                    className="absolute inset-0 rounded-md bg-[var(--nav-active-bg)]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-                <Icon className={cn('relative z-10 h-4 w-4 shrink-0', isActive ? 'text-[var(--nav-icon-active)]' : 'text-current')} />
-                {!collapsed ? <span className="relative z-10 truncate">{label}</span> : null}
-                {badge === 'completion' && completionBadge ? (
-                  <StatusDot
-                    tone="info"
-                    data-testid="chat-completion-badge"
-                    className={cn(
-                      'absolute right-3 border-2 border-background shadow-[0_0_10px_var(--nav-indicator-shadow)]',
-                      collapsed ? 'right-2 top-2' : ''
+                <Icon className={cn('h-4 w-4 shrink-0', isActive ? 'text-[var(--nav-icon-active)]' : 'text-current')} />
+                {!collapsed && (
+                  <>
+                    <span className="truncate flex-1">{label}</span>
+                    {shortcut && (
+                      <span className="text-[10px] text-muted-text/50 font-mono ml-auto">{shortcut}</span>
                     )}
+                  </>
+                )}
+                {badge === 'completion' && completionBadge && (
+                  <span
+                    className={cn(
+                      'rounded-full bg-primary',
+                      collapsed ? 'absolute top-1 right-1 h-1.5 w-1.5' : 'h-1.5 w-1.5 shrink-0'
+                    )}
+                    data-testid="chat-completion-badge"
                     aria-label="问股有新消息"
                   />
-                ) : null}
+                )}
               </>
             )}
           </NavLink>
         ))}
       </nav>
 
-      <div className="mt-2 mb-1">
-        <ThemeToggle variant="nav" collapsed={collapsed} />
+      <div className="mx-2 my-1 border-t border-border" />
+
+      <div className="flex flex-col gap-px px-1.5">
+        {BOTTOM_NAV.map(({ key, label, to, icon: Icon, exact, shortcut }) => (
+          <NavLink
+            key={key}
+            to={to}
+            end={exact}
+            onClick={onNavigate}
+            aria-label={label}
+            className={({ isActive }) =>
+              cn(
+                'group relative flex items-center gap-2 text-[13px] transition-colors rounded-sm',
+                'h-9',
+                collapsed ? 'justify-center' : 'px-2',
+                isActive
+                  ? 'bg-[var(--nav-active-bg)] text-[hsl(var(--primary))] font-medium'
+                  : 'text-secondary-text hover:bg-[var(--nav-hover-bg)] hover:text-foreground'
+              )
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <Icon className={cn('h-4 w-4 shrink-0', isActive ? 'text-[var(--nav-icon-active)]' : 'text-current')} />
+                {!collapsed && (
+                  <>
+                    <span className="truncate flex-1">{label}</span>
+                    {shortcut && (
+                      <span className="text-[10px] text-muted-text/50 font-mono ml-auto">{shortcut}</span>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </NavLink>
+        ))}
+
+        {authEnabled && (
+          <button
+            type="button"
+            onClick={() => setShowLogoutConfirm(true)}
+            className={cn(
+              'flex h-9 w-full cursor-pointer select-none items-center gap-2 rounded-sm text-[13px] text-secondary-text transition-colors hover:bg-[var(--nav-hover-bg)] hover:text-foreground',
+              collapsed ? 'justify-center' : 'px-2'
+            )}
+          >
+            <LogOut className="h-4 w-4 shrink-0" />
+            {!collapsed && <span className="truncate text-[12px]">{currentUser ? `${currentUser.username} 退出` : '退出'}</span>}
+          </button>
+        )}
       </div>
 
-      {authEnabled ? (
-        <button
-          type="button"
-          onClick={() => setShowLogoutConfirm(true)}
-          className={cn(
-            'mt-2 flex h-9 w-full cursor-pointer select-none items-center gap-2.5 rounded-md border border-transparent px-2.5 text-[13px] text-secondary-text transition-all hover:bg-[var(--nav-hover-bg)] hover:text-foreground',
-            collapsed ? 'justify-center px-0' : ''
-          )}
-        >
-          <LogOut className="h-4 w-4 shrink-0" />
-          {!collapsed ? <span>{currentUser ? `${currentUser.username} · 退出` : '退出'}</span> : null}
-        </button>
-      ) : null}
+      {onToggleCollapse && (
+        <div className="mt-auto px-1.5 pt-1">
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            className="flex h-7 w-full items-center justify-center rounded-sm text-secondary-text transition-colors hover:bg-[var(--nav-hover-bg)] hover:text-foreground"
+            aria-label={collapsed ? '展开侧边栏' : '收起侧边栏'}
+          >
+            {collapsed ? <PanelLeftOpen className="h-3.5 w-3.5" /> : <PanelLeftClose className="h-3.5 w-3.5" />}
+          </button>
+        </div>
+      )}
 
       <ConfirmDialog
         isOpen={showLogoutConfirm}

@@ -398,11 +398,83 @@ class BaseFetcher(ABC):
     def get_intraday_data(self, stock_code: str, period: str = '5min', count: int = 240) -> pd.DataFrame:
         raise DataFetchError(f"[{self.name}] 不支持分时数据")
 
+    def get_kline_data(
+        self,
+        stock_code: str,
+        period: str = 'daily',
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        days: int = 120,
+    ) -> pd.DataFrame:
+        if end_date is None:
+            end_date = datetime.now().strftime('%Y-%m-%d')
+        if start_date is None:
+            from datetime import timedelta
+            if period == 'weekly':
+                start_dt = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(weeks=days)
+            elif period == 'monthly':
+                start_dt = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=days * 31)
+            else:
+                start_dt = datetime.strptime(end_date, '%Y-%m-%d') - timedelta(days=days * 2)
+            start_date = start_dt.strftime('%Y-%m-%d')
+
+        request_start = time.time()
+        logger.info(f"[{self.name}] 开始获取 {stock_code} {period}K线: 范围={start_date} ~ {end_date}")
+
+        try:
+            import inspect
+            sig = inspect.signature(self._fetch_raw_data)
+            accepts_period = 'period' in sig.parameters or any(
+                p.kind == inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values()
+            )
+            if accepts_period:
+                raw_df = self._fetch_raw_data(stock_code, start_date, end_date, period=period)
+            else:
+                if period != 'daily':
+                    raise DataFetchError(f"[{self.name}] 不支持 {period}K线，仅支持日线")
+                raw_df = self._fetch_raw_data(stock_code, start_date, end_date)
+
+            if raw_df is None or raw_df.empty:
+                raise DataFetchError(f"[{self.name}] 未获取到 {stock_code} 的{period}数据")
+            df = self._normalize_data(raw_df, stock_code)
+            df = self._clean_data(df)
+            df = self._calculate_indicators(df)
+            elapsed = time.time() - request_start
+            logger.info(
+                f"[{self.name}] {stock_code} {period}K线获取成功: rows={len(df)}, elapsed={elapsed:.2f}s"
+            )
+            return df
+        except DataFetchError:
+            raise
+        except Exception as e:
+            elapsed = time.time() - request_start
+            error_type, error_reason = summarize_exception(e)
+            logger.error(
+                f"[{self.name}] {stock_code} {period}K线获取失败: "
+                f"error_type={error_type}, elapsed={elapsed:.2f}s, reason={error_reason}"
+            )
+            raise DataFetchError(f"[{self.name}] {stock_code}: {error_reason}") from e
+
     def get_orderbook(self, stock_code: str) -> Optional[dict]:
         raise DataFetchError(f"[{self.name}] 不支持五档盘口")
 
     def get_trade_ticks(self, stock_code: str, count: int = 50) -> Optional[list]:
         raise DataFetchError(f"[{self.name}] 不支持成交明细")
+
+    def get_index_bars(self, index_code: str, period: str = 'daily', count: int = 120) -> pd.DataFrame:
+        raise DataFetchError(f"[{self.name}] 不支持指数K线")
+
+    def get_xdxr_info(self, stock_code: str) -> Optional[list]:
+        raise DataFetchError(f"[{self.name}] 不支持除权除息")
+
+    def get_finance_info(self, stock_code: str) -> Optional[dict]:
+        raise DataFetchError(f"[{self.name}] 不支持财务信息")
+
+    def get_block_info(self, block_type: str = 'industry') -> Optional[list]:
+        raise DataFetchError(f"[{self.name}] 不支持板块信息")
+
+    def get_history_transaction_data(self, stock_code: str, date: int, count: int = 2000) -> Optional[list]:
+        raise DataFetchError(f"[{self.name}] 不支持历史成交明细")
     
     def _clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -857,9 +929,9 @@ class DataFetcherManager:
         优先级动态调整逻辑：
         - 如果配置了 TUSHARE_TOKEN：Tushare 优先级提升为 0（最高）
         - 否则按默认优先级：
-          0. EfinanceFetcher (Priority 0) - 最高优先级
+          0. PytdxFetcher (Priority 0) - 通达信直连，实时性最好
+          0. EfinanceFetcher (Priority 0) - 东财
           1. AkshareFetcher (Priority 1)
-          2. PytdxFetcher (Priority 2) - 通达信
           2. TushareFetcher (Priority 2)
           3. BaostockFetcher (Priority 3)
           4. YfinanceFetcher (Priority 4)
@@ -885,10 +957,10 @@ class DataFetcherManager:
         self._ensure_concurrency_guards()
         with self._fetchers_lock:
             self._fetchers = [
+                pytdx,
                 efinance,
                 akshare,
                 tushare,
-                pytdx,
                 baostock,
                 yfinance,
                 longbridge,
@@ -1095,6 +1167,50 @@ class DataFetcherManager:
         logger.error(f"[数据源终止] {stock_code} 分时数据获取失败: elapsed={elapsed:.2f}s\n{error_summary}")
         raise DataFetchError(error_summary)
 
+    def get_kline_data(
+        self,
+        stock_code: str,
+        period: str = 'daily',
+        days: int = 120,
+    ) -> Tuple[pd.DataFrame, str]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        errors = []
+        total_fetchers = len(fetchers)
+        request_start = time.time()
+
+        for attempt, fetcher in enumerate(fetchers, start=1):
+            try:
+                logger.info(f"[数据源尝试 {attempt}/{total_fetchers}] [{fetcher.name}] 获取 {stock_code} {period}K线...")
+                df = self._call_fetcher_method(
+                    fetcher,
+                    "get_kline_data",
+                    stock_code=stock_code,
+                    period=period,
+                    days=days,
+                )
+                if df is not None and not df.empty:
+                    elapsed = time.time() - request_start
+                    logger.info(
+                        f"[数据源完成] {stock_code} {period}K线 使用 [{fetcher.name}] 获取成功: "
+                        f"rows={len(df)}, elapsed={elapsed:.2f}s"
+                    )
+                    return df, fetcher.name
+            except Exception as e:
+                error_type, error_reason = summarize_exception(e)
+                error_msg = f"[{fetcher.name}] ({error_type}) {error_reason}"
+                logger.warning(
+                    f"[数据源失败 {attempt}/{total_fetchers}] [{fetcher.name}] {stock_code} {period}K线: "
+                    f"error_type={error_type}, reason={error_reason}"
+                )
+                errors.append(error_msg)
+                continue
+
+        error_summary = f"所有数据源获取 {stock_code} {period}K线失败:\n" + "\n".join(errors)
+        elapsed = time.time() - request_start
+        logger.error(f"[数据源终止] {stock_code} {period}K线获取失败: elapsed={elapsed:.2f}s\n{error_summary}")
+        raise DataFetchError(error_summary)
+
     def get_orderbook(self, stock_code: str) -> Optional[dict]:
         stock_code = normalize_stock_code(stock_code)
         fetchers = self._get_fetchers_snapshot()
@@ -1121,6 +1237,99 @@ class DataFetcherManager:
                 continue
             except Exception:
                 continue
+        return None
+
+    def get_index_bars(self, index_code: str, period: str = 'daily', count: int = 120) -> Tuple[pd.DataFrame, str]:
+        index_code = normalize_stock_code(index_code)
+        fetchers = self._get_fetchers_snapshot()
+        errors = []
+        total_fetchers = len(fetchers)
+        request_start = time.time()
+        for attempt, fetcher in enumerate(fetchers, start=1):
+            try:
+                logger.info(f"[数据源尝试 {attempt}/{total_fetchers}] [{fetcher.name}] 获取指数 {index_code} {period}K线...")
+                df = self._call_fetcher_method(
+                    fetcher, 'get_index_bars',
+                    index_code=index_code, period=period, count=count,
+                )
+                if df is not None and not df.empty:
+                    elapsed = time.time() - request_start
+                    logger.info(
+                        f"[数据源完成] 指数 {index_code} {period}K线 使用 [{fetcher.name}] 获取成功: "
+                        f"rows={len(df)}, elapsed={elapsed:.2f}s"
+                    )
+                    return df, fetcher.name
+            except Exception as e:
+                error_type, error_reason = summarize_exception(e)
+                errors.append(f"[{fetcher.name}] ({error_type}) {error_reason}")
+                continue
+        error_summary = f"所有数据源获取指数 {index_code} {period}K线失败:\n" + "\n".join(errors)
+        raise DataFetchError(error_summary)
+
+    def get_xdxr_info(self, stock_code: str) -> Optional[list]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(fetcher, 'get_xdxr_info', stock_code)
+                if result is not None:
+                    logger.info(f"[除权除息] {stock_code} 成功获取 (来源: {fetcher.name})")
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        logger.debug(f"[除权除息] {stock_code} 无可用数据源")
+        return None
+
+    def get_finance_info(self, stock_code: str) -> Optional[dict]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(fetcher, 'get_finance_info', stock_code)
+                if result is not None:
+                    logger.info(f"[财务信息] {stock_code} 成功获取 (来源: {fetcher.name})")
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        logger.debug(f"[财务信息] {stock_code} 无可用数据源")
+        return None
+
+    def get_block_info(self, block_type: str = 'industry') -> Optional[list]:
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(fetcher, 'get_block_info', block_type=block_type)
+                if result is not None:
+                    logger.info(f"[板块信息] {block_type} 成功获取 (来源: {fetcher.name}), count={len(result)}")
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        logger.debug(f"[板块信息] {block_type} 无可用数据源")
+        return None
+
+    def get_history_transaction_data(self, stock_code: str, date: int, count: int = 2000) -> Optional[list]:
+        stock_code = normalize_stock_code(stock_code)
+        fetchers = self._get_fetchers_snapshot()
+        for fetcher in fetchers:
+            try:
+                result = self._call_fetcher_method(
+                    fetcher, 'get_history_transaction_data',
+                    stock_code=stock_code, date=date, count=count,
+                )
+                if result is not None:
+                    logger.info(f"[历史成交] {stock_code} date={date} 成功获取 (来源: {fetcher.name}), count={len(result)}")
+                    return result
+            except DataFetchError:
+                continue
+            except Exception:
+                continue
+        logger.debug(f"[历史成交] {stock_code} date={date} 无可用数据源")
         return None
     
     @property
@@ -1215,11 +1424,12 @@ class DataFetcherManager:
         
         故障切换策略（按配置的优先级）：
         1. 美股：使用 YfinanceFetcher.get_realtime_quote()
-        2. EfinanceFetcher.get_realtime_quote()
-        3. AkshareFetcher.get_realtime_quote(source="em")  - 东财
+        2. PytdxFetcher.get_realtime_quote() - 通达信直连，实时性最好
+        3. AkshareFetcher.get_realtime_quote(source="tencent") - 腾讯
         4. AkshareFetcher.get_realtime_quote(source="sina") - 新浪
-        5. AkshareFetcher.get_realtime_quote(source="tencent") - 腾讯
-        6. 返回 None（降级兜底）
+        5. EfinanceFetcher.get_realtime_quote() - 东财
+        6. AkshareFetcher.get_realtime_quote(source="em") - 东财
+        7. 返回 None（降级兜底）
         
         Args:
             stock_code: 股票代码
@@ -1299,6 +1509,14 @@ class DataFetcherManager:
                     # 尝试 EfinanceFetcher
                     for fetcher in self._get_fetchers_snapshot():
                         if fetcher.name == "EfinanceFetcher":
+                            if hasattr(fetcher, 'get_realtime_quote'):
+                                quote = self._call_fetcher_method(fetcher, 'get_realtime_quote', stock_code)
+                            break
+                
+                elif source == "pytdx":
+                    # 尝试 PytdxFetcher（通达信直连，实时性最好）
+                    for fetcher in self._get_fetchers_snapshot():
+                        if fetcher.name == "PytdxFetcher":
                             if hasattr(fetcher, 'get_realtime_quote'):
                                 quote = self._call_fetcher_method(fetcher, 'get_realtime_quote', stock_code)
                             break

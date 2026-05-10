@@ -32,22 +32,29 @@ logger = logging.getLogger(__name__)
 
 # Tool name → friendly label for progress messages
 _THINKING_TOOL_LABELS: Dict[str, str] = {
-    "get_realtime_quote": "行情获取",
+    "get_realtime_quote": "实时行情获取",
     "get_daily_history": "K线数据获取",
     "analyze_trend": "技术指标分析",
     "get_chip_distribution": "筹码分布分析",
+    "get_volume_analysis": "量价关系分析",
+    "analyze_pattern": "K线形态识别",
+    "get_capital_flow": "主力资金分析",
     "search_stock_news": "新闻搜索",
     "search_comprehensive_intel": "综合情报搜索",
-    "get_market_indices": "市场概览获取",
-    "get_sector_rankings": "行业板块分析",
+    "get_market_indices": "大盘指数获取",
+    "get_sector_rankings": "板块排名分析",
     "get_analysis_context": "历史分析上下文",
-    "get_stock_info": "基本信息获取",
-    "analyze_pattern": "K线形态识别",
-    "get_volume_analysis": "量能分析",
+    "get_stock_info": "基本面信息获取",
+    "get_stock_sentiment": "市场情绪分析",
+    "get_valuation_percentile": "估值百分位分析",
+    "get_financial_deep_analysis": "财务深度分析",
     "calculate_ma": "均线计算",
     "get_skill_backtest_summary": "技能回测概览",
     "get_strategy_backtest_summary": "策略回测概览",
     "get_stock_backtest_summary": "个股回测数据",
+    "web_search": "网络搜索",
+    "web_scrape": "网页抓取",
+    "sequential_thinking": "结构化思考",
 }
 
 
@@ -459,7 +466,7 @@ def run_agent_loop(
                 last_tool = tool_calls_log[-1].get("tool", "")
                 label = labels.get(last_tool, last_tool)
                 thinking_msg = f"「{label}」已完成，继续深入分析..."
-            progress_callback({"type": "thinking", "step": step + 1, "message": thinking_msg})
+            progress_callback({"type": "thinking", "step": step + 1, "message": thinking_msg, "display_name": thinking_msg})
 
         # --- LLM call ---
         response = llm_adapter.call_with_tools(
@@ -650,7 +657,7 @@ def _execute_tools(
     if len(tool_calls) == 1:
         tc = tool_calls[0]
         if progress_callback:
-            progress_callback({"type": "tool_start", "step": step, "tool": tc.name})
+            progress_callback({"type": "tool_start", "step": step, "tool": tc.name, "display_name": labels.get(tc.name, tc.name)})
         timeout_triggered = False
         if tool_wait_timeout_seconds and tool_wait_timeout_seconds > 0:
             pool = ThreadPoolExecutor(max_workers=1)
@@ -676,7 +683,7 @@ def _execute_tools(
         else:
             _, result_str, success, dur, cached = _exec_single(tc)
         if progress_callback:
-            progress_callback({"type": "tool_done", "step": step, "tool": tc.name, "success": success, "duration": dur})
+            progress_callback({"type": "tool_done", "step": step, "tool": tc.name, "success": success, "duration": dur, "display_name": labels.get(tc.name, tc.name)})
         log_entry = {
             "step": step, "tool": tc.name, "arguments": tc.arguments,
             "success": success, "duration": dur, "result_length": len(result_str),
@@ -693,7 +700,7 @@ def _execute_tools(
     else:
         for tc in tool_calls:
             if progress_callback:
-                progress_callback({"type": "tool_start", "step": step, "tool": tc.name})
+                progress_callback({"type": "tool_start", "step": step, "tool": tc.name, "display_name": labels.get(tc.name, tc.name)})
 
         pool = ThreadPoolExecutor(max_workers=min(len(tool_calls), 5))
         timeout_triggered = False
@@ -707,7 +714,7 @@ def _execute_tools(
                 pending.discard(future)
                 tc_item, result_str, success, dur, cached = future.result()
                 if progress_callback:
-                    progress_callback({"type": "tool_done", "step": step, "tool": tc_item.name, "success": success, "duration": dur})
+                    progress_callback({"type": "tool_done", "step": step, "tool": tc_item.name, "success": success, "duration": dur, "display_name": labels.get(tc_item.name, tc_item.name)})
                 tool_calls_log.append({
                     "step": step, "tool": tc_item.name, "arguments": tc_item.arguments,
                     "success": success, "duration": dur, "result_length": len(result_str),
@@ -736,6 +743,7 @@ def _execute_tools(
                             "tool": tc_item.name,
                             "success": False,
                             "duration": round(tool_wait_timeout_seconds or 0.0, 2),
+                            "display_name": labels.get(tc_item.name, tc_item.name),
                         })
                     tool_calls_log.append({
                         "step": step,

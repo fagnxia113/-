@@ -23,7 +23,7 @@ import re
 from datetime import datetime
 from typing import Optional, Union, Dict, Any
 
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Depends, Query, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from api.deps import get_config_dep
@@ -546,6 +546,120 @@ def _format_sse_event(event_type: str, data: Dict[str, Any]) -> str:
         SSE 格式字符串
     """
     return f"event: {event_type}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+# ============================================================
+# GET /stream/{stock_code} - SSE 实时分析流
+# ============================================================
+
+@router.get(
+    "/stream/{stock_code}",
+    responses={
+        200: {"description": "SSE 实时分析事件流", "content": {"text/event-stream": {}}},
+    },
+    summary="实时分析流（IDE风格）",
+    description="通过 SSE 实时推送分析过程中每个Agent的思考、工具调用、观点、论证等中间过程"
+)
+async def analysis_stream(stock_code: str, request: Request):
+    """
+    IDE风格实时分析流
+    
+    事件类型：
+    - pipeline_start: 分析流水线启动
+    - agent_start: Agent开始执行
+    - agent_thinking: Agent思考过程（Sequential Thinking）
+    - agent_tool_call: Agent调用工具
+    - agent_tool_result: 工具返回结果
+    - agent_opinion: Agent产出观点
+    - agent_challenge: 魔鬼代言人质疑
+    - agent_debate_round: 辩论轮次
+    - agent_scenario: 情景分析
+    - pipeline_complete: 分析完成
+    - pipeline_error: 分析出错
+    """
+    from src.auth import COOKIE_NAME, is_auth_enabled, get_session_user
+    if is_auth_enabled():
+        cookie_val = request.cookies.get(COOKIE_NAME)
+        token = request.query_params.get("token", "")
+        auth_ok = False
+        if cookie_val:
+            user = get_session_user(request)
+            auth_ok = user is not None
+        if not auth_ok and token:
+            from src.auth import verify_session_and_get_user, verify_session
+            user = verify_session_and_get_user(token)
+            if user:
+                auth_ok = True
+            elif verify_session(token):
+                auth_ok = True
+        if not auth_ok:
+            return JSONResponse(status_code=401, content={"error": "unauthorized", "message": "Login required"})
+
+    import asyncio
+    import queue
+    import threading
+    from src.agent.analysis_stream import AnalysisEventBus, AnalysisStreamEvent
+
+    loop = asyncio.get_running_loop()
+    event_queue: asyncio.Queue[AnalysisStreamEvent] = asyncio.Queue()
+    bus = AnalysisEventBus()
+
+    def _on_event(event: AnalysisStreamEvent):
+        try:
+            loop.call_soon_threadsafe(event_queue.put_nowait, event)
+        except Exception:
+            pass
+
+    bus.subscribe(_on_event)
+
+    async def event_generator():
+        yield _format_sse_event("connected", {"message": f"Connected to analysis stream for {stock_code}"})
+
+        def _run_analysis():
+            try:
+                from src.services.analysis_service import AnalysisService
+                service = AnalysisService()
+                service.analyze_stock(
+                    stock_code=stock_code,
+                    report_type="detailed",
+                    force_refresh=True,
+                    event_bus=bus,
+                )
+            except Exception as e:
+                logger.error("Stream analysis failed: %s", e, exc_info=True)
+                bus.emit_error(stock_code=stock_code, error=str(e))
+            finally:
+                bus.unsubscribe(_on_event)
+
+        thread = threading.Thread(target=_run_analysis, daemon=True)
+        thread.start()
+
+        try:
+            while True:
+                try:
+                    event = await asyncio.wait_for(event_queue.get(), timeout=30)
+                    yield event.to_sse()
+                    if event.event_type.value in ("pipeline_complete", "pipeline_error"):
+                        break
+                except asyncio.TimeoutError:
+                    yield _format_sse_event("heartbeat", {"timestamp": datetime.now().isoformat()})
+                    if not thread.is_alive():
+                        break
+        except asyncio.CancelledError:
+            logger.debug("Analysis stream client disconnected")
+            raise
+        finally:
+            bus.unsubscribe(_on_event)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 # ============================================================

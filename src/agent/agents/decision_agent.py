@@ -67,13 +67,31 @@ You will receive:
 3. Skill evaluation results (if applicable)
 4. Industry analysis from an Industry Agent (if available)
 5. Capital flow analysis from a Capital Flow Agent (if available)
-6. Debate consensus and trading plan from a Debate Agent (if available)
-7. Quantitative factor scores from a Factor Scoring Agent (if available)
-8. Market sentiment analysis from a Sentiment Agent (if available)
-9. Deep fundamental analysis from a Fundamental Agent (if available)
+6. Devil's Advocate audit identifying cognitive biases and weak links (if available)
+7. Deep debate consensus with evidence mapping and cross-examination (if available)
+8. Scenario analysis with bull/base/bear probabilities (if available)
+9. Quantitative factor scores from a Factor Scoring Agent (if available)
+10. Market sentiment analysis from a Sentiment Agent (if available)
+11. Deep fundamental analysis from a Fundamental Agent (if available)
 
 Your task: synthesise all inputs into a single, actionable Decision Dashboard.
 {skills}
+## ⚠️ Long Chain-of-Thought Requirement
+Before producing the final JSON, you MUST think through the following steps \
+explicitly in your reasoning:
+1. **Evidence Inventory**: List all bullish and bearish evidence, classified by \
+   strength (hard/soft/speculation)
+2. **Contradiction Resolution**: For every pair of conflicting opinions, state \
+   which you trust more and WHY
+3. **Bias Check**: Review the Devil's Advocate audit. For each identified bias, \
+   state whether you've adjusted for it
+4. **Scenario Weighting**: If scenario analysis is available, explain how the \
+   probability-weighted expected value influences your decision
+5. **Thesis Stress Test**: State explicitly what would make you WRONG, and how \
+   likely that is
+6. **Confidence Calibration**: Is your confidence justified by EVIDENCE QUALITY, \
+   or just by the number of agreeing agents?
+
 ## Core Principles
 1. **Core conclusion first** — one sentence, ≤30 chars
 2. **Split advice** — different for no-position vs has-position
@@ -83,23 +101,41 @@ Your task: synthesise all inputs into a single, actionable Decision Dashboard.
    the overall signal must be downgraded accordingly.
 
 ## Signal Weighting Guidelines
-- Technical opinion weight: ~30%
-- Intel / sentiment weight: ~20%
-- Industry analysis weight: ~15% (if available)
-- Capital flow weight: ~20% (if available)
-- Risk flags weight: ~15% (negative override: any high-severity risk caps signal at "hold")
-- If a debate consensus is present, give it significant weight (~25%) as it \
-  represents the team's deliberated conclusion
-- If factor scores are present, use the composite score as a cross-check \
-  against the qualitative signal
-- If a skill opinion is present, blend it at 20% weight (reducing others proportionally)
+- Technical opinion weight: ~25%
+- Intel / sentiment weight: ~15%
+- Industry analysis weight: ~10% (if available)
+- Capital flow weight: ~15% (if available)
+- Devil's Advocate audit: no direct signal weight, but MUST adjust confidence \
+  downward if overall_assessment is "fragile" or bias risks are "high"
+- Debate consensus weight: ~20% (if available, represents deliberated conclusion)
+- Scenario analysis expected value: ~10% (if available, probability-weighted)
+- Factor scores: cross-check against qualitative signal (if available)
+- Risk flags weight: ~5% (negative override: any high-severity risk caps signal at "hold")
+- If a skill opinion is present, blend it at 15% weight (reducing others proportionally)
+
+## When Devil's Advocate Is Present
+If a DevilsAdvocateAgent opinion is available:
+- Review the bias_audit and adjust confidence accordingly
+- Address each "weakest_link" in your reasoning
+- If overall_assessment is "fragile", cap confidence at 0.5 and signal at "hold"
+- If overall_assessment is "moderate", reduce confidence by 0.1
+- Incorporate "what_could_go_wrong" into risk_warning
 
 ## When Debate Agent Is Present
 If a DebateAgent opinion is available:
 - The debate consensus signal should be strongly considered
 - Include the trading plan (entry/exit/stop-loss) in the dashboard
-- Highlight any identified blind spots or divergences
-- Factor scores provide quantitative validation
+- Highlight the evidence_map (bullish vs bearish evidence tiers)
+- Include thesis_breakers as explicit monitoring points
+- If confidence_calibration shows significant adjustment, reflect that
+
+## When Scenario Analysis Is Present
+If a ScenarioAnalysisAgent opinion is available:
+- Reference the probability-weighted expected return in your confidence
+- Include swing_factors in the monitoring checklist
+- If bear case probability > 30%, cap signal at "hold"
+- If bear case probability > 50%, signal must be "sell"
+- Include recommended_position_sizing in position advice
 
 ## When Factor Scores Are Present
 If a FactorScoringAgent opinion is available:
@@ -179,6 +215,44 @@ new decision_type values.
             parts.append("## Risk Flags")
             for rf in ctx.risk_flags:
                 parts.append(f"- [{rf.get('severity', 'medium')}] {rf.get('category', '')}: {rf.get('description', '')}")
+            parts.append("")
+
+        devils_advocate_audit = ctx.get_data("devils_advocate_audit")
+        if devils_advocate_audit and isinstance(devils_advocate_audit, dict):
+            audit_brief = {
+                "overall_assessment": devils_advocate_audit.get("overall_assessment"),
+                "weakest_links": devils_advocate_audit.get("weakest_links", []),
+                "what_could_go_wrong": devils_advocate_audit.get("what_could_go_wrong", []),
+                "bias_audit": devils_advocate_audit.get("bias_audit", {}),
+                "confidence_adjustment": devils_advocate_audit.get("confidence_adjustment"),
+            }
+            parts.append("## ⚠️ Devil's Advocate Audit")
+            parts.append(json.dumps(audit_brief, ensure_ascii=False, indent=2))
+            parts.append("")
+
+        scenario_analysis = ctx.get_data("scenario_analysis")
+        if scenario_analysis and isinstance(scenario_analysis, dict):
+            scenario_brief = {
+                "scenarios": scenario_analysis.get("scenarios", {}),
+                "expected_value": scenario_analysis.get("expected_value", {}),
+                "swing_factors": scenario_analysis.get("swing_factors", []),
+                "recommended_position_sizing": scenario_analysis.get("recommended_position_sizing"),
+            }
+            parts.append("## 📊 Scenario Analysis")
+            parts.append(json.dumps(scenario_brief, ensure_ascii=False, indent=2))
+            parts.append("")
+
+        evidence_map = ctx.get_data("evidence_map")
+        if evidence_map and isinstance(evidence_map, dict):
+            parts.append("## 🔍 Evidence Map from Debate")
+            parts.append(json.dumps(evidence_map, ensure_ascii=False, indent=2)[:2000])
+            parts.append("")
+
+        thesis_breakers = ctx.get_data("thesis_breakers")
+        if thesis_breakers and isinstance(thesis_breakers, list):
+            parts.append("## 🎯 Thesis Breakers")
+            for tb in thesis_breakers:
+                parts.append(f"- {tb}")
             parts.append("")
 
         # Skill meta

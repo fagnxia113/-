@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ===================================
-PytdxFetcher - 通达信数据源 (Priority 2)
+PytdxFetcher - 通达信数据源 (Priority 0)
 ===================================
 
 数据来源：通达信行情服务器（pytdx 库）
@@ -177,7 +177,7 @@ class PytdxFetcher(BaseFetcher):
     """
     
     name = "PytdxFetcher"
-    priority = int(os.getenv("PYTDX_PRIORITY", "2"))
+    priority = int(os.getenv("PYTDX_PRIORITY", "0"))
     
     # 默认通达信行情服务器列表
     DEFAULT_HOSTS = [
@@ -339,27 +339,13 @@ class PytdxFetcher(BaseFetcher):
         retry=retry_if_exception_type((ConnectionError, TimeoutError)),
         before_sleep=before_sleep_log(logger, logging.WARNING),
     )
-    def _fetch_raw_data(self, stock_code: str, start_date: str, end_date: str) -> pd.DataFrame:
-        """
-        从通达信获取原始数据
-        
-        使用 get_security_bars() 获取日线数据
-        
-        流程：
-        1. 检查是否为美股（不支持）
-        2. 使用上下文管理器管理连接
-        3. 判断市场代码
-        4. 调用 API 获取 K 线数据
-        """
-        # 美股不支持，抛出异常让 DataFetcherManager 切换到其他数据源
+    def _fetch_raw_data(self, stock_code: str, start_date: str, end_date: str, period: str = 'daily') -> pd.DataFrame:
         if _is_us_code(stock_code):
             raise DataFetchError(f"PytdxFetcher 不支持美股 {stock_code}，请使用 AkshareFetcher 或 YfinanceFetcher")
 
-        # 港股不支持，抛出异常让 DataFetcherManager 切换到其他数据源
         if _is_hk_market(stock_code):
             raise DataFetchError(f"PytdxFetcher 不支持港股 {stock_code}，请使用 AkshareFetcher")
 
-        # 北交所不支持，抛出异常让 DataFetcherManager 切换到其他数据源
         if is_bse_code(stock_code):
             raise DataFetchError(
                 f"PytdxFetcher 不支持北交所 {stock_code}，将自动切换其他数据源"
@@ -367,34 +353,42 @@ class PytdxFetcher(BaseFetcher):
         
         market, code = self._get_market_code(stock_code)
         
-        # 计算需要获取的交易日数量（估算）
+        CATEGORY_MAP = {
+            'daily': 9,
+            'weekly': 5,
+            'monthly': 6,
+        }
+        category = CATEGORY_MAP.get(period, 9)
+        
         from datetime import datetime as dt
         start_dt = dt.strptime(start_date, '%Y-%m-%d')
         end_dt = dt.strptime(end_date, '%Y-%m-%d')
         days = (end_dt - start_dt).days
-        count = min(max(days * 5 // 7 + 10, 30), 800)  # 估算交易日，最大 800 条
         
-        logger.debug(f"调用 Pytdx get_security_bars(market={market}, code={code}, count={count})")
+        if period == 'weekly':
+            count = min(max(days // 7 + 10, 30), 500)
+        elif period == 'monthly':
+            count = min(max(days // 30 + 10, 24), 200)
+        else:
+            count = min(max(days * 5 // 7 + 10, 30), 800)
+        
+        logger.debug(f"调用 Pytdx get_security_bars(market={market}, code={code}, category={category}({period}), count={count})")
         
         with self._pytdx_session() as api:
             try:
-                # 获取日 K 线数据
-                # category: 9-日线, 0-5分钟, 1-15分钟, 2-30分钟, 3-1小时
                 data = api.get_security_bars(
-                    category=9,  # 日线
+                    category=category,
                     market=market,
                     code=code,
-                    start=0,  # 从最新开始
+                    start=0,
                     count=count
                 )
                 
                 if data is None or len(data) == 0:
-                    raise DataFetchError(f"Pytdx 未查询到 {stock_code} 的数据")
+                    raise DataFetchError(f"Pytdx 未查询到 {stock_code} 的{period}数据")
                 
-                # 转换为 DataFrame
                 df = api.to_df(data)
                 
-                # 过滤日期范围
                 df['datetime'] = pd.to_datetime(df['datetime'])
                 df = df[(df['datetime'] >= start_date) & (df['datetime'] <= end_date)]
                 
@@ -484,7 +478,7 @@ class PytdxFetcher(BaseFetcher):
         
         return None
     
-    def get_realtime_quote(self, stock_code: str) -> Optional[dict]:
+    def get_realtime_quote(self, stock_code: str) -> Optional['UnifiedRealtimeQuote']:
         """
         获取实时行情
         
@@ -492,8 +486,9 @@ class PytdxFetcher(BaseFetcher):
             stock_code: 股票代码
             
         Returns:
-            实时行情数据字典，失败返回 None
+            UnifiedRealtimeQuote 对象，失败返回 None
         """
+        from .realtime_types import UnifiedRealtimeQuote, RealtimeSource
         if is_bse_code(stock_code):
             raise DataFetchError(
                 f"PytdxFetcher 不支持北交所 {stock_code}，将自动切换其他数据源"
@@ -505,20 +500,28 @@ class PytdxFetcher(BaseFetcher):
                 data = api.get_security_quotes([(market, code)])
                 
                 if data and len(data) > 0:
-                    quote = data[0]
-                    return {
-                        'code': stock_code,
-                        'name': quote.get('name', ''),
-                        'price': quote.get('price', 0),
-                        'open': quote.get('open', 0),
-                        'high': quote.get('high', 0),
-                        'low': quote.get('low', 0),
-                        'pre_close': quote.get('last_close', 0),
-                        'volume': quote.get('vol', 0),
-                        'amount': quote.get('amount', 0),
-                        'bid_prices': [quote.get(f'bid{i}', 0) for i in range(1, 6)],
-                        'ask_prices': [quote.get(f'ask{i}', 0) for i in range(1, 6)],
-                    }
+                    q = data[0]
+                    price = q.get('price', 0)
+                    pre_close = q.get('last_close', 0)
+                    change_pct = None
+                    change_amount = None
+                    if pre_close and pre_close > 0 and price:
+                        change_amount = round(price - pre_close, 2)
+                        change_pct = round((change_amount / pre_close) * 100, 2)
+                    return UnifiedRealtimeQuote(
+                        code=stock_code,
+                        name=q.get('name', ''),
+                        source=RealtimeSource.PYTDX,
+                        price=price,
+                        open_price=q.get('open', 0) or None,
+                        high=q.get('high', 0) or None,
+                        low=q.get('low', 0) or None,
+                        pre_close=pre_close or None,
+                        volume=q.get('vol', 0) or None,
+                        amount=q.get('amount', 0) or None,
+                        change_pct=change_pct,
+                        change_amount=change_amount,
+                    )
         except Exception as e:
             logger.warning(f"Pytdx 获取实时行情失败 {stock_code}: {e}")
         
@@ -576,6 +579,216 @@ class PytdxFetcher(BaseFetcher):
                     return ticks
         except Exception as e:
             logger.warning(f"Pytdx 获取成交明细失败 {stock_code}: {e}")
+        return None
+
+    def _resolve_index_market(self, index_code: str) -> Tuple[int, str]:
+        code = index_code.strip()
+        code = code.replace('.SH', '').replace('.SZ', '')
+        code = code.replace('.sh', '').replace('.sz', '')
+        code = code.replace('sh', '').replace('sz', '')
+        if code.startswith(('000', '880', '9')):
+            return 1, code
+        elif code.startswith(('399',)):
+            return 0, code
+        elif code.startswith(('60', '68')):
+            return 1, code
+        else:
+            return 0, code
+
+    def get_index_bars(self, index_code: str, period: str = 'daily', count: int = 120) -> pd.DataFrame:
+        CATEGORY_MAP = {
+            'daily': 9,
+            'weekly': 5,
+            'monthly': 6,
+        }
+        category = CATEGORY_MAP.get(period, 9)
+
+        market, code = self._resolve_index_market(index_code)
+
+        request_start = time.time()
+        logger.info(f"[{self.name}] 开始获取指数 {index_code} {period}K线: count={count}")
+
+        try:
+            with self._pytdx_session() as api:
+                data = api.get_index_bars(
+                    category=category,
+                    market=market,
+                    code=code,
+                    start=0,
+                    count=count
+                )
+
+                if data is None or len(data) == 0:
+                    raise DataFetchError(f"Pytdx 未查询到指数 {index_code} 的{period}数据")
+
+                df = api.to_df(data)
+                df = self._normalize_data(df, index_code)
+                df = self._clean_data(df)
+                df = self._calculate_indicators(df)
+
+                elapsed = time.time() - request_start
+                logger.info(
+                    f"[{self.name}] 指数 {index_code} {period}K线获取成功: "
+                    f"rows={len(df)}, elapsed={elapsed:.2f}s"
+                )
+                return df
+
+        except DataFetchError:
+            raise
+        except Exception as e:
+            elapsed = time.time() - request_start
+            error_type, error_reason = summarize_exception(e)
+            logger.error(
+                f"[{self.name}] 指数 {index_code} {period}K线获取失败: "
+                f"error_type={error_type}, elapsed={elapsed:.2f}s, reason={error_reason}"
+            )
+            raise DataFetchError(f"[{self.name}] 指数 {index_code}: {error_reason}") from e
+
+    def get_xdxr_info(self, stock_code: str) -> Optional[list]:
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code}")
+        try:
+            market, code = self._get_market_code(stock_code)
+            with self._pytdx_session() as api:
+                data = api.get_xdxr_info(market, code)
+                if not data:
+                    return []
+                result = []
+                for item in data:
+                    entry = {
+                        'year': item.get('year'),
+                        'month': item.get('month'),
+                        'day': item.get('day'),
+                        'category': item.get('category'),
+                        'category_name': item.get('name', ''),
+                    }
+                    if item.get('fenhong') is not None and item.get('fenhong', 0) != 0:
+                        entry['dividend_per_share'] = round(float(item['fenhong']) / 10, 4)
+                    if item.get('songzhuangu') is not None and item.get('songzhuangu', 0) != 0:
+                        entry['bonus_share_ratio'] = float(item['songzhuangu'])
+                    if item.get('peigu') is not None and item.get('peigu', 0) != 0:
+                        entry['rights_issue_ratio'] = float(item['peigu'])
+                    if item.get('peigujia') is not None and item.get('peigujia', 0) != 0:
+                        entry['rights_issue_price'] = float(item['peigujia'])
+                    if item.get('suogu') is not None and item.get('suogu', 0) != 0:
+                        entry['lockup_ratio'] = float(item['suogu'])
+                    if item.get('houzongguben') is not None:
+                        entry['total_shares_after'] = float(item['houzongguben'])
+                    if item.get('panhouliutong') is not None:
+                        entry['float_shares_after'] = float(item['panhouliutong'])
+                    result.append(entry)
+                return result
+        except DataFetchError:
+            raise
+        except Exception as e:
+            logger.warning(f"Pytdx 获取除权除息失败 {stock_code}: {e}")
+        return None
+
+    def get_finance_info(self, stock_code: str) -> Optional[dict]:
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code}")
+        try:
+            market, code = self._get_market_code(stock_code)
+            with self._pytdx_session() as api:
+                data = api.get_finance_info(market, code)
+                if not data:
+                    return None
+                from .realtime_types import safe_float
+                result = {
+                    'code': stock_code,
+                    'source': 'pytdx',
+                    'updated_date': str(data.get('updated_date', '')),
+                    'ipo_date': str(data.get('ipo_date', '')),
+                    'province': data.get('province'),
+                    'industry': data.get('industry'),
+                    'total_shares': safe_float(data.get('zongguben')),
+                    'float_shares': safe_float(data.get('liutongguben')),
+                    'bps': safe_float(data.get('meigujingzichan')),
+                    'main_revenue': safe_float(data.get('zhuyingshouru')),
+                    'main_profit': safe_float(data.get('zhuyinglirun')),
+                    'operating_profit': safe_float(data.get('yingyelirun')),
+                    'total_profit': safe_float(data.get('lirunzonghe')),
+                    'net_profit': safe_float(data.get('jinglirun')),
+                    'after_tax_profit': safe_float(data.get('shuihoulirun')),
+                    'undistributed_profit': safe_float(data.get('weifenpeilirun')),
+                    'net_assets': safe_float(data.get('jingzichan')),
+                    'total_assets': safe_float(data.get('zongzichan')),
+                    'current_assets': safe_float(data.get('liudongzichan')),
+                    'fixed_assets': safe_float(data.get('gudingzichan')),
+                    'intangible_assets': safe_float(data.get('wuxingzichan')),
+                    'current_liabilities': safe_float(data.get('liudongfuzhai')),
+                    'long_term_liabilities': safe_float(data.get('changqifuzhai')),
+                    'operating_cash_flow': safe_float(data.get('jingyingxianjinliu')),
+                    'total_cash_flow': safe_float(data.get('zongxianjinliu')),
+                    'investment_income': safe_float(data.get('touzishouyu')),
+                    'accounts_receivable': safe_float(data.get('yingshouzhangkuan')),
+                    'surplus_reserve': safe_float(data.get('zibengongjijin')),
+                    'shareholder_count': safe_float(data.get('gudongrenshu')),
+                }
+                return result
+        except DataFetchError:
+            raise
+        except Exception as e:
+            logger.warning(f"Pytdx 获取财务信息失败 {stock_code}: {e}")
+        return None
+
+    def get_block_info(self, block_type: str = 'industry') -> Optional[list]:
+        BLOCK_FILE_MAP = {
+            'industry': 'block.incon',
+            'concept': 'block.concept',
+            'region': 'block.region',
+        }
+        blockfile = BLOCK_FILE_MAP.get(block_type, 'block.incon')
+        try:
+            with self._pytdx_session() as api:
+                data = api.get_and_parse_block_info(blockfile)
+                if not data:
+                    return []
+                result = []
+                for item in data:
+                    entry = {
+                        'code': item.get('code', ''),
+                        'name': item.get('block_name', '') or item.get('name', ''),
+                        'type': block_type,
+                    }
+                    if item.get('block_type'):
+                        entry['block_type'] = item['block_type']
+                    result.append(entry)
+                return result
+        except Exception as e:
+            logger.warning(f"Pytdx 获取板块信息失败 {block_type}: {e}")
+        return None
+
+    def get_history_transaction_data(self, stock_code: str, date: int, count: int = 2000) -> Optional[list]:
+        if is_bse_code(stock_code):
+            raise DataFetchError(f"PytdxFetcher 不支持北交所 {stock_code}")
+        try:
+            market, code = self._get_market_code(stock_code)
+            all_ticks = []
+            start = 0
+            with self._pytdx_session() as api:
+                while True:
+                    data = api.get_history_transaction_data(market, code, start, 2000, date)
+                    if not data:
+                        break
+                    for item in data:
+                        all_ticks.append({
+                            'time': item.get('time', ''),
+                            'price': item.get('price', 0),
+                            'volume': item.get('vol', 0),
+                            'num': item.get('num', 0),
+                            'direction': '买' if item.get('buyorsell', 0) == 0 else ('卖' if item.get('buyorsell', 0) == 1 else '平'),
+                        })
+                    if len(data) < 2000:
+                        break
+                    start += 2000
+                    if start >= count:
+                        break
+            return all_ticks if all_ticks else None
+        except DataFetchError:
+            raise
+        except Exception as e:
+            logger.warning(f"Pytdx 获取历史成交明细失败 {stock_code} date={date}: {e}")
         return None
 
     def get_intraday_data(self, stock_code: str, period: str = '5min', count: int = 240) -> pd.DataFrame:

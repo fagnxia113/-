@@ -159,7 +159,7 @@ const SettingsPage: React.FC = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = '系统设置 - DSA';
+    document.title = '系统设置 - 牛气';
   }, []);
 
   const {
@@ -326,6 +326,13 @@ const SettingsPage: React.FC = () => {
     'WECHAT_MAX_BYTES',
     'MERGE_EMAIL_NOTIFICATION',
   ]);
+  const DATA_SOURCE_HIDDEN_KEYS = new Set([
+    'TUSHARE_TOKEN',
+    'REALTIME_SOURCE_PRIORITY',
+    'ENABLE_REALTIME_QUOTE',
+    'ENABLE_CHIP_DISTRIBUTION',
+    'ENABLE_REALTIME_TECHNICAL_INDICATORS',
+  ]);
   const AGENT_HIDDEN_KEYS = new Set<string>();
   const activeItems =
     activeCategory === 'ai_model'
@@ -344,6 +351,8 @@ const SettingsPage: React.FC = () => {
         ? rawActiveItems.filter((item) => !AGENT_HIDDEN_KEYS.has(item.key))
       : activeCategory === 'notification'
         ? rawActiveItems.filter((item) => !NOTIFICATION_HIDDEN_KEYS.has(item.key))
+      : activeCategory === 'data_source'
+        ? rawActiveItems.filter((item) => !DATA_SOURCE_HIDDEN_KEYS.has(item.key))
       : rawActiveItems;
   const desktopActionDisabled = isLoading || isSaving || isExportingEnv || isImportingEnv;
 
@@ -452,12 +461,12 @@ const SettingsPage: React.FC = () => {
   const desktopUpdateNotice = getDesktopUpdateNotice(desktopUpdateState);
 
   return (
-    <div className="settings-page min-h-full px-4 pb-6 pt-4 md:px-6">
-      <div className="mb-5 rounded-lg border settings-border bg-card/94 px-5 py-5 shadow-soft-card-strong backdrop-blur-sm">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div className="settings-page min-h-full px-3 pb-4 pt-3 md:px-4">
+      <div className="mb-3 rounded-sm border settings-border bg-card/94 px-4 py-3 shadow-none">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-xl font-semibold tracking-tight text-foreground">系统设置</h1>
-            <p className="text-xs leading-6 text-muted-text">
+            <h1 className="text-base font-semibold tracking-tight text-foreground">系统设置</h1>
+            <p className="text-[11px] leading-5 text-muted-text">
               统一管理模型、数据源、通知、安全认证与导入能力。
             </p>
           </div>
@@ -486,7 +495,7 @@ const SettingsPage: React.FC = () => {
 
         {saveError ? (
           <ApiErrorAlert
-            className="mt-3"
+            className="mt-2"
             error={saveError}
             actionLabel={retryAction === 'save' ? '重试保存' : undefined}
             onAction={retryAction === 'save' ? () => void retry() : undefined}
@@ -499,14 +508,14 @@ const SettingsPage: React.FC = () => {
           error={loadError}
           actionLabel={retryAction === 'load' ? '重试加载' : '重新加载'}
           onAction={() => void retry()}
-          className="mb-4"
+          className="mb-3"
         />
       ) : null}
 
       {isLoading ? (
         <SettingsLoading />
       ) : (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[280px_1fr]">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[240px_1fr]">
           <aside className="lg:sticky lg:top-4 lg:self-start">
             <SettingsCategoryNav
               categories={categories}
@@ -516,7 +525,7 @@ const SettingsPage: React.FC = () => {
             />
           </aside>
 
-          <section className="space-y-4">
+          <section className="space-y-3">
             {activeCategory === 'system' ? <AuthSettingsCard /> : null}
             {activeCategory === 'system' ? <UserManagementCard /> : null}
             {activeCategory === 'system' ? (
@@ -525,52 +534,52 @@ const SettingsPage: React.FC = () => {
                 description="用于确认当前 WebUI 静态资源是否已经切换到最新构建。"
               >
                 <div
-                  className={`grid grid-cols-1 gap-3 ${shouldShowDesktopVersionCard ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}
+                  className={`grid grid-cols-1 gap-2 ${shouldShowDesktopVersionCard ? 'md:grid-cols-4' : 'md:grid-cols-3'}`}
                 >
-                  <div className="rounded-md border settings-border bg-background/40 px-4 py-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-text">
+                  <div className="rounded-sm border settings-border bg-background/40 px-3 py-2">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-text">
                       WebUI 版本
                     </p>
-                    <p className="mt-2 break-all font-mono text-sm text-foreground">
+                    <p className="mt-1 break-all font-mono text-xs text-foreground">
                       {WEB_BUILD_INFO.version}
                     </p>
                   </div>
-                  <div className="rounded-md border settings-border bg-background/40 px-4 py-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-text">
+                  <div className="rounded-sm border settings-border bg-background/40 px-3 py-2">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-text">
                       构建标识
                     </p>
-                    <p className="mt-2 break-all font-mono text-sm text-foreground">
+                    <p className="mt-1 break-all font-mono text-xs text-foreground">
                       {WEB_BUILD_INFO.buildId}
                     </p>
                   </div>
-                  <div className="rounded-md border settings-border bg-background/40 px-4 py-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-text">
+                  <div className="rounded-sm border settings-border bg-background/40 px-3 py-2">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-text">
                       构建时间
                     </p>
-                    <p className="mt-2 break-all font-mono text-sm text-foreground">
+                    <p className="mt-1 break-all font-mono text-xs text-foreground">
                       {WEB_BUILD_INFO.buildTime}
                     </p>
                   </div>
                   {shouldShowDesktopVersionCard ? (
-                    <div className="rounded-md border settings-border bg-background/40 px-4 py-3">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-text">
+                    <div className="rounded-sm border settings-border bg-background/40 px-3 py-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-text">
                         桌面端版本
                       </p>
-                      <p className="mt-2 break-all font-mono text-sm text-foreground">
+                      <p className="mt-1 break-all font-mono text-xs text-foreground">
                         {desktopAppVersion}
                       </p>
                     </div>
                   ) : null}
                 </div>
-                <p className="text-xs leading-6 text-muted-text">
+                <p className="text-[11px] leading-5 text-muted-text">
                   重新执行前端构建或 Docker 镜像构建后，此处的构建标识和构建时间会更新，可用来确认当前页面资源是否已切换。
                 </p>
                 {canCheckDesktopUpdate ? (
-                  <div className="mt-4 space-y-3 rounded-md border settings-border bg-background/30 px-4 py-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div className="mt-3 space-y-2 rounded-sm border settings-border bg-background/30 px-3 py-3">
+                    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                       <div>
-                        <p className="text-sm font-medium text-foreground">桌面端更新</p>
-                        <p className="text-xs leading-6 text-muted-text">
+                        <p className="text-xs font-medium text-foreground">桌面端更新</p>
+                        <p className="text-[11px] leading-5 text-muted-text">
                           启动后会自动检查 GitHub Releases 最新正式版；发现更新时仅提醒并跳转下载页，不会静默下载或自动安装。
                         </p>
                       </div>
@@ -596,14 +605,14 @@ const SettingsPage: React.FC = () => {
                         } : undefined}
                       />
                     ) : (
-                      <p className="text-xs leading-6 text-muted-text">
+                      <p className="text-[11px] leading-5 text-muted-text">
                         当前尚无更新状态，应用启动后会在后台自动检查。
                       </p>
                     )}
                   </div>
                 ) : null}
                 {WEB_BUILD_INFO.isFallbackVersion ? (
-                  <p className="text-xs leading-6 text-amber-700 dark:text-amber-300">
+                  <p className="text-[11px] leading-5 text-amber-700 dark:text-amber-300">
                     当前 package.json 仍为占位版本 0.0.0，页面已自动回退展示构建标识，避免误判旧资源仍在生效。
                   </p>
                 ) : null}
@@ -614,8 +623,8 @@ const SettingsPage: React.FC = () => {
                 title="配置备份"
                 description="导出当前已保存的 .env 备份，或从备份文件恢复桌面端配置。导入会覆盖备份中出现的键并立即重载。"
               >
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-center gap-3">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Button
                       type="button"
                       variant="settings-secondary"
@@ -646,9 +655,9 @@ const SettingsPage: React.FC = () => {
                       }}
                     />
                   </div>
-                  <p className="text-xs leading-6 text-muted-text">
-                    导出内容仅包含当前已保存配置，不包含页面上尚未保存的本地草稿。
-                  </p>
+                  <p className="text-[11px] leading-5 text-muted-text">
+                      导出内容仅包含当前已保存配置，不包含页面上尚未保存的本地草稿。
+                    </p>
                   {desktopActionError ? (
                     <ApiErrorAlert
                       error={desktopActionError}

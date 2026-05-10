@@ -553,6 +553,71 @@ def fill_chip_structure_if_needed(result: "AnalysisResult", chip_data: Any) -> N
 _PRICE_POS_KEYS = ("ma5", "ma10", "ma20", "bias_ma5", "bias_status", "current_price", "support_level", "resistance_level")
 
 
+def validate_price_against_realtime(
+    result: "AnalysisResult",
+    realtime_quote: Any = None,
+) -> None:
+    """Validate LLM output prices against realtime quote data (in-place fix).
+
+    If the LLM hallucinated prices that differ significantly from the real
+    market data (e.g. >50% deviation), overwrite with the real price and
+    add a warning flag.
+    """
+    if not result or not realtime_quote:
+        return
+    try:
+        rq = realtime_quote if isinstance(realtime_quote, dict) else (
+            realtime_quote.to_dict() if hasattr(realtime_quote, "to_dict") else {}
+        )
+        real_price = rq.get("price")
+        if not isinstance(real_price, (int, float)) or real_price <= 0:
+            return
+
+        if not result.dashboard:
+            return
+        dp = result.dashboard.get("data_perspective") or {}
+        pp = dp.get("price_position") or {}
+
+        llm_price = pp.get("current_price")
+        if isinstance(llm_price, (int, float)) and llm_price > 0:
+            deviation = abs(llm_price - real_price) / real_price
+            if deviation > 0.5:
+                logger.warning(
+                    "[价格校验] LLM输出价格 %.2f 与实时价格 %.2f 偏差 %.1f%%，已修正",
+                    llm_price, real_price, deviation * 100,
+                )
+                pp["current_price"] = real_price
+                if pp.get("support_level") and isinstance(pp["support_level"], (int, float)):
+                    ratio = pp["support_level"] / llm_price if llm_price else 1
+                    pp["support_level"] = round(real_price * ratio, 2)
+                if pp.get("resistance_level") and isinstance(pp["resistance_level"], (int, float)):
+                    ratio = pp["resistance_level"] / llm_price if llm_price else 1
+                    pp["resistance_level"] = round(real_price * ratio, 2)
+                dp["price_position"] = pp
+                result.dashboard["data_perspective"] = dp
+
+        if result.current_price and isinstance(result.current_price, (int, float)):
+            deviation = abs(result.current_price - real_price) / real_price
+            if deviation > 0.5:
+                result.current_price = real_price
+
+        bp = result.dashboard.get("battle_plan") or {}
+        sp = bp.get("sniper_points") or {}
+        for key in ("ideal_buy", "secondary_buy", "stop_loss", "take_profit"):
+            val = sp.get(key)
+            if isinstance(val, (int, float)) and val > 0 and isinstance(llm_price, (int, float)) and llm_price > 0:
+                deviation = abs(val - llm_price) / llm_price
+                if deviation < 0.5 and abs(val - real_price) / real_price > 0.5:
+                    ratio = val / llm_price
+                    sp[key] = round(real_price * ratio, 2)
+        if sp:
+            bp["sniper_points"] = sp
+            result.dashboard["battle_plan"] = bp
+
+    except Exception as e:
+        logger.warning("[价格校验] Validation failed, skipping: %s", e)
+
+
 def fill_price_position_if_needed(
     result: "AnalysisResult",
     trend_result: Any = None,

@@ -168,6 +168,11 @@ def get_tool_registry():
     for tool_fn in ALL_DATA_TOOLS + ALL_ANALYSIS_TOOLS + ALL_SEARCH_TOOLS + ALL_MARKET_TOOLS + ALL_BACKTEST_TOOLS + ALL_SENTIMENT_TOOLS:
         registry.register(tool_fn)
 
+    from src.agent.tools.web_tools import register_web_tools
+    from src.agent.tools.sequential_thinking import register_sequential_thinking
+    register_web_tools(registry)
+    register_sequential_thinking(registry)
+
     _TOOL_REGISTRY = registry
     logger.info("[AgentFactory] ToolRegistry cached (%d tools)", len(registry._tools) if hasattr(registry, "_tools") else -1)
     return _TOOL_REGISTRY
@@ -272,7 +277,7 @@ def resolve_skill_prompt_state(config=None, skills: Optional[List[str]] = None) 
     )
 
 
-def build_agent_executor(config=None, skills: Optional[List[str]] = None):
+def build_agent_executor(config=None, skills: Optional[List[str]] = None, event_bus=None):
     """Build and return a configured AgentExecutor (or future orchestrator).
 
     When ``AGENT_ARCH=multi``, this returns an orchestrator that manages
@@ -285,6 +290,8 @@ def build_agent_executor(config=None, skills: Optional[List[str]] = None):
         skills: Skill ids to activate.  When *None* falls back to
                 ``config.agent_skills``; if that is also empty falls back to
                 the central default skill set.
+        event_bus: Optional :class:`AnalysisEventBus` for streaming agent
+                   lifecycle events via SSE.
 
     Returns:
         A ready-to-call :class:`src.agent.executor.AgentExecutor` instance.
@@ -317,6 +324,7 @@ def build_agent_executor(config=None, skills: Optional[List[str]] = None):
             llm_adapter,
             skill_manager,
             technical_skill_policy=prompt_state.technical_skill_policy,
+            event_bus=event_bus,
         )
 
     from src.agent.executor import AgentExecutor
@@ -331,7 +339,7 @@ def build_agent_executor(config=None, skills: Optional[List[str]] = None):
     )
 
 
-def _build_orchestrator(config, registry, llm_adapter, skill_manager, *, technical_skill_policy: str = ""):
+def _build_orchestrator(config, registry, llm_adapter, skill_manager, *, technical_skill_policy: str = "", event_bus=None):
     """Build and return an :class:`AgentOrchestrator` (multi-agent mode).
 
     The orchestrator presents the same ``run()`` / ``chat()`` interface as
@@ -351,6 +359,7 @@ def _build_orchestrator(config, registry, llm_adapter, skill_manager, *, technic
         mode=mode,
         skill_manager=skill_manager,
         config=config,
+        event_bus=event_bus,
     )
 
 
