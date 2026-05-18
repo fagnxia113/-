@@ -193,7 +193,7 @@ class PytdxFetcher(BaseFetcher):
     """
     
     name = "PytdxFetcher"
-    priority = int(os.getenv("PYTDX_PRIORITY", "0"))
+    priority = int(os.getenv("PYTDX_PRIORITY", "2"))
     
     # 默认通达信行情服务器列表
     DEFAULT_HOSTS = [
@@ -284,6 +284,18 @@ class PytdxFetcher(BaseFetcher):
         if self._server_cooldown > 0:
             cooldown = min(self._server_cooldown * failures, self._server_cooldown * 3)
             self._host_cooldown_until[host_idx] = time.monotonic() + cooldown
+
+    def _disconnect_reusable_api(self) -> None:
+        api = self._api
+        self._api = None
+        self._connected = False
+        if api is None:
+            return
+        try:
+            api.disconnect()
+            logger.debug("Pytdx reusable connection closed")
+        except Exception as e:
+            logger.debug(f"Pytdx reusable disconnect failed: {e}")
     
     @contextmanager
     def _pytdx_session(self) -> Generator:
@@ -303,18 +315,26 @@ class PytdxFetcher(BaseFetcher):
         if TdxHq_API is None:
             raise DataFetchError("pytdx 库未安装")
         
+        if self._reuse_connection and self._api is not None and self._connected:
+            try:
+                yield self._api
+                return
+            except Exception:
+                self._disconnect_reusable_api()
+                raise
+
         api = TdxHq_API()
         connected = False
+        keep_connected = False
         
         try:
             # 尝试连接服务器（自动选择最优）
             attempted = 0
-            for i in range(len(self._hosts)):
-                ordered_hosts = self._ordered_host_indices()
-                if i >= len(ordered_hosts) or attempted >= self._max_connect_hosts:
+            ordered_hosts = self._ordered_host_indices()
+            for host_idx in ordered_hosts:
+                if attempted >= self._max_connect_hosts:
                     break
                 attempted += 1
-                host_idx = ordered_hosts[i]
                 host, port = self._hosts[host_idx]
                 
                 try:
@@ -332,9 +352,23 @@ class PytdxFetcher(BaseFetcher):
             if not connected:
                 raise DataFetchError("Pytdx 无法连接任何服务器")
             
+            if self._reuse_connection:
+                self._api = api
+                self._connected = True
+                keep_connected = True
+                try:
+                    yield api
+                except Exception:
+                    keep_connected = False
+                    self._disconnect_reusable_api()
+                    raise
+                return
+
             yield api
             
         finally:
+            if keep_connected and self._api is api and self._connected:
+                return
             # 确保断开连接
             try:
                 api.disconnect()

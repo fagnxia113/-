@@ -82,6 +82,14 @@ class BaseAgent(ABC):
         """
         return None
 
+    def fallback_opinion(
+        self,
+        ctx: AgentContext,
+        loop_result: RunLoopResult,
+    ) -> Optional[AgentOpinion]:
+        """Build a conservative structured opinion when the LLM loop fails."""
+        return None
+
     # -----------------------------------------------------------------
     # Execution
     # -----------------------------------------------------------------
@@ -127,6 +135,17 @@ class BaseAgent(ABC):
             result.meta["tool_calls_log"] = loop_result.tool_calls_log
 
             if not loop_result.success:
+                fallback = self.fallback_opinion(ctx, loop_result)
+                if fallback is not None:
+                    fallback.agent_name = self.agent_name
+                    self._apply_memory_calibration(ctx, fallback, result)
+                    ctx.add_opinion(fallback)
+                    result.opinion = fallback
+                    result.status = StageStatus.COMPLETED
+                    result.meta["fallback_reason"] = (
+                        loop_result.error or "Agent loop did not produce a final answer"
+                    )
+                    return result
                 result.status = StageStatus.FAILED
                 result.error = loop_result.error or "Agent loop did not produce a final answer"
                 return result

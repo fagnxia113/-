@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+- [fix] Make the technical Agent resilient to empty LLM responses by nudging once for a final JSON answer and falling back to conservative tool-data-based technical opinions.
+- [improvement] Reduce Tongdaxin realtime quote stalls by using lightweight Tencent/Sina sources by default, adding Pytdx timeout/host-cooldown controls, and reusing successful Pytdx connections.
+
 <!-- 新条目格式：- [类型] 描述（类型取值：新功能/改进/修复/文档/测试/chore）-->
 <!-- 每条独立一行追加到本段末尾，无需分类标题，合并时冲突最小 -->
 - [改进] 放宽 LiteLLM 依赖约束，保留 `>=1.80.10` 最低版本并显式排除 PyPI 事故版本 `1.82.7` / `1.82.8`，允许安装后续 1.x 修复版本。

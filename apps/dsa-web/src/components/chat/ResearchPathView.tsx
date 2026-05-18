@@ -82,6 +82,14 @@ interface ToolNode {
   phaseId: PhaseId;
 }
 
+interface StreamLog {
+  id: string;
+  type: 'thinking' | 'tool_call' | 'tool_result';
+  content: string;
+  toolName?: string;
+  duration?: number;
+}
+
 interface AgentNode {
   agentName: string;
   displayName: string;
@@ -92,7 +100,7 @@ interface AgentNode {
   evidence: string[];
   risks: string[];
   invalidation: string[];
-  thinking: string[];
+  streamLogs: StreamLog[];
 }
 
 const AGENT_DISPLAY: Record<string, string> = {
@@ -172,7 +180,7 @@ function buildAgentNodes(steps: ProgressStep[]): AgentNode[] {
         evidence: [],
         risks: [],
         invalidation: [],
-        thinking: [],
+        streamLogs: [],
       };
       agents.push(agent);
     } else if (displayName && agent.displayName === agent.agentName) {
@@ -191,8 +199,21 @@ function buildAgentNodes(steps: ProgressStep[]): AgentNode[] {
       const agent = ensureAgent(agentName, step.display_name);
       const thinking = step.thinking || step.message || '';
       if (thinking) {
-        agent.thinking.push(thinking);
+        agent.streamLogs.push({ id: Math.random().toString(), type: 'thinking', content: thinking });
       }
+    } else if (step.type === 'agent_tool_call' || step.type === 'tool_start') {
+      const agentNameToUse = agentName || 'system';
+      const agent = ensureAgent(agentNameToUse, step.display_name);
+      const tool = step.tool || step.tool_name || '';
+      if (tool) {
+        agent.streamLogs.push({ id: Math.random().toString(), type: 'tool_call', content: `调用工具: ${TOOL_DISPLAY[tool] || tool}`, toolName: tool });
+      }
+    } else if (step.type === 'agent_tool_result' || step.type === 'tool_done') {
+      const agentNameToUse = agentName || 'system';
+      const agent = ensureAgent(agentNameToUse, step.display_name);
+      const tool = step.tool || step.tool_name || '';
+      const result = step.result_summary || (step.success ? '执行完成' : '执行失败');
+      agent.streamLogs.push({ id: Math.random().toString(), type: 'tool_result', content: result, toolName: tool, duration: step.duration });
     } else if (step.type === 'agent_opinion') {
       const agent = ensureAgent(agentName, step.display_name);
       agent.status = 'done';
@@ -412,9 +433,34 @@ const ResearchPathView: React.FC<ResearchPathViewProps> = ({ steps, isGenerating
                   ))}
                 </div>
               )}
-              {!agent.reasoning && agent.thinking.length > 0 && (
-                <div className="mt-1 text-[10px] leading-relaxed text-muted-text">
-                  {agent.thinking[agent.thinking.length - 1]}
+              {!agent.reasoning && agent.streamLogs.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  {agent.streamLogs.map((log) => (
+                    <div key={log.id} className="text-[10px] leading-relaxed flex items-start gap-1.5">
+                      {log.type === 'thinking' && (
+                        <>
+                          <span className="text-muted-text mt-0.5">🤔</span>
+                          <span className="text-secondary-text">{log.content}</span>
+                        </>
+                      )}
+                      {log.type === 'tool_call' && (
+                        <>
+                          <span className="text-primary/70 mt-0.5">🛠️</span>
+                          <span className="text-primary/80">{log.content}</span>
+                          <span className="animate-pulse text-primary/60 ml-1">...</span>
+                        </>
+                      )}
+                      {log.type === 'tool_result' && (
+                        <>
+                          <span className="text-emerald-400/70 mt-0.5">✅</span>
+                          <span className="text-muted-text truncate max-w-[80%]">{log.content}</span>
+                          {log.duration != null && (
+                            <span className="text-muted-text opacity-70 ml-1">({log.duration.toFixed(1)}s)</span>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

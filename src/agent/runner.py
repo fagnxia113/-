@@ -611,6 +611,30 @@ def run_agent_loop(
 
             final_content = response.content or ""
             is_error = response.provider == "error"
+            if not is_error and not final_content.strip():
+                logger.warning("Agent returned an empty final response at step %d", step + 1)
+                if step + 1 < max_steps:
+                    messages.append({
+                        "role": "user",
+                        "content": (
+                            "Your previous response was empty. Use the tool results already "
+                            "available in this conversation and produce the final answer now "
+                            "in the exact requested output format. Do not call more tools "
+                            "unless a critical required data point is missing."
+                        ),
+                    })
+                    continue
+                return RunLoopResult(
+                    success=False,
+                    content="",
+                    tool_calls_log=tool_calls_log,
+                    total_steps=step + 1,
+                    total_tokens=total_tokens,
+                    provider=provider_used,
+                    models_used=models_used,
+                    error="LLM returned an empty response without tool calls",
+                    messages=messages,
+                )
 
             return RunLoopResult(
                 success=not is_error and bool(final_content),

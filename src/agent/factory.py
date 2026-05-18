@@ -170,8 +170,10 @@ def get_tool_registry():
 
     from src.agent.tools.web_tools import register_web_tools
     from src.agent.tools.sequential_thinking import register_sequential_thinking
+    from src.agent.tools.playwright_browser import register_playwright_tools
     register_web_tools(registry)
     register_sequential_thinking(registry)
+    register_playwright_tools(registry)
 
     _TOOL_REGISTRY = registry
     logger.info("[AgentFactory] ToolRegistry cached (%d tools)", len(registry._tools) if hasattr(registry, "_tools") else -1)
