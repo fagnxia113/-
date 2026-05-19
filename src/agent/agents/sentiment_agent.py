@@ -17,6 +17,11 @@ from typing import Optional
 from src.agent.agents.base_agent import BaseAgent
 from src.agent.protocols import AgentContext, AgentOpinion
 from src.agent.runner import try_parse_json
+from src.agent.schemas import (
+    SentimentOpinionPayload,
+    append_evidence_pool,
+    validate_payload,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +31,7 @@ class SentimentAgent(BaseAgent):
     max_steps = 4
     tool_names = [
         "get_stock_sentiment",
+        "scrape_stock_news",
         "search_stock_news",
         "search_comprehensive_intel",
         "get_stock_info",
@@ -41,9 +47,10 @@ then produce a structured JSON opinion.
 
 ## Workflow
 1. Call get_stock_sentiment to fetch guba (股吧) posts and hot ranking data
-2. Call search_stock_news to get latest news headlines and assess their tone
-3. Call search_comprehensive_intel for broader sentiment context
-4. Call get_stock_info for sector context
+2. Call scrape_stock_news (PREFERRED) to directly scrape real news from Eastmoney/Sina/THS; this is more reliable than search APIs
+3. If scrape_stock_news fails or returns no results, fall back to search_stock_news
+4. Call search_comprehensive_intel for broader sentiment context if needed
+5. Call get_stock_info for sector context
 
 ## Sentiment Assessment Dimensions
 - **Guba (股吧) sentiment**: Analyse post titles and content for bullish/\
@@ -85,9 +92,10 @@ Return **only** a JSON object:
         parts.append(
             "Steps:\n"
             "1. Call get_stock_sentiment for guba posts and hot ranking.\n"
-            "2. Call search_stock_news for latest news tone assessment.\n"
-            "3. Call search_comprehensive_intel for broader sentiment context.\n"
-            "4. Output the JSON opinion with sentiment scores and contrarian signals."
+            "2. Call scrape_stock_news first (preferred, directly scrapes Eastmoney/Sina/THS real news).\n"
+            "3. If scrape_stock_news fails, fall back to search_stock_news.\n"
+            "4. Call search_comprehensive_intel for broader context if needed.\n"
+            "5. Output the JSON opinion with sentiment scores and contrarian signals."
         )
         return "\n".join(parts)
 
@@ -96,6 +104,9 @@ Return **only** a JSON object:
         if parsed is None:
             logger.warning("[SentimentAgent] failed to parse opinion JSON")
             return None
+
+        parsed = validate_payload(SentimentOpinionPayload, parsed)
+        append_evidence_pool(ctx, agent_name=self.agent_name, payload=parsed)
 
         ctx.set_data("sentiment_opinion", parsed)
 

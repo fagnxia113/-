@@ -90,6 +90,16 @@ class FundamentalOpinionPayload(AgentPayloadBase):
     financial_highlights: Dict[str, Any] = Field(default_factory=dict)
 
 
+class SentimentOpinionPayload(AgentPayloadBase):
+    sentiment_score: Optional[float] = None
+    guba_sentiment: str = ""
+    news_sentiment: str = ""
+    attention_level: str = ""
+    contrarian_signal: str = ""
+    sentiment_price_divergence: str = ""
+    key_sentiment_drivers: List[str] = Field(default_factory=list)
+
+
 def model_to_dict(model: BaseModel) -> Dict[str, Any]:
     """Return a dict for pydantic v1/v2 without coupling to either version."""
     if hasattr(model, "model_dump"):

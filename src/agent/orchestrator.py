@@ -847,19 +847,19 @@ class AgentOrchestrator:
         if self.mode == "quick":
             return [technical, decision]
         elif self.mode == "standard":
-            return [technical, intel, decision]
+            return [technical, fundamental, sentiment, intel, decision]
         elif self.mode == "full":
-            return [technical, intel, risk, decision]
+            return [technical, fundamental, sentiment, intel, risk, decision]
         elif self.mode == "enhanced":
-            return [technical, intel, risk, industry, capital_flow, factor_scoring, decision]
+            return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, factor_scoring, decision]
         elif self.mode == "specialist":
-            return [technical, intel, risk, decision]
+            return [technical, fundamental, sentiment, intel, risk, decision]
         elif self.mode == "debate":
-            return [technical, intel, risk, industry, capital_flow, devils_advocate, debate, scenario_analysis, factor_scoring, decision]
+            return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, devils_advocate, debate, scenario_analysis, factor_scoring, decision]
         elif self.mode == "full_debate":
             return [technical, fundamental, sentiment, intel, risk, industry, capital_flow, devils_advocate, debate, scenario_analysis, factor_scoring, decision]
         else:
-            return [technical, intel, decision]
+            return [technical, fundamental, sentiment, intel, decision]
 
     def _build_specialist_agents(self, ctx: AgentContext) -> list:
         """Build specialist sub-agents based on requested skills.
@@ -1433,6 +1433,54 @@ class AgentOrchestrator:
                     fm[dst_key] = val
             if fm:
                 data_perspective["financial_metrics"] = fm
+
+        fundamental = self._latest_opinion(ctx, {"fundamental"})
+        if fundamental and isinstance(fundamental.raw_data, dict):
+            fund_raw = fundamental.raw_data
+            if "financial_metrics" not in data_perspective:
+                data_perspective["financial_metrics"] = {}
+            fm_existing = data_perspective.get("financial_metrics", {})
+            for src_key, dst_key in [
+                ("profitability_score", "profitability_score"),
+                ("solvency_score", "solvency_score"),
+                ("growth_score", "growth_score"),
+                ("valuation_score", "valuation_score"),
+            ]:
+                val = fund_raw.get(src_key)
+                if val is not None and dst_key not in fm_existing:
+                    fm_existing[dst_key] = val
+            highlights = fund_raw.get("financial_highlights")
+            if isinstance(highlights, dict):
+                for hk in ("roe", "revenue_yoy", "profit_yoy", "debt_ratio"):
+                    val = highlights.get(hk)
+                    if val is not None and hk not in fm_existing:
+                        fm_existing[hk] = val
+            if fm_existing:
+                data_perspective["financial_metrics"] = fm_existing
+            dupont = fund_raw.get("dupont_analysis") or fund_raw.get("dupont_profile")
+            if dupont:
+                data_perspective["dupont_profile"] = dupont if isinstance(dupont, str) else dupont
+            pe_rank = fund_raw.get("pe_percentile_rank")
+            pb_rank = fund_raw.get("pb_percentile_rank")
+            if pe_rank is not None or pb_rank is not None:
+                data_perspective["valuation_percentile"] = {
+                    "pe_percentile_rank": pe_rank,
+                    "pb_percentile_rank": pb_rank,
+                    "verdict": fund_raw.get("valuation_verdict", ""),
+                }
+
+        sentiment = self._latest_opinion(ctx, {"sentiment"})
+        if sentiment and isinstance(sentiment.raw_data, dict):
+            sent_raw = sentiment.raw_data
+            sent_data: Dict[str, Any] = {}
+            for sk in ("sentiment_score", "guba_sentiment", "news_sentiment",
+                        "attention_level", "contrarian_signal",
+                        "sentiment_price_divergence", "key_sentiment_drivers"):
+                val = sent_raw.get(sk)
+                if val is not None:
+                    sent_data[sk] = val
+            if sent_data:
+                data_perspective["sentiment_analysis"] = sent_data
 
         industry = self._latest_opinion(ctx, {"industry"})
         if industry and isinstance(industry.raw_data, dict):

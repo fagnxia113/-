@@ -163,9 +163,10 @@ def get_tool_registry():
     from src.agent.tools.market_tools import ALL_MARKET_TOOLS
     from src.agent.tools.backtest_tools import ALL_BACKTEST_TOOLS
     from src.agent.tools.sentiment_tools import ALL_SENTIMENT_TOOLS
+    from src.agent.tools.stock_news_scraper import ALL_SCRAPER_TOOLS
 
     registry = ToolRegistry()
-    for tool_fn in ALL_DATA_TOOLS + ALL_ANALYSIS_TOOLS + ALL_SEARCH_TOOLS + ALL_MARKET_TOOLS + ALL_BACKTEST_TOOLS + ALL_SENTIMENT_TOOLS:
+    for tool_fn in ALL_DATA_TOOLS + ALL_ANALYSIS_TOOLS + ALL_SEARCH_TOOLS + ALL_MARKET_TOOLS + ALL_BACKTEST_TOOLS + ALL_SENTIMENT_TOOLS + ALL_SCRAPER_TOOLS:
         registry.register(tool_fn)
 
     from src.agent.tools.web_tools import register_web_tools
@@ -173,7 +174,10 @@ def get_tool_registry():
     from src.agent.tools.playwright_browser import register_playwright_tools
     register_web_tools(registry)
     register_sequential_thinking(registry)
-    register_playwright_tools(registry)
+    try:
+        register_playwright_tools(registry)
+    except Exception as e:
+        logger.warning("[AgentFactory] Playwright tools not registered: %s", e)
 
     _TOOL_REGISTRY = registry
     logger.info("[AgentFactory] ToolRegistry cached (%d tools)", len(registry._tools) if hasattr(registry, "_tools") else -1)
